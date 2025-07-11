@@ -32,11 +32,6 @@
       "dest": "/index.html"
     }
   ],
-  "functions": {
-    "tools/email-hub/app.py": {
-      "runtime": "python3.11"
-    }
-  },
   "env": {
     "FLASK_ENV": "production"
   }
