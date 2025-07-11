@@ -16,12 +16,12 @@
   ],
   "routes": [
     {
-      "src": "/tools/email-hub/(.*)",
-      "dest": "/tools/email-hub/app.py"
-    },
-    {
       "src": "/tools/email-hub/static/(.*)",
       "dest": "/tools/email-hub/static/$1"
+    },
+    {
+      "src": "/tools/email-hub/?.*",
+      "dest": "/tools/email-hub/app.py"
     },
     {
       "src": "/",

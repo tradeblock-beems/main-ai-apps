@@ -21,10 +21,15 @@ TOOL_NAME = os.environ.get('TOOL_NAME', 'email-hub')
 APPLICATION_ROOT = f"/tools/{TOOL_NAME}"
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-app.config['APPLICATION_ROOT'] = APPLICATION_ROOT
 
 # Environment detection
 ENVIRONMENT = os.environ.get('VERCEL_ENV', 'development')
+
+# For production, strip the path prefix since Vercel handles routing
+if ENVIRONMENT == 'production':
+    APPLICATION_ROOT = ""
+else:
+    app.config['APPLICATION_ROOT'] = APPLICATION_ROOT
 
 def load_campaign_data():
     """Load and parse campaign data from JSON file with error handling"""

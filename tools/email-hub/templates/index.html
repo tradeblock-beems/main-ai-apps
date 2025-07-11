@@ -19,7 +19,7 @@
         <main>
             <div class="csv-generator">
                 <h2>Generate Email CSV</h2>
-                <form id="csv-form" method="POST" action="{{ app_root }}/generate-csv">
+                <form id="csv-form" method="POST" action="{{ (app_root + '/generate-csv') if app_root else '/generate-csv' }}">
                     <div class="form-group">
                         <label for="email-type">Email Type:</label>
                         <select id="email-type" name="email_type" required>
@@ -61,7 +61,7 @@
 
     <script>
         // CSV Generator JavaScript Implementation
-        const APP_ROOT = '{{ app_root }}';
+        const APP_ROOT = '{{ app_root if app_root else "" }}';
         let emailTypes = [];
         
         // Load email types on page load
