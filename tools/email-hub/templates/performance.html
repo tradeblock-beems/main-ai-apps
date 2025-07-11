@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Hub - Performance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Email Hub - Performance Dashboard</h1>
+            <nav>
+                <a href="{{ url_for('index') }}" class="nav-link">CSV Generator</a>
+                <a href="{{ url_for('performance') }}" class="nav-link active">Performance Dashboard</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="view-controls">
+                    <h2>Email Campaign Performance</h2>
+                    <div class="view-toggle">
+                        <label>View:</label>
+                        <input type="radio" id="chronological" name="view" value="chronological" 
+                               {% if current_sort == 'chronological' %}checked{% endif %}>
+                        <label for="chronological">Chronological</label>
+                        <input type="radio" id="leaderboard" name="view" value="lift" 
+                               {% if current_sort == 'lift' %}checked{% endif %}>
+                        <label for="leaderboard">Leaderboard</label>
+                    </div>
+                </div>
+
+                <div class="campaigns-grid">
+                    <!-- Campaign cards populated via Jinja2 templating -->
+                    {% if campaigns %}
+                        {% for campaign in campaigns %}
+                        <div class="campaign-card">
+                            <div class="campaign-header">
+                                <h3>{{ campaign.subject }}</h3>
+                                <span class="campaign-id">ID: {{ campaign.id }}</span>
+                                <span class="send-date">{{ campaign.send_date }}</span>
+                            </div>
+                            
+                            <div class="campaign-tags">
+                                {% for tag in campaign.tags %}
+                                <span class="tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="performance-metrics">
+                                <div class="email-performance">
+                                    <h4>Email Performance</h4>
+                                    <div class="metric">
+                                        <span class="label">Audience Size:</span>
+                                        <span class="value">{{ campaign.audience_size }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Open Rate:</span>
+                                        <span class="value">{{ campaign.open_rate }}%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Click Rate:</span>
+                                        <span class="value">{{ campaign.click_rate }}%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Total Clicks:</span>
+                                        <span class="value">{{ campaign.total_clicks }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="business-impact">
+                                    <h4>Business Impact</h4>
+                                    <div class="metric">
+                                        <span class="label">Offers Before:</span>
+                                        <span class="value">{{ campaign.offers_before }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Offers After:</span>
+                                        <span class="value">{{ campaign.offers_after }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Absolute Lift:</span>
+                                        <span class="value">{{ campaign.absolute_lift }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Percentage Lift:</span>
+                                        <span class="value 
+                                        {% if campaign.percentage_lift > 0 %}positive{% elif campaign.percentage_lift < 0 %}negative{% endif %}">
+                                            {{ campaign.percentage_lift }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-data">
+                            <p>No campaign data available. Please check if the data file exists.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // View toggle functionality - reload page with sort parameter
+        const viewToggle = document.querySelectorAll('input[name="view"]');
+        viewToggle.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const sortParam = this.value;
+                const currentUrl = new URL(window.location);
+                currentUrl.searchParams.set('sort', sortParam);
+                window.location.href = currentUrl.toString();
+            });
+        });
+    </script>
+</body>
+</html> 
