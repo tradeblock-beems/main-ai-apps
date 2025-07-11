@@ -1,1 +1,23 @@
+# Vercel deployment configuration
 .vercel
+
+# Dependency directories
+node_modules/
+package-lock.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
