@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "tools/email-hub-serverless/app.py",
+      "src": "minimal-test.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.11"
@@ -12,11 +12,11 @@
   "routes": [
     {
       "src": "/tools/email-hub/(.*)",
-      "dest": "/tools/email-hub-serverless/app.py"
+      "dest": "/minimal-test.py"
     },
     {
       "src": "/tools/email-hub",
-      "dest": "/tools/email-hub-serverless/app.py"
+      "dest": "/minimal-test.py"
     }
   ]
 } 
