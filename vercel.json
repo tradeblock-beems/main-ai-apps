@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "tools/email-hub/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.11",
+        "maxLambdaSize": "15mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/tools/email-hub/(.*)",
+      "dest": "/tools/email-hub/app.py"
+    },
+    {
+      "src": "/tools/email-hub/static/(.*)",
+      "dest": "/tools/email-hub/static/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "functions": {
+    "tools/email-hub/app.py": {
+      "runtime": "python3.11"
+    }
+  },
+  "env": {
+    "FLASK_ENV": "production"
+  }
+} 
