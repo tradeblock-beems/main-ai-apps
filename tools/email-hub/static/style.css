@@ -332,6 +332,266 @@ nav {
     font-size: 1.1rem;
 }
 
+/* Campaign Actions */
+.campaign-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    text-align: right;
+}
+
+.btn-view-more {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-view-more:hover {
+    background-color: #2563eb;
+    color: white;
+}
+
+/* Tag Filter System */
+.tag-filters {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.tag-filters h3 {
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.tag-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-pill {
+    display: inline-block;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    user-select: none;
+}
+
+.tag-pill.inactive {
+    background-color: #e2e8f0;
+    color: #64748b;
+}
+
+.tag-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Clickable Tags on Campaign Cards */
+.campaign-tags .tag {
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.campaign-tags .tag:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+/* Tag Tooltip */
+.tag-tooltip {
+    position: fixed;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 300px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.tag-tooltip.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tag-tooltip h4 {
+    color: #1e293b;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.tag-tooltip p {
+    color: #64748b;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.tag-tooltip .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-tooltip .close-btn:hover {
+    color: #374151;
+}
+
+/* Visual Design Updates - Dark Mode */
+body.dark-mode {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+body.dark-mode .container {
+    background-color: #111827;
+}
+
+body.dark-mode header {
+    background: #1f2937;
+    border-bottom: 1px solid #374151;
+}
+
+body.dark-mode header h1 {
+    color: #f9fafb;
+}
+
+body.dark-mode .nav-link {
+    color: #d1d5db;
+}
+
+body.dark-mode .nav-link:hover {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+body.dark-mode .nav-link.active {
+    background-color: #3b82f6;
+    color: white;
+}
+
+body.dark-mode .dashboard,
+body.dark-mode .csv-generator {
+    background: #1f2937;
+    border: 1px solid #374151;
+}
+
+body.dark-mode .view-controls {
+    border-bottom: 1px solid #374151;
+}
+
+body.dark-mode .view-controls h2 {
+    color: #f9fafb;
+}
+
+body.dark-mode .view-toggle label {
+    color: #d1d5db;
+}
+
+body.dark-mode .campaign-card {
+    background: #1f2937;
+    border: 1px solid #374151;
+}
+
+body.dark-mode .campaign-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .campaign-header h3 {
+    color: #f9fafb;
+}
+
+body.dark-mode .campaign-id,
+body.dark-mode .send-date {
+    color: #9ca3af;
+}
+
+body.dark-mode .tag {
+    background-color: #374151;
+    color: #d1d5db;
+}
+
+body.dark-mode .tag:hover {
+    background-color: #4b5563;
+}
+
+body.dark-mode .email-performance,
+body.dark-mode .business-impact {
+    background-color: #111827;
+}
+
+body.dark-mode .email-performance h4,
+body.dark-mode .business-impact h4 {
+    color: #f9fafb;
+}
+
+body.dark-mode .metric .label {
+    color: #9ca3af;
+}
+
+body.dark-mode .metric .value {
+    color: #f9fafb;
+}
+
+body.dark-mode .tag-filters {
+    background-color: #111827;
+    border: 1px solid #374151;
+}
+
+body.dark-mode .tag-filters h3 {
+    color: #f9fafb;
+}
+
+body.dark-mode .tag-tooltip {
+    background: #1f2937;
+    border: 1px solid #374151;
+}
+
+body.dark-mode .tag-tooltip h4 {
+    color: #f9fafb;
+}
+
+body.dark-mode .tag-tooltip p {
+    color: #d1d5db;
+}
+
+body.dark-mode .campaign-actions {
+    border-top: 1px solid #374151;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -356,5 +616,18 @@ nav {
     nav {
         flex-direction: column;
         gap: 0.5rem;
+    }
+    
+    .tag-pills {
+        gap: 0.25rem;
+    }
+    
+    .tag-pill {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .tag-tooltip {
+        max-width: 250px;
     }
 } 
