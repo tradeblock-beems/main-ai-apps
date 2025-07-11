@@ -1,0 +1,12 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754739634
+Subject Line: You just got $20 for being one of size 11.5's Top Hunters!
+Send Timestamp: 2025-06-19 20:30:02+00:00
+Total Audience Size: 48
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 37
+Total Clicks: 0

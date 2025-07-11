@@ -1,0 +1,32 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754562502
+Subject Line: You just got $20 for being one of size 11.5's Top Hunters!
+Send Timestamp: 2025-06-03 19:35:01+00:00
+Total Audience Size: 49
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 33
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (47 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 190.2
+- Post-Campaign Daily Offer Average (cohort): 227.0
+- Pre-Campaign Daily Offer Average (per user): 4.0468
+- Post-Campaign Daily Offer Average (per user): 4.8298
+- Offer Uplift: 19.35%
+
+--- Opened Cohort (31 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 109.1
+- Post-Campaign Daily Offer Average (cohort): 115.0
+- Pre-Campaign Daily Offer Average (per user): 3.5183
+- Post-Campaign Daily Offer Average (per user): 3.7097
+- Offer Uplift: 5.44%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.

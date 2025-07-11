@@ -1,0 +1,1496 @@
+[
+    {
+        "campaign_id": "7754142690",
+        "subject": "You\u2019ve earned 40% off your trade fees",
+        "send_timestamp_iso": "2025-04-18T03:32:19+00:00",
+        "tags": [
+            "Lifecycle",
+            "Financial Benefit",
+            "Fee Discount",
+            "Reward",
+            "Not a Test",
+            "Congratulatory",
+            "Make Offer",
+            "Segmented"
+        ],
+        "email_performance": {
+            "audience_size": 126,
+            "open_rate_pct": 67.46,
+            "click_rate_pct": 0.79,
+            "total_clicks": 1
+        },
+        "business_impact": {
+            "offers_before": 27.1,
+            "offers_after": 22.5,
+            "absolute_lift": -4.6,
+            "percentage_lift": -16.87
+        }
+    },
+    {
+        "campaign_id": "7754142692",
+        "subject": "Trusted Trader status unlocked \ud83d\udc5f\ud83d\udd25",
+        "send_timestamp_iso": "2025-04-18T03:32:19+00:00",
+        "tags": [
+            "Lifecycle",
+            "Trusted Trader",
+            "Status",
+            "Reward",
+            "Not a Test",
+            "Congratulatory",
+            "Make Offer",
+            "Segmented"
+        ],
+        "email_performance": {
+            "audience_size": 130,
+            "open_rate_pct": 55.38,
+            "click_rate_pct": 0.77,
+            "total_clicks": 1
+        },
+        "business_impact": {
+            "offers_before": 27.1,
+            "offers_after": 20.0,
+            "absolute_lift": -7.1,
+            "percentage_lift": -26.29
+        }
+    },
+    {
+        "campaign_id": "7754142714",
+        "subject": "You\u2019ve earned this, Trusted Trader \ud83d\udc4f \ud83d\udc5f",
+        "send_timestamp_iso": "2025-04-18T03:36:50+00:00",
+        "tags": [
+            "Lifecycle",
+            "Trusted Trader",
+            "Status",
+            "Reward",
+            "Not a Test",
+            "Congratulatory",
+            "Make Offer",
+            "Segmented"
+        ],
+        "email_performance": {
+            "audience_size": 698,
+            "open_rate_pct": 55.59,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 5.8,
+            "offers_after": 13.5,
+            "absolute_lift": 7.7,
+            "percentage_lift": 131.43
+        }
+    },
+    {
+        "campaign_id": "7754142716",
+        "subject": "Congrats\u2013You\u2019re a Trusted Trader \ud83d\udc5f\ud83e\udd1d",
+        "send_timestamp_iso": "2025-04-18T03:36:50+00:00",
+        "tags": [
+            "Trusted Trader",
+            "Status",
+            "Reward",
+            "Make Offer",
+            "Not a Test",
+            "Congratulatory",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 698,
+            "open_rate_pct": 55.44,
+            "click_rate_pct": 0.14,
+            "total_clicks": 1
+        },
+        "business_impact": {
+            "offers_before": 4.2,
+            "offers_after": 30.5,
+            "absolute_lift": 26.3,
+            "percentage_lift": 626.19
+        }
+    },
+    {
+        "campaign_id": "7754146340",
+        "subject": "You\u2019ve earned 40% off your trade fees",
+        "send_timestamp_iso": "2025-04-18T13:54:45+00:00",
+        "tags": [
+            "Lifecycle",
+            "Financial Benefit",
+            "Fee Discount",
+            "Reward",
+            "Not a Test",
+            "Congratulatory",
+            "Make Offer",
+            "Segmented"
+        ],
+        "email_performance": {
+            "audience_size": 1037,
+            "open_rate_pct": 55.45,
+            "click_rate_pct": 0.58,
+            "total_clicks": 6
+        },
+        "business_impact": {
+            "offers_before": 172.2,
+            "offers_after": 165.5,
+            "absolute_lift": -6.7,
+            "percentage_lift": -3.87
+        }
+    },
+    {
+        "campaign_id": "7754146598",
+        "subject": "Your Tradeblock fees just dropped by 40%",
+        "send_timestamp_iso": "2025-04-18T14:18:07+00:00",
+        "tags": [
+            "Financial Benefit",
+            "Fee Discount",
+            "Not a Test",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 627,
+            "open_rate_pct": 49.92,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 3.4,
+            "offers_after": 4.5,
+            "absolute_lift": 1.1,
+            "percentage_lift": 33.66
+        }
+    },
+    {
+        "campaign_id": "7754146600",
+        "subject": "Congrats\u2013You're a Trusted Trader \ud83d\udc4f \ud83d\udc5f",
+        "send_timestamp_iso": "2025-04-18T14:18:07+00:00",
+        "tags": [
+            "Trusted Trader",
+            "Status",
+            "Reward",
+            "Make Offer",
+            "Not a Test",
+            "Congratulatory",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 651,
+            "open_rate_pct": 48.39,
+            "click_rate_pct": 0.31,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 6.4,
+            "offers_after": 27.5,
+            "absolute_lift": 21.1,
+            "percentage_lift": 331.94
+        }
+    },
+    {
+        "campaign_id": "7754148444",
+        "subject": "Congrats\u2013You're a Trusted Trader \ud83d\udc4f \ud83d\udc5f",
+        "send_timestamp_iso": "2025-04-18T19:20:43+00:00",
+        "tags": [
+            "Trusted Trader",
+            "Status",
+            "Reward",
+            "Make Offer",
+            "Not a Test",
+            "Congratulatory",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 5141,
+            "open_rate_pct": 47.44,
+            "click_rate_pct": 0.1,
+            "total_clicks": 5
+        },
+        "business_impact": {
+            "offers_before": 39.7,
+            "offers_after": 99.5,
+            "absolute_lift": 59.8,
+            "percentage_lift": 150.84
+        }
+    },
+    {
+        "campaign_id": "7754332126",
+        "subject": "Trusted Traders saved >$10k in 3 weeks!",
+        "send_timestamp_iso": "2025-05-09T14:30:01+00:00",
+        "tags": [
+            "Social Proof",
+            "Trusted Trader",
+            "Status",
+            "Make Offer",
+            "Not a Test",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 1688,
+            "open_rate_pct": 43.19,
+            "click_rate_pct": 0.24,
+            "total_clicks": 4
+        },
+        "business_impact": {
+            "offers_before": 186.9,
+            "offers_after": 179.5,
+            "absolute_lift": -7.4,
+            "percentage_lift": -3.94
+        }
+    },
+    {
+        "campaign_id": "7754358934",
+        "subject": "Trusted Traders just saved $10k in less than 3 weeks",
+        "send_timestamp_iso": "2025-05-12T14:30:12+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Social Proof",
+            "Trusted Trader",
+            "Status",
+            "Make Offer",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 237,
+            "open_rate_pct": 47.26,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 0.0,
+            "offers_after": 0.0,
+            "absolute_lift": 0.0,
+            "percentage_lift": 0.0
+        }
+    },
+    {
+        "campaign_id": "7754358936",
+        "subject": "Trusted Traders just saved $10k in less than 3 weeks",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Social Proof",
+            "Trusted Trader",
+            "Status",
+            "Make Offer",
+            "Generic Broadcast",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 195,
+            "open_rate_pct": 52.31,
+            "click_rate_pct": 1.03,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 0.9,
+            "offers_after": 0.0,
+            "absolute_lift": -0.9,
+            "percentage_lift": -100.0
+        }
+    },
+    {
+        "campaign_id": "7754358938",
+        "subject": "Start trading again with 40% lower fees!",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Financial Benefit",
+            "Fee Discount",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 238,
+            "open_rate_pct": 45.38,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 0.0,
+            "offers_after": 6.5,
+            "absolute_lift": 6.5,
+            "percentage_lift": Infinity
+        }
+    },
+    {
+        "campaign_id": "7754358940",
+        "subject": "You're leaving money on the table \ud83d\udc40",
+        "send_timestamp_iso": "2025-05-12T14:30:07+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test"
+        ],
+        "email_performance": {
+            "audience_size": 195,
+            "open_rate_pct": 54.36,
+            "click_rate_pct": 4.62,
+            "total_clicks": 9
+        },
+        "business_impact": {
+            "offers_before": 3.1,
+            "offers_after": 4.5,
+            "absolute_lift": 1.4,
+            "percentage_lift": 46.74
+        }
+    },
+    {
+        "campaign_id": "7754358942",
+        "subject": "Wait... you LIKE paying higher fees?",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Financial Benefit",
+            "Pain Point Agitation",
+            "Fee Discount",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 198,
+            "open_rate_pct": 58.59,
+            "click_rate_pct": 5.05,
+            "total_clicks": 10
+        },
+        "business_impact": {
+            "offers_before": 6.8,
+            "offers_after": 8.5,
+            "absolute_lift": 1.7,
+            "percentage_lift": 25.62
+        }
+    },
+    {
+        "campaign_id": "7754358944",
+        "subject": "40% lower fees?? I guess it's time to start trading again \ud83d\udc40",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Financial Benefit",
+            "Fee Discount",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 248,
+            "open_rate_pct": 50.0,
+            "click_rate_pct": 0.4,
+            "total_clicks": 1
+        },
+        "business_impact": {
+            "offers_before": 0.0,
+            "offers_after": 0.0,
+            "absolute_lift": 0.0,
+            "percentage_lift": 0.0
+        }
+    },
+    {
+        "campaign_id": "7754358946",
+        "subject": "Save $20 on EVERY future trade \u2013 you\u2019re so close",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Financial Benefit",
+            "Urgency",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 468,
+            "open_rate_pct": 51.5,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 1.2,
+            "offers_after": 4.5,
+            "absolute_lift": 3.3,
+            "percentage_lift": 275.0
+        }
+    },
+    {
+        "campaign_id": "7754358948",
+        "subject": "You\u2019re 1 trade away from 40% off forever \ud83d\udcb8",
+        "send_timestamp_iso": "2025-05-12T14:30:05+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test"
+        ],
+        "email_performance": {
+            "audience_size": 471,
+            "open_rate_pct": 52.02,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 1.5,
+            "offers_after": 0.0,
+            "absolute_lift": -1.5,
+            "percentage_lift": -100.0
+        }
+    },
+    {
+        "campaign_id": "7754369336",
+        "subject": "40% lower fees?? I guess it's time to start trading again \ud83d\udc40",
+        "send_timestamp_iso": "2025-05-13T14:30:03+00:00",
+        "tags": [
+            "Financial Benefit",
+            "Fee Discount",
+            "Generic Broadcast",
+            "Subject Line A/B Test_winner",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 2939,
+            "open_rate_pct": 45.97,
+            "click_rate_pct": 0.54,
+            "total_clicks": 16
+        },
+        "business_impact": {
+            "offers_before": 0.0,
+            "offers_after": 4.0,
+            "absolute_lift": 4.0,
+            "percentage_lift": Infinity
+        }
+    },
+    {
+        "campaign_id": "7754369338",
+        "subject": "Save $20 on EVERY future trade \u2013 you\u2019re so close",
+        "send_timestamp_iso": "2025-05-13T14:30:04+00:00",
+        "tags": [
+            "Financial Benefit",
+            "Urgency",
+            "Not a Test",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 3777,
+            "open_rate_pct": 48.69,
+            "click_rate_pct": 0.05,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 13.8,
+            "offers_after": 12.0,
+            "absolute_lift": -1.8,
+            "percentage_lift": -12.83
+        }
+    },
+    {
+        "campaign_id": "7754370434",
+        "subject": "Wait... you LIKE paying higher fees?",
+        "send_timestamp_iso": "2025-05-13T17:22:12+00:00",
+        "tags": [
+            "Financial Benefit",
+            "Pain Point Agitation",
+            "Fee Discount",
+            "Generic Broadcast",
+            "Subject Line A/B Test_winner",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 2394,
+            "open_rate_pct": 55.18,
+            "click_rate_pct": 4.14,
+            "total_clicks": 99
+        },
+        "business_impact": {
+            "offers_before": 22.2,
+            "offers_after": 60.0,
+            "absolute_lift": 37.8,
+            "percentage_lift": 170.27
+        }
+    },
+    {
+        "campaign_id": "7754371078",
+        "subject": "Tradeblock just got an upgrade \ud83d\udc40 - see what\u2019s new",
+        "send_timestamp_iso": "2025-05-13T18:55:15+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "New Feature",
+            "Generic Broadcast",
+            "Explore Feature",
+            "Informational",
+            "Product Update"
+        ],
+        "email_performance": {
+            "audience_size": 3552,
+            "open_rate_pct": 46.71,
+            "click_rate_pct": 0.42,
+            "total_clicks": 15
+        },
+        "business_impact": {
+            "offers_before": 49.0,
+            "offers_after": 69.0,
+            "absolute_lift": 20.0,
+            "percentage_lift": 40.82
+        }
+    },
+    {
+        "campaign_id": "7754371082",
+        "subject": "App update!! More accurate prices + AI-generated counters",
+        "send_timestamp_iso": "2025-05-13T18:55:15+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "New Feature",
+            "Generic Broadcast",
+            "Informational",
+            "Product Update",
+            "Make Offer"
+        ],
+        "email_performance": {
+            "audience_size": 3508,
+            "open_rate_pct": 46.89,
+            "click_rate_pct": 0.29,
+            "total_clicks": 10
+        },
+        "business_impact": {
+            "offers_before": 47.9,
+            "offers_after": 46.0,
+            "absolute_lift": -1.9,
+            "percentage_lift": -4.03
+        }
+    },
+    {
+        "campaign_id": "7754371084",
+        "subject": "Don\u2019t call it a glow up... (Translation: new app updates!)",
+        "send_timestamp_iso": "2025-05-13T18:55:15+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "New Feature",
+            "Generic Broadcast",
+            "Informational",
+            "Product Update",
+            "Make Offer"
+        ],
+        "email_performance": {
+            "audience_size": 3555,
+            "open_rate_pct": 46.64,
+            "click_rate_pct": 0.14,
+            "total_clicks": 5
+        },
+        "business_impact": {
+            "offers_before": 52.7,
+            "offers_after": 50.0,
+            "absolute_lift": -2.7,
+            "percentage_lift": -5.12
+        }
+    },
+    {
+        "campaign_id": "7754377486",
+        "subject": "Tradeblock just got an upgrade \ud83d\udc40 - see what\u2019s new",
+        "send_timestamp_iso": "2025-05-14T13:30:03+00:00",
+        "tags": [
+            "New Feature",
+            "Not a Test",
+            "Generic Broadcast",
+            "Explore Feature",
+            "Informational",
+            "Product Update"
+        ],
+        "email_performance": {
+            "audience_size": 42373,
+            "open_rate_pct": 44.75,
+            "click_rate_pct": 0.21,
+            "total_clicks": 91
+        },
+        "business_impact": {
+            "offers_before": 534.4,
+            "offers_after": 609.0,
+            "absolute_lift": 74.6,
+            "percentage_lift": 13.96
+        }
+    },
+    {
+        "campaign_id": "7754387900",
+        "subject": "These 3 shoes are running the app right now",
+        "send_timestamp_iso": "2025-05-15T18:45:26+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Market Trend",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 3544,
+            "open_rate_pct": 44.67,
+            "click_rate_pct": 0.28,
+            "total_clicks": 10
+        },
+        "business_impact": {
+            "offers_before": 37.5,
+            "offers_after": 40.5,
+            "absolute_lift": 3.0,
+            "percentage_lift": 7.9
+        }
+    },
+    {
+        "campaign_id": "7754387902",
+        "subject": "Heat check inside. \ud83d\udd25",
+        "send_timestamp_iso": "2025-05-15T18:45:28+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test"
+        ],
+        "email_performance": {
+            "audience_size": 3531,
+            "open_rate_pct": 43.84,
+            "click_rate_pct": 0.42,
+            "total_clicks": 15
+        },
+        "business_impact": {
+            "offers_before": 37.8,
+            "offers_after": 37.5,
+            "absolute_lift": -0.3,
+            "percentage_lift": -0.79
+        }
+    },
+    {
+        "campaign_id": "7754387904",
+        "subject": "\ud83d\udcc8 Trending on the block this week",
+        "send_timestamp_iso": "2025-05-15T18:45:29+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Market Trend",
+            "Generic Broadcast",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 3545,
+            "open_rate_pct": 45.9,
+            "click_rate_pct": 0.11,
+            "total_clicks": 4
+        },
+        "business_impact": {
+            "offers_before": 38.9,
+            "offers_after": 30.0,
+            "absolute_lift": -8.9,
+            "percentage_lift": -22.81
+        }
+    },
+    {
+        "campaign_id": "7754396960",
+        "subject": "Heat check inside. \ud83d\udd25",
+        "send_timestamp_iso": "2025-05-16T14:30:04+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test_winner"
+        ],
+        "email_performance": {
+            "audience_size": 42323,
+            "open_rate_pct": 39.77,
+            "click_rate_pct": 0.16,
+            "total_clicks": 69
+        },
+        "business_impact": {
+            "offers_before": 494.1,
+            "offers_after": 423.0,
+            "absolute_lift": -71.1,
+            "percentage_lift": -14.39
+        }
+    },
+    {
+        "campaign_id": "7754453152",
+        "subject": "Throwback Thursday: The Pine Green SB4 is still cookin\u2019 \ud83d\udd25",
+        "send_timestamp_iso": "2025-05-22T18:17:30+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 5117,
+            "open_rate_pct": 42.39,
+            "click_rate_pct": 0.14,
+            "total_clicks": 7
+        },
+        "business_impact": {
+            "offers_before": 52.4,
+            "offers_after": 66.5,
+            "absolute_lift": 14.1,
+            "percentage_lift": 26.83
+        }
+    },
+    {
+        "campaign_id": "7754453154",
+        "subject": "Remember this shoe? So does the 'block.",
+        "send_timestamp_iso": "2025-05-22T18:17:30+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test"
+        ],
+        "email_performance": {
+            "audience_size": 5082,
+            "open_rate_pct": 44.04,
+            "click_rate_pct": 0.04,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 71.5,
+            "offers_after": 65.0,
+            "absolute_lift": -6.5,
+            "percentage_lift": -9.05
+        }
+    },
+    {
+        "campaign_id": "7754454460",
+        "subject": "Throwback Thursday: The Pine Green SB4 is still cookin\u2019 \ud83d\udd25",
+        "send_timestamp_iso": "2025-05-22T21:20:20+00:00",
+        "tags": [
+            "Not a Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 41064,
+            "open_rate_pct": 28.57,
+            "click_rate_pct": 0.13,
+            "total_clicks": 52
+        },
+        "business_impact": {
+            "offers_before": 391.6,
+            "offers_after": 396.5,
+            "absolute_lift": 4.9,
+            "percentage_lift": 1.25
+        }
+    },
+    {
+        "campaign_id": "7754560900",
+        "subject": "Size 10's Top Hunters: Who\u2019s making moves?",
+        "send_timestamp_iso": "2025-06-03T15:39:35+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1120,
+            "open_rate_pct": 45.45,
+            "click_rate_pct": 1.25,
+            "total_clicks": 14
+        },
+        "business_impact": {
+            "offers_before": 13.3,
+            "offers_after": 9.0,
+            "absolute_lift": -4.3,
+            "percentage_lift": -32.16
+        }
+    },
+    {
+        "campaign_id": "7754560902",
+        "subject": "Who\u2019s most active in your size? Meet size  8.5's Top Hunters",
+        "send_timestamp_iso": "2025-06-03T15:39:35+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1658,
+            "open_rate_pct": 45.72,
+            "click_rate_pct": 1.15,
+            "total_clicks": 19
+        },
+        "business_impact": {
+            "offers_before": 20.2,
+            "offers_after": 21.0,
+            "absolute_lift": 0.8,
+            "percentage_lift": 3.79
+        }
+    },
+    {
+        "campaign_id": "7754560904",
+        "subject": "Top offer creators in size 14\u2014and what they want",
+        "send_timestamp_iso": "2025-06-03T15:39:36+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Social Proof",
+            "Top Hunters",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1652,
+            "open_rate_pct": 46.85,
+            "click_rate_pct": 1.03,
+            "total_clicks": 17
+        },
+        "business_impact": {
+            "offers_before": 41.1,
+            "offers_after": 57.0,
+            "absolute_lift": 15.9,
+            "percentage_lift": 38.57
+        }
+    },
+    {
+        "campaign_id": "7754560924",
+        "subject": "Size 10.5's Top Hunters: Who\u2019s making moves?",
+        "send_timestamp_iso": "2025-06-03T15:42:53+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1116,
+            "open_rate_pct": 46.06,
+            "click_rate_pct": 0.63,
+            "total_clicks": 7
+        },
+        "business_impact": {
+            "offers_before": 18.5,
+            "offers_after": 23.5,
+            "absolute_lift": 5.0,
+            "percentage_lift": 27.26
+        }
+    },
+    {
+        "campaign_id": "7754560926",
+        "subject": "Top offer creators in size 11\u2014and what they want",
+        "send_timestamp_iso": "2025-06-03T15:42:53+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Social Proof",
+            "Top Hunters",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1678,
+            "open_rate_pct": 46.31,
+            "click_rate_pct": 1.07,
+            "total_clicks": 18
+        },
+        "business_impact": {
+            "offers_before": 23.1,
+            "offers_after": 20.5,
+            "absolute_lift": -2.6,
+            "percentage_lift": -11.38
+        }
+    },
+    {
+        "campaign_id": "7754560928",
+        "subject": "Who\u2019s most active in your size? Meet size  12's Top Hunters",
+        "send_timestamp_iso": "2025-06-03T15:42:53+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1688,
+            "open_rate_pct": 44.61,
+            "click_rate_pct": 0.71,
+            "total_clicks": 12
+        },
+        "business_impact": {
+            "offers_before": 42.5,
+            "offers_after": 27.5,
+            "absolute_lift": -15.0,
+            "percentage_lift": -35.29
+        }
+    },
+    {
+        "campaign_id": "7754562472",
+        "subject": "Top offer creators in size 10.5\u2014and what they want",
+        "send_timestamp_iso": "2025-06-03T19:30:02+00:00",
+        "tags": [
+            "Social Proof",
+            "Top Hunters",
+            "Not a Test",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 12498,
+            "open_rate_pct": 44.6,
+            "click_rate_pct": 1.21,
+            "total_clicks": 151
+        },
+        "business_impact": {
+            "offers_before": 245.3,
+            "offers_after": 276.5,
+            "absolute_lift": 31.2,
+            "percentage_lift": 12.7
+        }
+    },
+    {
+        "campaign_id": "7754562474",
+        "subject": "Top offer creators in size 7.5\u2014and what they want",
+        "send_timestamp_iso": "2025-06-03T19:30:02+00:00",
+        "tags": [
+            "Social Proof",
+            "Top Hunters",
+            "Not a Test",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 12193,
+            "open_rate_pct": 44.71,
+            "click_rate_pct": 1.01,
+            "total_clicks": 123
+        },
+        "business_impact": {
+            "offers_before": 290.1,
+            "offers_after": 333.0,
+            "absolute_lift": 42.9,
+            "percentage_lift": 14.77
+        }
+    },
+    {
+        "campaign_id": "7754562502",
+        "subject": "You just got $20 for being one of size 11.5's Top Hunters!",
+        "send_timestamp_iso": "2025-06-03T19:35:01+00:00",
+        "tags": [
+            "Lifecycle",
+            "Financial Benefit",
+            "Learn More",
+            "Reward",
+            "Top Hunters",
+            "Not a Test",
+            "Congratulatory",
+            "Personalized"
+        ],
+        "email_performance": {
+            "audience_size": 49,
+            "open_rate_pct": 67.35,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 109.1,
+            "offers_after": 115.0,
+            "absolute_lift": 5.9,
+            "percentage_lift": 5.44
+        }
+    },
+    {
+        "campaign_id": "7754579582",
+        "subject": "Throwback Thursday: The White Cement 3 Reimagined is Making a Comeback",
+        "send_timestamp_iso": "2025-06-05T15:38:01+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 4955,
+            "open_rate_pct": 42.0,
+            "click_rate_pct": 0.04,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 56.0,
+            "offers_after": 61.0,
+            "absolute_lift": 5.0,
+            "percentage_lift": 8.86
+        }
+    },
+    {
+        "campaign_id": "7754579584",
+        "subject": "Throwback Thursday: The White Cement 3 Reimagined is Back in the Game",
+        "send_timestamp_iso": "2025-06-05T15:38:01+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 5024,
+            "open_rate_pct": 42.91,
+            "click_rate_pct": 0.06,
+            "total_clicks": 3
+        },
+        "business_impact": {
+            "offers_before": 53.1,
+            "offers_after": 42.0,
+            "absolute_lift": -11.1,
+            "percentage_lift": -20.85
+        }
+    },
+    {
+        "campaign_id": "7754581144",
+        "subject": "Throwback Thursday: The White Cement 3 Reimagined is Making a Comeback",
+        "send_timestamp_iso": "2025-06-05T20:00:12+00:00",
+        "tags": [
+            "Not a Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 40127,
+            "open_rate_pct": 38.26,
+            "click_rate_pct": 0.09,
+            "total_clicks": 37
+        },
+        "business_impact": {
+            "offers_before": 517.1,
+            "offers_after": 489.5,
+            "absolute_lift": -27.6,
+            "percentage_lift": -5.34
+        }
+    },
+    {
+        "campaign_id": "7754650782",
+        "subject": "Done with \u201cI only trade for DS\u201d replies?",
+        "send_timestamp_iso": "2025-06-12T16:49:08+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Pain Point Agitation",
+            "Make Offer",
+            "Generic Broadcast",
+            "Transactional",
+            "Community Norms"
+        ],
+        "email_performance": {
+            "audience_size": 3423,
+            "open_rate_pct": 45.84,
+            "click_rate_pct": 1.23,
+            "total_clicks": 42
+        },
+        "business_impact": {
+            "offers_before": 46.1,
+            "offers_after": 10.5,
+            "absolute_lift": -35.6,
+            "percentage_lift": -77.22
+        }
+    },
+    {
+        "campaign_id": "7754650784",
+        "subject": "Tired of DS-only traders? Let\u2019s change that.",
+        "send_timestamp_iso": "2025-06-12T16:49:08+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Pain Point Agitation",
+            "Make Offer",
+            "Generic Broadcast",
+            "Transactional",
+            "Community Norms"
+        ],
+        "email_performance": {
+            "audience_size": 3417,
+            "open_rate_pct": 46.91,
+            "click_rate_pct": 1.23,
+            "total_clicks": 42
+        },
+        "business_impact": {
+            "offers_before": 62.1,
+            "offers_after": 42.0,
+            "absolute_lift": -20.1,
+            "percentage_lift": -32.37
+        }
+    },
+    {
+        "campaign_id": "7754650786",
+        "subject": "You\u2019re not the only one trying to trade used",
+        "send_timestamp_iso": "2025-06-12T16:49:09+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Make Offer",
+            "Community",
+            "Community Norms"
+        ],
+        "email_performance": {
+            "audience_size": 3413,
+            "open_rate_pct": 47.17,
+            "click_rate_pct": 1.26,
+            "total_clicks": 43
+        },
+        "business_impact": {
+            "offers_before": 38.3,
+            "offers_after": 38.5,
+            "absolute_lift": 0.2,
+            "percentage_lift": 0.61
+        }
+    },
+    {
+        "campaign_id": "7754651868",
+        "subject": "Done with \u201cI only trade for DS\u201d replies?",
+        "send_timestamp_iso": "2025-06-12T19:30:15+00:00",
+        "tags": [
+            "Pain Point Agitation",
+            "Make Offer",
+            "Generic Broadcast",
+            "Subject Line A/B Test_winner",
+            "Transactional",
+            "Community Norms"
+        ],
+        "email_performance": {
+            "audience_size": 41029,
+            "open_rate_pct": 38.88,
+            "click_rate_pct": 1.29,
+            "total_clicks": 531
+        },
+        "business_impact": {
+            "offers_before": 605.3,
+            "offers_after": 466.5,
+            "absolute_lift": -138.8,
+            "percentage_lift": -22.93
+        }
+    },
+    {
+        "campaign_id": "7754710018",
+        "subject": "Ferrari 14s just dropped. You in the race or nah?",
+        "send_timestamp_iso": "2025-06-16T18:28:09+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 2107,
+            "open_rate_pct": 43.47,
+            "click_rate_pct": 0.28,
+            "total_clicks": 6
+        },
+        "business_impact": {
+            "offers_before": 65.8,
+            "offers_after": 78.0,
+            "absolute_lift": 12.2,
+            "percentage_lift": 18.54
+        }
+    },
+    {
+        "campaign_id": "7754710020",
+        "subject": "\ud83c\udfc1 You don\u2019t need SNKRS to get in this race \ud83c\udfc1",
+        "send_timestamp_iso": "2025-06-16T18:28:09+00:00",
+        "tags": [
+            "Transactional",
+            "Generic Broadcast",
+            "Make Offer",
+            "Subject Line A/B Test"
+        ],
+        "email_performance": {
+            "audience_size": 2107,
+            "open_rate_pct": 46.18,
+            "click_rate_pct": 0.09,
+            "total_clicks": 2
+        },
+        "business_impact": {
+            "offers_before": 35.6,
+            "offers_after": 18.5,
+            "absolute_lift": -17.1,
+            "percentage_lift": -47.99
+        }
+    },
+    {
+        "campaign_id": "7754710022",
+        "subject": "Ferrari 14s just dropped. You in the race or nah? \ud83c\udfc1",
+        "send_timestamp_iso": "2025-06-16T18:28:09+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 2122,
+            "open_rate_pct": 44.53,
+            "click_rate_pct": 0.38,
+            "total_clicks": 8
+        },
+        "business_impact": {
+            "offers_before": 40.4,
+            "offers_after": 35.0,
+            "absolute_lift": -5.4,
+            "percentage_lift": -13.29
+        }
+    },
+    {
+        "campaign_id": "7754719244",
+        "subject": "Ferrari 14s just dropped. You in the race or nah? \ud83c\udfc1",
+        "send_timestamp_iso": "2025-06-17T14:31:22+00:00",
+        "tags": [
+            "Not a Test",
+            "Generic Broadcast",
+            "Shoe Spotlight",
+            "Make Offer",
+            "Promotional"
+        ],
+        "email_performance": {
+            "audience_size": 25295,
+            "open_rate_pct": 41.41,
+            "click_rate_pct": 0.15,
+            "total_clicks": 38
+        },
+        "business_impact": {
+            "offers_before": 480.6,
+            "offers_after": 413.0,
+            "absolute_lift": -67.6,
+            "percentage_lift": -14.07
+        }
+    },
+    {
+        "campaign_id": "7754738316",
+        "subject": "Size 9's Top Hunters: Who\u2019s making moves?",
+        "send_timestamp_iso": "2025-06-19T16:32:14+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1598,
+            "open_rate_pct": 44.93,
+            "click_rate_pct": 0.81,
+            "total_clicks": 13
+        },
+        "business_impact": {
+            "offers_before": 36.6,
+            "offers_after": 21.5,
+            "absolute_lift": -15.1,
+            "percentage_lift": -41.31
+        }
+    },
+    {
+        "campaign_id": "7754738318",
+        "subject": "Top offer creators in size 17\u2014and what they want",
+        "send_timestamp_iso": "2025-06-19T16:32:14+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Social Proof",
+            "Top Hunters",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1573,
+            "open_rate_pct": 42.72,
+            "click_rate_pct": 0.76,
+            "total_clicks": 12
+        },
+        "business_impact": {
+            "offers_before": 54.6,
+            "offers_after": 27.0,
+            "absolute_lift": -27.6,
+            "percentage_lift": -50.58
+        }
+    },
+    {
+        "campaign_id": "7754738320",
+        "subject": "Who\u2019s most active in your size? Meet size  11's Top Hunters",
+        "send_timestamp_iso": "2025-06-19T16:32:14+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Learn More",
+            "Social Proof",
+            "Top Hunters",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 1591,
+            "open_rate_pct": 44.88,
+            "click_rate_pct": 0.75,
+            "total_clicks": 12
+        },
+        "business_impact": {
+            "offers_before": 57.9,
+            "offers_after": 79.5,
+            "absolute_lift": 21.6,
+            "percentage_lift": 37.38
+        }
+    },
+    {
+        "campaign_id": "7754739348",
+        "subject": "Top offer creators in size 11\u2014and what they want",
+        "send_timestamp_iso": "2025-06-19T19:30:02+00:00",
+        "tags": [
+            "Social Proof",
+            "Top Hunters",
+            "Subject Line A/B Test_winner",
+            "Explore Feature",
+            "Personalized",
+            "Community"
+        ],
+        "email_performance": {
+            "audience_size": 19056,
+            "open_rate_pct": 44.94,
+            "click_rate_pct": 0.97,
+            "total_clicks": 185
+        },
+        "business_impact": {
+            "offers_before": 544.5,
+            "offers_after": 684.0,
+            "absolute_lift": 139.5,
+            "percentage_lift": 25.62
+        }
+    },
+    {
+        "campaign_id": "7754739634",
+        "subject": "You just got $20 for being one of size 11.5's Top Hunters!",
+        "send_timestamp_iso": "2025-06-19T20:30:02+00:00",
+        "tags": [
+            "Lifecycle",
+            "Financial Benefit",
+            "Learn More",
+            "Reward",
+            "Top Hunters",
+            "Not a Test",
+            "Congratulatory",
+            "Personalized"
+        ],
+        "email_performance": {
+            "audience_size": 48,
+            "open_rate_pct": 77.08,
+            "click_rate_pct": 0.0,
+            "total_clicks": 0
+        },
+        "business_impact": {
+            "offers_before": 132.0,
+            "offers_after": 108.0,
+            "absolute_lift": -24.0,
+            "percentage_lift": -18.16
+        }
+    },
+    {
+        "campaign_id": "7754856524",
+        "subject": "3 shoes running the market in your size right now \ud83d\udcc8",
+        "send_timestamp_iso": "2025-07-01T19:18:51+00:00",
+        "tags": [
+            "Transactional",
+            "Make Offer",
+            "Subject Line A/B Test",
+            "Personalized"
+        ],
+        "email_performance": {
+            "audience_size": 2217,
+            "open_rate_pct": 30.0,
+            "click_rate_pct": 0.27,
+            "total_clicks": 6
+        },
+        "business_impact": {
+            "offers_before": 44.7,
+            "offers_after": 41.0,
+            "absolute_lift": -3.7,
+            "percentage_lift": -8.21
+        }
+    },
+    {
+        "campaign_id": "7754856526",
+        "subject": "Your size 9 market intelligence: This week's hottest shoes \ud83d\udd25",
+        "send_timestamp_iso": "2025-07-01T19:18:51+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Make Offer",
+            "Market Trend",
+            "Personalized",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 2222,
+            "open_rate_pct": 30.83,
+            "click_rate_pct": 0.14,
+            "total_clicks": 3
+        },
+        "business_impact": {
+            "offers_before": 35.2,
+            "offers_after": 33.5,
+            "absolute_lift": -1.7,
+            "percentage_lift": -4.92
+        }
+    },
+    {
+        "campaign_id": "7754856528",
+        "subject": "Market movers alert: 3 shoes every size 12 collector is watching \ud83d\udc40",
+        "send_timestamp_iso": "2025-07-01T19:18:51+00:00",
+        "tags": [
+            "Subject Line A/B Test",
+            "Make Offer",
+            "Market Trend",
+            "Personalized",
+            "Transactional"
+        ],
+        "email_performance": {
+            "audience_size": 2200,
+            "open_rate_pct": 27.27,
+            "click_rate_pct": 0.32,
+            "total_clicks": 7
+        },
+        "business_impact": {
+            "offers_before": 23.9,
+            "offers_after": 24.5,
+            "absolute_lift": 0.6,
+            "percentage_lift": 2.65
+        }
+    },
+    {
+        "campaign_id": "7754857014",
+        "subject": "3 shoes running the market in your size right now \ud83d\udcc8",
+        "send_timestamp_iso": "2025-07-01T21:00:23+00:00",
+        "tags": [
+            "Transactional",
+            "Not a Test",
+            "Make Offer",
+            "Personalized"
+        ],
+        "email_performance": {
+            "audience_size": 26417,
+            "open_rate_pct": 41.31,
+            "click_rate_pct": 0.31,
+            "total_clicks": 82
+        },
+        "business_impact": {
+            "offers_before": 514.0,
+            "offers_after": 488.0,
+            "absolute_lift": -26.0,
+            "percentage_lift": -5.06
+        }
+    }
+]

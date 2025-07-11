@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754650786
+Subject Line: You’re not the only one trying to trade used
+Send Timestamp: 2025-06-12 16:49:09+00:00
+Total Audience Size: 3413
+Subject Line Test ID: ab_test_9
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1610
+Total Clicks: 43
+
+
+### Impact Summary ###
+
+--- Received Cohort (3209 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 59.3
+- Post-Campaign Daily Offer Average (cohort): 60.5
+- Pre-Campaign Daily Offer Average (per user): 0.0185
+- Post-Campaign Daily Offer Average (per user): 0.0189
+- Offer Uplift: 2.08%
+
+--- Opened Cohort (1519 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 38.3
+- Post-Campaign Daily Offer Average (cohort): 38.5
+- Pre-Campaign Daily Offer Average (per user): 0.0252
+- Post-Campaign Daily Offer Average (per user): 0.0253
+- Offer Uplift: 0.61%
+
+--- Clicked Cohort (40 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.4
+- Post-Campaign Daily Offer Average (cohort): 3.0
+- Pre-Campaign Daily Offer Average (per user): 0.1108
+- Post-Campaign Daily Offer Average (per user): 0.0750
+- Offer Uplift: -32.33%

@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Hub - CSV Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('email_hub.static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Email Hub - CSV Generator</h1>
             <nav>
-                <a href="{{ url_for('index') }}" class="nav-link active">CSV Generator</a>
-                <a href="{{ url_for('performance') }}" class="nav-link">Performance Dashboard</a>
+                <a href="{{ url_for('email_hub.index') }}" class="nav-link active">CSV Generator</a>
+                <a href="{{ url_for('email_hub.performance') }}" class="nav-link">Performance Dashboard</a>
             </nav>
         </header>
 
         <main>
             <div class="csv-generator">
                 <h2>Generate Email CSV</h2>
-                <form id="csv-form" method="POST" action="{{ (app_root + '/generate-csv') if app_root else '/generate-csv' }}">
+                <form id="csv-form" method="POST" action="{{ url_for('email_hub.generate_csv') }}" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="email-type">Email Type:</label>
                         <select id="email-type" name="email_type" required>
@@ -61,7 +61,6 @@
 
     <script>
         // CSV Generator JavaScript Implementation
-        const APP_ROOT = '{{ app_root if app_root else "" }}';
         let emailTypes = [];
         
         // Load email types on page load
@@ -72,7 +71,7 @@
 
         async function loadEmailTypes() {
             try {
-                const response = await fetch(`${APP_ROOT}/api/email-types`);
+                const response = await fetch("{{ url_for('email_hub.api_email_types') }}");
                 const data = await response.json();
                 
                 if (data.success) {
@@ -173,7 +172,7 @@
 
         async function loadFieldsPreview(emailType) {
             try {
-                const response = await fetch(`${APP_ROOT}/api/email-type-fields/${emailType}`);
+                const response = await fetch("{{ url_for('email_hub.api_email_type_fields', email_type='__EMAIL_TYPE__') }}".replace('__EMAIL_TYPE__', emailType));
                 const data = await response.json();
                 
                 if (data.success) {
@@ -221,7 +220,7 @@
             submitButton.textContent = 'Generating CSV...';
             
             try {
-                const response = await fetch('/generate-csv', {
+                const response = await fetch("{{ url_for('email_hub.generate_csv') }}", {
                     method: 'POST',
                     body: formData
                 });

@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754856524
+Subject Line: 3 shoes running the market in your size right now 📈
+Send Timestamp: 2025-07-01 19:18:51+00:00
+Total Audience Size: 2217
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 665
+Total Clicks: 6
+
+
+### Impact Summary ###
+
+--- Received Cohort (2071 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 69.0
+- Post-Campaign Daily Offer Average (cohort): 64.0
+- Pre-Campaign Daily Offer Average (per user): 0.0333
+- Post-Campaign Daily Offer Average (per user): 0.0309
+- Offer Uplift: -7.20%
+
+--- Opened Cohort (619 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 44.7
+- Post-Campaign Daily Offer Average (cohort): 41.0
+- Pre-Campaign Daily Offer Average (per user): 0.0722
+- Post-Campaign Daily Offer Average (per user): 0.0662
+- Offer Uplift: -8.21%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.7
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.1333
+- Post-Campaign Daily Offer Average (per user): 0.1000
+- Offer Uplift: -25.00%

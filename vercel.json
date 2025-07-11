@@ -7,19 +7,19 @@
       "config": {
         "runtime": "python3.11"
       }
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/tools/email-hub/(.*)",
-      "dest": "/tools/email-hub/app.py"
+      "dest": "tools/email-hub/app.py"
     },
     {
-      "src": "/tools/email-hub/?",
-      "dest": "/tools/email-hub/app.py"
-    },
-    {
-      "src": "/",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ]

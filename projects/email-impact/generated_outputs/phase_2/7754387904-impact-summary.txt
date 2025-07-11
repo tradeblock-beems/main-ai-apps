@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754387904
+Subject Line: 📈 Trending on the block this week
+Send Timestamp: 2025-05-15 18:45:29+00:00
+Total Audience Size: 3545
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1627
+Total Clicks: 4
+
+
+### Impact Summary ###
+
+--- Received Cohort (3301 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 67.0
+- Post-Campaign Daily Offer Average (cohort): 43.0
+- Pre-Campaign Daily Offer Average (per user): 0.0203
+- Post-Campaign Daily Offer Average (per user): 0.0130
+- Offer Uplift: -35.82%
+
+--- Opened Cohort (1520 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 38.9
+- Post-Campaign Daily Offer Average (cohort): 30.0
+- Pre-Campaign Daily Offer Average (per user): 0.0256
+- Post-Campaign Daily Offer Average (per user): 0.0197
+- Offer Uplift: -22.81%
+
+--- Clicked Cohort (4 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.4
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.1083
+- Post-Campaign Daily Offer Average (per user): 0.1250
+- Offer Uplift: 15.38%

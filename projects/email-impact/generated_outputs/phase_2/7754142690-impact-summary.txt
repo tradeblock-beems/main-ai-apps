@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754142690
+Subject Line: You’ve earned 40% off your trade fees
+Send Timestamp: 2025-04-18 03:32:19+00:00
+Total Audience Size: 126
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 85
+Total Clicks: 1
+
+
+### Impact Summary ###
+
+--- Received Cohort (118 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 39.2
+- Post-Campaign Daily Offer Average (cohort): 30.5
+- Pre-Campaign Daily Offer Average (per user): 0.3322
+- Post-Campaign Daily Offer Average (per user): 0.2585
+- Offer Uplift: -22.19%
+
+--- Opened Cohort (81 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 27.1
+- Post-Campaign Daily Offer Average (cohort): 22.5
+- Pre-Campaign Daily Offer Average (per user): 0.3342
+- Post-Campaign Daily Offer Average (per user): 0.2778
+- Offer Uplift: -16.87%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%

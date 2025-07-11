@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754579584
+Subject Line: Throwback Thursday: The White Cement 3 Reimagined is Back in the Game
+Send Timestamp: 2025-06-05 15:38:01+00:00
+Total Audience Size: 5024
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 2156
+Total Clicks: 3
+
+
+### Impact Summary ###
+
+--- Received Cohort (4730 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 101.3
+- Post-Campaign Daily Offer Average (cohort): 82.0
+- Pre-Campaign Daily Offer Average (per user): 0.0214
+- Post-Campaign Daily Offer Average (per user): 0.0173
+- Offer Uplift: -19.03%
+
+--- Opened Cohort (2038 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 53.1
+- Post-Campaign Daily Offer Average (cohort): 42.0
+- Pre-Campaign Daily Offer Average (per user): 0.0260
+- Post-Campaign Daily Offer Average (per user): 0.0206
+- Offer Uplift: -20.85%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.2
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0833
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%

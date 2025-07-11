@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754387902
+Subject Line: Heat check inside. 🔥
+Send Timestamp: 2025-05-15 18:45:28+00:00
+Total Audience Size: 3531
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1548
+Total Clicks: 15

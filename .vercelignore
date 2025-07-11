@@ -1,0 +1,34 @@
+# Ignore the entire .git directory
+.git
+
+# Ignore node_modules, as Vercel handles dependencies
+node_modules
+
+# Ignore all generated outputs from the email-impact project, EXCEPT the one we need for the dashboard.
+projects/email-impact/generated_outputs/*
+!projects/email-impact/generated_outputs/microsite_campaign_data.json
+
+# Ignore all generated CSVs from the email-csv-creation project
+projects/email-csv-creation/generated_csvs/
+projects/email-csv-creation/outputs/
+projects/email-csv-creation/top-prospects-email/outputs/
+
+# Ignore local Vercel project configuration
+.vercel
+
+# Ignore Python virtual environments
+venv/
+*.venv
+
+# Ignore common Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore IDE/editor configuration files
+.vscode/
+.idea/
+
+# Ignore MacOS system files
+.DS_Store 

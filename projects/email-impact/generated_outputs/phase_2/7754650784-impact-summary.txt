@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754650784
+Subject Line: Tired of DS-only traders? Let’s change that.
+Send Timestamp: 2025-06-12 16:49:08+00:00
+Total Audience Size: 3417
+Subject Line Test ID: ab_test_8
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1603
+Total Clicks: 42
+
+
+### Impact Summary ###
+
+--- Received Cohort (3203 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 107.3
+- Post-Campaign Daily Offer Average (cohort): 79.5
+- Pre-Campaign Daily Offer Average (per user): 0.0335
+- Post-Campaign Daily Offer Average (per user): 0.0248
+- Offer Uplift: -25.91%
+
+--- Opened Cohort (1505 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 62.1
+- Post-Campaign Daily Offer Average (cohort): 42.0
+- Pre-Campaign Daily Offer Average (per user): 0.0413
+- Post-Campaign Daily Offer Average (per user): 0.0279
+- Offer Uplift: -32.37%
+
+--- Clicked Cohort (42 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 18.0
+- Post-Campaign Daily Offer Average (cohort): 25.0
+- Pre-Campaign Daily Offer Average (per user): 0.4294
+- Post-Campaign Daily Offer Average (per user): 0.5952
+- Offer Uplift: 38.63%

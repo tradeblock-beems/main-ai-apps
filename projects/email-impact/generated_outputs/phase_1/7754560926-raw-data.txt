@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754560926
+Subject Line: Top offer creators in size 11—and what they want
+Send Timestamp: 2025-06-03 15:42:53+00:00
+Total Audience Size: 1678
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 777
+Total Clicks: 18

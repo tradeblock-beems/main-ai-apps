@@ -1,0 +1,2786 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754142690
+Subject Line: You’ve earned 40% off your trade fees
+Send Timestamp: 2025-04-18 03:32:19+00:00
+Total Audience Size: 126
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Fee Discount
+framing: Congratulatory, Financial Benefit, Reward
+personalization_level: Segmented
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 85
+Total Clicks: 1
+
+
+### Impact Summary ###
+
+--- Received Cohort (118 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 39.2
+- Post-Campaign Daily Offer Average (cohort): 30.5
+- Pre-Campaign Daily Offer Average (per user): 0.3322
+- Post-Campaign Daily Offer Average (per user): 0.2585
+- Offer Uplift: -22.19%
+
+--- Opened Cohort (81 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 27.1
+- Post-Campaign Daily Offer Average (cohort): 22.5
+- Pre-Campaign Daily Offer Average (per user): 0.3342
+- Post-Campaign Daily Offer Average (per user): 0.2778
+- Offer Uplift: -16.87%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754142692
+Subject Line: Trusted Trader status unlocked 👟🔥
+Send Timestamp: 2025-04-18 03:32:19+00:00
+Total Audience Size: 130
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Status, Trusted Trader
+framing: Congratulatory, Reward
+personalization_level: Segmented
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 72
+Total Clicks: 1
+
+
+### Impact Summary ###
+
+--- Received Cohort (123 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 48.5
+- Post-Campaign Daily Offer Average (cohort): 33.0
+- Pre-Campaign Daily Offer Average (per user): 0.3940
+- Post-Campaign Daily Offer Average (per user): 0.2683
+- Offer Uplift: -31.91%
+
+--- Opened Cohort (67 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 27.1
+- Post-Campaign Daily Offer Average (cohort): 20.0
+- Pre-Campaign Daily Offer Average (per user): 0.4050
+- Post-Campaign Daily Offer Average (per user): 0.2985
+- Offer Uplift: -26.29%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.8
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.8333
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754142714
+Subject Line: You’ve earned this, Trusted Trader 👏 👟
+Send Timestamp: 2025-04-18 03:36:50+00:00
+Total Audience Size: 698
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Status, Trusted Trader
+framing: Congratulatory, Reward
+personalization_level: Segmented
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 388
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (659 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 7.7
+- Post-Campaign Daily Offer Average (cohort): 17.0
+- Pre-Campaign Daily Offer Average (per user): 0.0116
+- Post-Campaign Daily Offer Average (per user): 0.0258
+- Offer Uplift: 121.74%
+
+--- Opened Cohort (365 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 5.8
+- Post-Campaign Daily Offer Average (cohort): 13.5
+- Pre-Campaign Daily Offer Average (per user): 0.0160
+- Post-Campaign Daily Offer Average (per user): 0.0370
+- Offer Uplift: 131.43%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754142716
+Subject Line: Congrats–You’re a Trusted Trader 👟🤝
+Send Timestamp: 2025-04-18 03:36:50+00:00
+Total Audience Size: 698
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Congratulatory, Reward
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 387
+Total Clicks: 1
+
+
+### Impact Summary ###
+
+--- Received Cohort (658 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 5.6
+- Post-Campaign Daily Offer Average (cohort): 31.5
+- Pre-Campaign Daily Offer Average (per user): 0.0086
+- Post-Campaign Daily Offer Average (per user): 0.0479
+- Offer Uplift: 459.17%
+
+--- Opened Cohort (365 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.2
+- Post-Campaign Daily Offer Average (cohort): 30.5
+- Pre-Campaign Daily Offer Average (per user): 0.0115
+- Post-Campaign Daily Offer Average (per user): 0.0836
+- Offer Uplift: 626.19%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.3
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.3333
+- Post-Campaign Daily Offer Average (per user): 2.0000
+- Offer Uplift: 500.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754146340
+Subject Line: You’ve earned 40% off your trade fees
+Send Timestamp: 2025-04-18 13:54:45+00:00
+Total Audience Size: 1037
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Fee Discount
+framing: Congratulatory, Financial Benefit, Reward
+personalization_level: Segmented
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 575
+Total Clicks: 6
+
+
+### Impact Summary ###
+
+--- Received Cohort (968 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 296.8
+- Post-Campaign Daily Offer Average (cohort): 329.5
+- Pre-Campaign Daily Offer Average (per user): 0.3066
+- Post-Campaign Daily Offer Average (per user): 0.3404
+- Offer Uplift: 11.02%
+
+--- Opened Cohort (543 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 172.2
+- Post-Campaign Daily Offer Average (cohort): 165.5
+- Pre-Campaign Daily Offer Average (per user): 0.3171
+- Post-Campaign Daily Offer Average (per user): 0.3048
+- Offer Uplift: -3.87%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 5.5
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 1.1067
+- Post-Campaign Daily Offer Average (per user): 0.3000
+- Offer Uplift: -72.89%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754146598
+Subject Line: Your Tradeblock fees just dropped by 40%
+Send Timestamp: 2025-04-18 14:18:07+00:00
+Total Audience Size: 627
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 313
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (593 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 8.4
+- Post-Campaign Daily Offer Average (cohort): 20.0
+- Pre-Campaign Daily Offer Average (per user): 0.0142
+- Post-Campaign Daily Offer Average (per user): 0.0337
+- Offer Uplift: 138.10%
+
+--- Opened Cohort (294 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 3.4
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0115
+- Post-Campaign Daily Offer Average (per user): 0.0153
+- Offer Uplift: 33.66%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754146600
+Subject Line: Congrats–You're a Trusted Trader 👏 👟
+Send Timestamp: 2025-04-18 14:18:07+00:00
+Total Audience Size: 651
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Congratulatory, Reward
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 315
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (608 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 9.3
+- Post-Campaign Daily Offer Average (cohort): 34.0
+- Pre-Campaign Daily Offer Average (per user): 0.0152
+- Post-Campaign Daily Offer Average (per user): 0.0559
+- Offer Uplift: 266.91%
+
+--- Opened Cohort (294 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 6.4
+- Post-Campaign Daily Offer Average (cohort): 27.5
+- Pre-Campaign Daily Offer Average (per user): 0.0217
+- Post-Campaign Daily Offer Average (per user): 0.0935
+- Offer Uplift: 331.94%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.3
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.2667
+- Post-Campaign Daily Offer Average (per user): 2.0000
+- Offer Uplift: 650.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754148444
+Subject Line: Congrats–You're a Trusted Trader 👏 👟
+Send Timestamp: 2025-04-18 19:20:43+00:00
+Total Audience Size: 5141
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Congratulatory, Reward
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 2439
+Total Clicks: 5
+
+
+### Impact Summary ###
+
+--- Received Cohort (4816 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 71.8
+- Post-Campaign Daily Offer Average (cohort): 134.5
+- Pre-Campaign Daily Offer Average (per user): 0.0149
+- Post-Campaign Daily Offer Average (per user): 0.0279
+- Offer Uplift: 87.33%
+
+--- Opened Cohort (2294 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 39.7
+- Post-Campaign Daily Offer Average (cohort): 99.5
+- Pre-Campaign Daily Offer Average (per user): 0.0173
+- Post-Campaign Daily Offer Average (per user): 0.0434
+- Offer Uplift: 150.84%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.1
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0133
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754332126
+Subject Line: Trusted Traders saved >$10k in 3 weeks!
+Send Timestamp: 2025-05-09 14:30:01+00:00
+Total Audience Size: 1688
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Social Proof
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 729
+Total Clicks: 4
+
+
+### Impact Summary ###
+
+--- Received Cohort (1585 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 421.9
+- Post-Campaign Daily Offer Average (cohort): 377.5
+- Pre-Campaign Daily Offer Average (per user): 0.2662
+- Post-Campaign Daily Offer Average (per user): 0.2382
+- Offer Uplift: -10.52%
+
+--- Opened Cohort (688 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 186.9
+- Post-Campaign Daily Offer Average (cohort): 179.5
+- Pre-Campaign Daily Offer Average (per user): 0.2716
+- Post-Campaign Daily Offer Average (per user): 0.2609
+- Offer Uplift: -3.94%
+
+--- Clicked Cohort (4 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.7
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.4167
+- Post-Campaign Daily Offer Average (per user): 0.3750
+- Offer Uplift: -10.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358934
+Subject Line: Trusted Traders just saved $10k in less than 3 weeks
+Send Timestamp: 2025-05-12 14:30:12+00:00
+Total Audience Size: 237
+Subject Line Test ID: ab_test_3
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Social Proof
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 112
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (226 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+--- Opened Cohort (105 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358936
+Subject Line: Trusted Traders just saved $10k in less than 3 weeks
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 195
+Subject Line Test ID: ab_test_4
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Status, Trusted Trader
+framing: Social Proof
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 102
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (187 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.4
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.0073
+- Post-Campaign Daily Offer Average (per user): 0.0027
+- Offer Uplift: -63.41%
+
+--- Opened Cohort (97 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.9
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0096
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358938
+Subject Line: Start trading again with 40% lower fees!
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 238
+Subject Line Test ID: ab_test_3
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 108
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (227 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 6.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0286
+- Offer Uplift: inf%
+
+--- Opened Cohort (104 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 6.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0625
+- Offer Uplift: inf%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358940
+Subject Line: You're leaving money on the table 👀
+Send Timestamp: 2025-05-12 14:30:07+00:00
+Total Audience Size: 195
+Subject Line Test ID: ab_test_4
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 106
+Total Clicks: 9
+
+
+### Impact Summary ###
+
+--- Received Cohort (181 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.5
+- Post-Campaign Daily Offer Average (cohort): 6.0
+- Pre-Campaign Daily Offer Average (per user): 0.0249
+- Post-Campaign Daily Offer Average (per user): 0.0331
+- Offer Uplift: 33.33%
+
+--- Opened Cohort (98 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 3.1
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0313
+- Post-Campaign Daily Offer Average (per user): 0.0459
+- Offer Uplift: 46.74%
+
+--- Clicked Cohort (8 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.2
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.0250
+- Post-Campaign Daily Offer Average (per user): 0.2500
+- Offer Uplift: 900.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358942
+Subject Line: Wait... you LIKE paying higher fees?
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 198
+Subject Line Test ID: ab_test_2
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit, Pain Point Agitation
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 116
+Total Clicks: 10
+
+
+### Impact Summary ###
+
+--- Received Cohort (187 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 15.8
+- Post-Campaign Daily Offer Average (cohort): 26.5
+- Pre-Campaign Daily Offer Average (per user): 0.0845
+- Post-Campaign Daily Offer Average (per user): 0.1417
+- Offer Uplift: 67.72%
+
+--- Opened Cohort (111 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 6.8
+- Post-Campaign Daily Offer Average (cohort): 8.5
+- Pre-Campaign Daily Offer Average (per user): 0.0610
+- Post-Campaign Daily Offer Average (per user): 0.0766
+- Offer Uplift: 25.62%
+
+--- Clicked Cohort (10 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.0
+- Post-Campaign Daily Offer Average (cohort): 1.0
+- Pre-Campaign Daily Offer Average (per user): 0.4000
+- Post-Campaign Daily Offer Average (per user): 0.1000
+- Offer Uplift: -75.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358944
+Subject Line: 40% lower fees?? I guess it's time to start trading again 👀
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 248
+Subject Line Test ID: ab_test_1
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 124
+Total Clicks: 1
+
+
+### Impact Summary ###
+
+--- Received Cohort (233 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+--- Opened Cohort (117 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358946
+Subject Line: Save $20 on EVERY future trade – you’re so close
+Subject Line Test ID: ab_test_10
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 468
+
+--- Tags ---
+playbook_type: Promotional
+framing: Financial Benefit, Urgency
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 241
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (443 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.7
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0061
+- Post-Campaign Daily Offer Average (per user): 0.0102
+- Offer Uplift: 66.67%
+
+--- Opened Cohort (227 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.2
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0053
+- Post-Campaign Daily Offer Average (per user): 0.0198
+- Offer Uplift: 275.00%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754358948
+Subject Line: You’re 1 trade away from 40% off forever 💸
+Subject Line Test ID: ab_test_10
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 471
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 245
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (438 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0046
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+--- Opened Cohort (231 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.5
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0063
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754369336
+Subject Line: 40% lower fees?? I guess it's time to start trading again 👀
+Send Timestamp: 2025-05-13 14:30:03+00:00
+Total Audience Size: 2939
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test_winner
+--- Raw Campaign Performance ---
+Total Opens: 1351
+Total Clicks: 16
+
+
+### Impact Summary ###
+
+--- Received Cohort (2767 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0016
+- Offer Uplift: inf%
+
+--- Opened Cohort (1279 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 4.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0031
+- Offer Uplift: inf%
+
+--- Clicked Cohort (14 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.1071
+- Offer Uplift: inf%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754369338
+Subject Line: Save $20 on EVERY future trade – you’re so close
+Send Timestamp: 2025-05-13 14:30:04+00:00
+Total Audience Size: 3777
+
+--- Tags ---
+playbook_type: Promotional
+framing: Financial Benefit, Urgency
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 1839
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (3524 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 23.5
+- Post-Campaign Daily Offer Average (cohort): 24.5
+- Pre-Campaign Daily Offer Average (per user): 0.0067
+- Post-Campaign Daily Offer Average (per user): 0.0070
+- Offer Uplift: 4.26%
+
+--- Opened Cohort (1717 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 13.8
+- Post-Campaign Daily Offer Average (cohort): 12.0
+- Pre-Campaign Daily Offer Average (per user): 0.0080
+- Post-Campaign Daily Offer Average (per user): 0.0070
+- Offer Uplift: -12.83%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754370434
+Subject Line: Wait... you LIKE paying higher fees?
+Send Timestamp: 2025-05-13 17:22:12+00:00
+Total Audience Size: 2394
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Fee Discount
+framing: Financial Benefit, Pain Point Agitation
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test_winner
+--- Raw Campaign Performance ---
+Total Opens: 1321
+Total Clicks: 99
+
+
+### Impact Summary ###
+
+--- Received Cohort (2226 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 35.8
+- Post-Campaign Daily Offer Average (cohort): 93.5
+- Pre-Campaign Daily Offer Average (per user): 0.0161
+- Post-Campaign Daily Offer Average (per user): 0.0420
+- Offer Uplift: 161.42%
+
+--- Opened Cohort (1229 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 22.2
+- Post-Campaign Daily Offer Average (cohort): 60.0
+- Pre-Campaign Daily Offer Average (per user): 0.0181
+- Post-Campaign Daily Offer Average (per user): 0.0488
+- Offer Uplift: 170.27%
+
+--- Clicked Cohort (91 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 8.6
+- Post-Campaign Daily Offer Average (cohort): 45.5
+- Pre-Campaign Daily Offer Average (per user): 0.0941
+- Post-Campaign Daily Offer Average (per user): 0.5000
+- Offer Uplift: 431.13%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754371078
+Subject Line: Tradeblock just got an upgrade 👀 - see what’s new
+Subject Line Test ID: ab_test_11
+Send Timestamp: 2025-05-13 18:55:15+00:00
+Total Audience Size: 3552
+
+--- Tags ---
+playbook_type: Product Update
+topic_focus: New Feature
+framing: Informational
+personalization_level: Generic Broadcast
+call_to_action: Explore Feature
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1659
+Total Clicks: 15
+
+
+### Impact Summary ###
+
+--- Received Cohort (3327 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 87.1
+- Post-Campaign Daily Offer Average (cohort): 107.0
+- Pre-Campaign Daily Offer Average (per user): 0.0262
+- Post-Campaign Daily Offer Average (per user): 0.0322
+- Offer Uplift: 22.85%
+
+--- Opened Cohort (1563 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 49.0
+- Post-Campaign Daily Offer Average (cohort): 69.0
+- Pre-Campaign Daily Offer Average (per user): 0.0313
+- Post-Campaign Daily Offer Average (per user): 0.0441
+- Offer Uplift: 40.82%
+
+--- Clicked Cohort (12 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.9
+- Post-Campaign Daily Offer Average (cohort): 11.5
+- Pre-Campaign Daily Offer Average (per user): 0.0778
+- Post-Campaign Daily Offer Average (per user): 0.9583
+- Offer Uplift: 1132.14%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754371082
+Subject Line: App update!! More accurate prices + AI-generated counters
+Subject Line Test ID: ab_test_11
+Send Timestamp: 2025-05-13 18:55:15+00:00
+Total Audience Size: 3508
+
+--- Tags ---
+playbook_type: Product Update
+topic_focus: New Feature
+framing: Informational
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1645
+Total Clicks: 10
+
+
+### Impact Summary ###
+
+--- Received Cohort (3320 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 79.9
+- Post-Campaign Daily Offer Average (cohort): 73.0
+- Pre-Campaign Daily Offer Average (per user): 0.0241
+- Post-Campaign Daily Offer Average (per user): 0.0220
+- Offer Uplift: -8.60%
+
+--- Opened Cohort (1553 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 47.9
+- Post-Campaign Daily Offer Average (cohort): 46.0
+- Pre-Campaign Daily Offer Average (per user): 0.0309
+- Post-Campaign Daily Offer Average (per user): 0.0296
+- Offer Uplift: -4.03%
+
+--- Clicked Cohort (10 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 8.4
+- Post-Campaign Daily Offer Average (cohort): 5.0
+- Pre-Campaign Daily Offer Average (per user): 0.8400
+- Post-Campaign Daily Offer Average (per user): 0.5000
+- Offer Uplift: -40.48%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754371084
+Subject Line: Don’t call it a glow up... (Translation: new app updates!)
+Subject Line Test ID: ab_test_11
+Send Timestamp: 2025-05-13 18:55:15+00:00
+Total Audience Size: 3555
+
+--- Tags ---
+playbook_type: Product Update
+topic_focus: New Feature
+framing: Informational
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1658
+Total Clicks: 5
+
+
+### Impact Summary ###
+
+--- Received Cohort (3312 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 93.5
+- Post-Campaign Daily Offer Average (cohort): 116.0
+- Pre-Campaign Daily Offer Average (per user): 0.0282
+- Post-Campaign Daily Offer Average (per user): 0.0350
+- Offer Uplift: 24.06%
+
+--- Opened Cohort (1557 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 52.7
+- Post-Campaign Daily Offer Average (cohort): 50.0
+- Pre-Campaign Daily Offer Average (per user): 0.0338
+- Post-Campaign Daily Offer Average (per user): 0.0321
+- Offer Uplift: -5.12%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.5
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.2933
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754377486
+Subject Line: Tradeblock just got an upgrade 👀 - see what’s new
+Send Timestamp: 2025-05-14 13:30:03+00:00
+Total Audience Size: 42373
+
+--- Tags ---
+playbook_type: Product Update
+topic_focus: New Feature
+framing: Informational
+personalization_level: Generic Broadcast
+call_to_action: Explore Feature
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 18963
+Total Clicks: 91
+
+
+### Impact Summary ###
+
+--- Received Cohort (39733 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 974.6
+- Post-Campaign Daily Offer Average (cohort): 1064.0
+- Pre-Campaign Daily Offer Average (per user): 0.0245
+- Post-Campaign Daily Offer Average (per user): 0.0268
+- Offer Uplift: 9.18%
+
+--- Opened Cohort (17808 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 534.4
+- Post-Campaign Daily Offer Average (cohort): 609.0
+- Pre-Campaign Daily Offer Average (per user): 0.0300
+- Post-Campaign Daily Offer Average (per user): 0.0342
+- Offer Uplift: 13.96%
+
+--- Clicked Cohort (89 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 21.2
+- Post-Campaign Daily Offer Average (cohort): 31.5
+- Pre-Campaign Daily Offer Average (per user): 0.2386
+- Post-Campaign Daily Offer Average (per user): 0.3539
+- Offer Uplift: 48.35%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754387900
+Subject Line: These 3 shoes are running the app right now
+Send Timestamp: 2025-05-15 18:45:26+00:00
+Total Audience Size: 3544
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Market Trend
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1583
+Total Clicks: 10
+
+
+### Impact Summary ###
+
+--- Received Cohort (3319 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 70.9
+- Post-Campaign Daily Offer Average (cohort): 86.5
+- Pre-Campaign Daily Offer Average (per user): 0.0214
+- Post-Campaign Daily Offer Average (per user): 0.0261
+- Offer Uplift: 22.00%
+
+--- Opened Cohort (1490 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 37.5
+- Post-Campaign Daily Offer Average (cohort): 40.5
+- Pre-Campaign Daily Offer Average (per user): 0.0252
+- Post-Campaign Daily Offer Average (per user): 0.0272
+- Offer Uplift: 7.90%
+
+--- Clicked Cohort (10 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.0
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.1000
+- Post-Campaign Daily Offer Average (per user): 0.1500
+- Offer Uplift: 50.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754387902
+Subject Line: Heat check inside. 🔥
+Send Timestamp: 2025-05-15 18:45:28+00:00
+Total Audience Size: 3531
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1548
+Total Clicks: 15
+
+
+### Impact Summary ###
+
+--- Received Cohort (3295 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 67.1
+- Post-Campaign Daily Offer Average (cohort): 61.0
+- Pre-Campaign Daily Offer Average (per user): 0.0204
+- Post-Campaign Daily Offer Average (per user): 0.0185
+- Offer Uplift: -9.09%
+
+--- Opened Cohort (1451 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 37.8
+- Post-Campaign Daily Offer Average (cohort): 37.5
+- Pre-Campaign Daily Offer Average (per user): 0.0261
+- Post-Campaign Daily Offer Average (per user): 0.0258
+- Offer Uplift: -0.79%
+
+--- Clicked Cohort (14 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.1405
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754387904
+Subject Line: 📈 Trending on the block this week
+Send Timestamp: 2025-05-15 18:45:29+00:00
+Total Audience Size: 3545
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Market Trend
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1627
+Total Clicks: 4
+
+
+### Impact Summary ###
+
+--- Received Cohort (3301 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 67.0
+- Post-Campaign Daily Offer Average (cohort): 43.0
+- Pre-Campaign Daily Offer Average (per user): 0.0203
+- Post-Campaign Daily Offer Average (per user): 0.0130
+- Offer Uplift: -35.82%
+
+--- Opened Cohort (1520 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 38.9
+- Post-Campaign Daily Offer Average (cohort): 30.0
+- Pre-Campaign Daily Offer Average (per user): 0.0256
+- Post-Campaign Daily Offer Average (per user): 0.0197
+- Offer Uplift: -22.81%
+
+--- Clicked Cohort (4 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.4
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.1083
+- Post-Campaign Daily Offer Average (per user): 0.1250
+- Offer Uplift: 15.38%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754396960
+Subject Line: Heat check inside. 🔥
+Send Timestamp: 2025-05-16 14:30:04+00:00
+Total Audience Size: 42323
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test_winner
+--- Raw Campaign Performance ---
+Total Opens: 16831
+Total Clicks: 69
+
+
+### Impact Summary ###
+
+--- Received Cohort (39718 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1022.6
+- Post-Campaign Daily Offer Average (cohort): 873.5
+- Pre-Campaign Daily Offer Average (per user): 0.0257
+- Post-Campaign Daily Offer Average (per user): 0.0220
+- Offer Uplift: -14.58%
+
+--- Opened Cohort (15827 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 494.1
+- Post-Campaign Daily Offer Average (cohort): 423.0
+- Pre-Campaign Daily Offer Average (per user): 0.0312
+- Post-Campaign Daily Offer Average (per user): 0.0267
+- Offer Uplift: -14.39%
+
+--- Clicked Cohort (65 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 10.1
+- Post-Campaign Daily Offer Average (cohort): 8.5
+- Pre-Campaign Daily Offer Average (per user): 0.1549
+- Post-Campaign Daily Offer Average (per user): 0.1308
+- Offer Uplift: -15.56%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754453152
+Subject Line: Throwback Thursday: The Pine Green SB4 is still cookin’ 🔥
+Subject Line Test ID: ab_test_12
+Send Timestamp: 2025-05-22 18:17:30+00:00
+Total Audience Size: 5117
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 2169
+Total Clicks: 7
+
+
+### Impact Summary ###
+
+--- Received Cohort (4814 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 117.9
+- Post-Campaign Daily Offer Average (cohort): 136.0
+- Pre-Campaign Daily Offer Average (per user): 0.0245
+- Post-Campaign Daily Offer Average (per user): 0.0283
+- Offer Uplift: 15.35%
+
+--- Opened Cohort (2047 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 52.4
+- Post-Campaign Daily Offer Average (cohort): 66.5
+- Pre-Campaign Daily Offer Average (per user): 0.0256
+- Post-Campaign Daily Offer Average (per user): 0.0325
+- Offer Uplift: 26.83%
+
+--- Clicked Cohort (6 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754453154
+Subject Line: Remember this shoe? So does the 'block.
+Subject Line Test ID: ab_test_12
+Send Timestamp: 2025-05-22 18:17:30+00:00
+Total Audience Size: 5082
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 2238
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (4779 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 123.1
+- Post-Campaign Daily Offer Average (cohort): 139.5
+- Pre-Campaign Daily Offer Average (per user): 0.0258
+- Post-Campaign Daily Offer Average (per user): 0.0292
+- Offer Uplift: 13.32%
+
+--- Opened Cohort (2104 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 71.5
+- Post-Campaign Daily Offer Average (cohort): 65.0
+- Pre-Campaign Daily Offer Average (per user): 0.0340
+- Post-Campaign Daily Offer Average (per user): 0.0309
+- Offer Uplift: -9.05%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754454460
+Subject Line: Throwback Thursday: The Pine Green SB4 is still cookin’ 🔥
+Send Timestamp: 2025-05-22 21:20:20+00:00
+Total Audience Size: 41064
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 11731
+Total Clicks: 52
+
+
+### Impact Summary ###
+
+--- Received Cohort (38526 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 911.3
+- Post-Campaign Daily Offer Average (cohort): 926.0
+- Pre-Campaign Daily Offer Average (per user): 0.0237
+- Post-Campaign Daily Offer Average (per user): 0.0240
+- Offer Uplift: 1.61%
+
+--- Opened Cohort (11045 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 391.6
+- Post-Campaign Daily Offer Average (cohort): 396.5
+- Pre-Campaign Daily Offer Average (per user): 0.0355
+- Post-Campaign Daily Offer Average (per user): 0.0359
+- Offer Uplift: 1.25%
+
+--- Clicked Cohort (48 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.6
+- Post-Campaign Daily Offer Average (cohort): 10.0
+- Pre-Campaign Daily Offer Average (per user): 0.0951
+- Post-Campaign Daily Offer Average (per user): 0.2083
+- Offer Uplift: 118.98%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560900
+Subject Line: Size 10's Top Hunters: Who’s making moves?
+Send Timestamp: 2025-06-03 15:39:35+00:00
+Total Audience Size: 1120
+Subject Line Test ID: ab_test_6
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 509
+Total Clicks: 14
+
+
+### Impact Summary ###
+
+--- Received Cohort (1033 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 30.6
+- Post-Campaign Daily Offer Average (cohort): 21.0
+- Pre-Campaign Daily Offer Average (per user): 0.0296
+- Post-Campaign Daily Offer Average (per user): 0.0203
+- Offer Uplift: -31.30%
+
+--- Opened Cohort (469 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 13.3
+- Post-Campaign Daily Offer Average (cohort): 9.0
+- Pre-Campaign Daily Offer Average (per user): 0.0283
+- Post-Campaign Daily Offer Average (per user): 0.0192
+- Offer Uplift: -32.16%
+
+--- Clicked Cohort (13 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.9
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0692
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560902
+Subject Line: Who’s most active in your size? Meet size  8.5's Top Hunters
+Send Timestamp: 2025-06-03 15:39:35+00:00
+Total Audience Size: 1658
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 758
+Total Clicks: 19
+
+
+### Impact Summary ###
+
+--- Received Cohort (1564 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 59.5
+- Post-Campaign Daily Offer Average (cohort): 75.0
+- Pre-Campaign Daily Offer Average (per user): 0.0381
+- Post-Campaign Daily Offer Average (per user): 0.0480
+- Offer Uplift: 25.98%
+
+--- Opened Cohort (714 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 20.2
+- Post-Campaign Daily Offer Average (cohort): 21.0
+- Pre-Campaign Daily Offer Average (per user): 0.0283
+- Post-Campaign Daily Offer Average (per user): 0.0294
+- Offer Uplift: 3.79%
+
+--- Clicked Cohort (19 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.3
+- Post-Campaign Daily Offer Average (cohort): 2.5
+- Pre-Campaign Daily Offer Average (per user): 0.1211
+- Post-Campaign Daily Offer Average (per user): 0.1316
+- Offer Uplift: 8.70%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560904
+Subject Line: Top offer creators in size 14—and what they want
+Send Timestamp: 2025-06-03 15:39:36+00:00
+Total Audience Size: 1652
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 774
+Total Clicks: 17
+
+
+### Impact Summary ###
+
+--- Received Cohort (1550 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 51.8
+- Post-Campaign Daily Offer Average (cohort): 70.0
+- Pre-Campaign Daily Offer Average (per user): 0.0334
+- Post-Campaign Daily Offer Average (per user): 0.0452
+- Offer Uplift: 35.14%
+
+--- Opened Cohort (732 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 41.1
+- Post-Campaign Daily Offer Average (cohort): 57.0
+- Pre-Campaign Daily Offer Average (per user): 0.0562
+- Post-Campaign Daily Offer Average (per user): 0.0779
+- Offer Uplift: 38.57%
+
+--- Clicked Cohort (17 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 14.2
+- Post-Campaign Daily Offer Average (cohort): 16.0
+- Pre-Campaign Daily Offer Average (per user): 0.8353
+- Post-Campaign Daily Offer Average (per user): 0.9412
+- Offer Uplift: 12.68%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560924
+Subject Line: Size 10.5's Top Hunters: Who’s making moves?
+Send Timestamp: 2025-06-03 15:42:53+00:00
+Total Audience Size: 1116
+Subject Line Test ID: ab_test_6
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 514
+Total Clicks: 7
+
+
+### Impact Summary ###
+
+--- Received Cohort (1060 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 44.9
+- Post-Campaign Daily Offer Average (cohort): 47.0
+- Pre-Campaign Daily Offer Average (per user): 0.0424
+- Post-Campaign Daily Offer Average (per user): 0.0443
+- Offer Uplift: 4.60%
+
+--- Opened Cohort (492 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 18.5
+- Post-Campaign Daily Offer Average (cohort): 23.5
+- Pre-Campaign Daily Offer Average (per user): 0.0375
+- Post-Campaign Daily Offer Average (per user): 0.0478
+- Offer Uplift: 27.26%
+
+--- Clicked Cohort (7 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.6
+- Post-Campaign Daily Offer Average (cohort): 5.0
+- Pre-Campaign Daily Offer Average (per user): 0.2238
+- Post-Campaign Daily Offer Average (per user): 0.7143
+- Offer Uplift: 219.15%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560926
+Subject Line: Top offer creators in size 11—and what they want
+Send Timestamp: 2025-06-03 15:42:53+00:00
+Total Audience Size: 1678
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 777
+Total Clicks: 18
+
+
+### Impact Summary ###
+
+--- Received Cohort (1594 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 55.4
+- Post-Campaign Daily Offer Average (cohort): 61.0
+- Pre-Campaign Daily Offer Average (per user): 0.0347
+- Post-Campaign Daily Offer Average (per user): 0.0383
+- Offer Uplift: 10.17%
+
+--- Opened Cohort (742 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 23.1
+- Post-Campaign Daily Offer Average (cohort): 20.5
+- Pre-Campaign Daily Offer Average (per user): 0.0312
+- Post-Campaign Daily Offer Average (per user): 0.0276
+- Offer Uplift: -11.38%
+
+--- Clicked Cohort (17 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.1
+- Post-Campaign Daily Offer Average (cohort): 6.0
+- Pre-Campaign Daily Offer Average (per user): 0.1235
+- Post-Campaign Daily Offer Average (per user): 0.3529
+- Offer Uplift: 185.71%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754560928
+Subject Line: Who’s most active in your size? Meet size  12's Top Hunters
+Send Timestamp: 2025-06-03 15:42:53+00:00
+Total Audience Size: 1688
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 753
+Total Clicks: 12
+
+
+### Impact Summary ###
+
+--- Received Cohort (1566 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 71.1
+- Post-Campaign Daily Offer Average (cohort): 45.5
+- Pre-Campaign Daily Offer Average (per user): 0.0454
+- Post-Campaign Daily Offer Average (per user): 0.0291
+- Offer Uplift: -35.98%
+
+--- Opened Cohort (693 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 42.5
+- Post-Campaign Daily Offer Average (cohort): 27.5
+- Pre-Campaign Daily Offer Average (per user): 0.0613
+- Post-Campaign Daily Offer Average (per user): 0.0397
+- Offer Uplift: -35.29%
+
+--- Clicked Cohort (11 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.2
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.1091
+- Post-Campaign Daily Offer Average (per user): 0.1364
+- Offer Uplift: 25.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754562472
+Subject Line: Top offer creators in size 10.5—and what they want
+Send Timestamp: 2025-06-03 19:30:02+00:00
+Total Audience Size: 12498
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 5574
+Total Clicks: 151
+
+
+### Impact Summary ###
+
+--- Received Cohort (11720 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 465.0
+- Post-Campaign Daily Offer Average (cohort): 474.0
+- Pre-Campaign Daily Offer Average (per user): 0.0397
+- Post-Campaign Daily Offer Average (per user): 0.0404
+- Offer Uplift: 1.93%
+
+--- Opened Cohort (5223 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 245.3
+- Post-Campaign Daily Offer Average (cohort): 276.5
+- Pre-Campaign Daily Offer Average (per user): 0.0470
+- Post-Campaign Daily Offer Average (per user): 0.0529
+- Offer Uplift: 12.70%
+
+--- Clicked Cohort (141 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 28.8
+- Post-Campaign Daily Offer Average (cohort): 60.0
+- Pre-Campaign Daily Offer Average (per user): 0.2040
+- Post-Campaign Daily Offer Average (per user): 0.4255
+- Offer Uplift: 108.57%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754562474
+Subject Line: Top offer creators in size 7.5—and what they want
+Send Timestamp: 2025-06-03 19:30:02+00:00
+Total Audience Size: 12193
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 5451
+Total Clicks: 123
+
+
+### Impact Summary ###
+
+--- Received Cohort (11426 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 463.4
+- Post-Campaign Daily Offer Average (cohort): 506.5
+- Pre-Campaign Daily Offer Average (per user): 0.0406
+- Post-Campaign Daily Offer Average (per user): 0.0443
+- Offer Uplift: 9.29%
+
+--- Opened Cohort (5114 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 290.1
+- Post-Campaign Daily Offer Average (cohort): 333.0
+- Pre-Campaign Daily Offer Average (per user): 0.0567
+- Post-Campaign Daily Offer Average (per user): 0.0651
+- Offer Uplift: 14.77%
+
+--- Clicked Cohort (114 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 28.2
+- Post-Campaign Daily Offer Average (cohort): 38.0
+- Pre-Campaign Daily Offer Average (per user): 0.2477
+- Post-Campaign Daily Offer Average (per user): 0.3333
+- Offer Uplift: 34.59%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754562502
+Subject Line: You just got $20 for being one of size 11.5's Top Hunters!
+Send Timestamp: 2025-06-03 19:35:01+00:00
+Total Audience Size: 49
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Top Hunters
+framing: Congratulatory, Financial Benefit, Reward
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 33
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (47 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 190.2
+- Post-Campaign Daily Offer Average (cohort): 227.0
+- Pre-Campaign Daily Offer Average (per user): 4.0468
+- Post-Campaign Daily Offer Average (per user): 4.8298
+- Offer Uplift: 19.35%
+
+--- Opened Cohort (31 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 109.1
+- Post-Campaign Daily Offer Average (cohort): 115.0
+- Pre-Campaign Daily Offer Average (per user): 3.5183
+- Post-Campaign Daily Offer Average (per user): 3.7097
+- Offer Uplift: 5.44%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754579582
+Subject Line: Throwback Thursday: The White Cement 3 Reimagined is Making a Comeback
+Subject Line Test ID: ab_test_13
+Send Timestamp: 2025-06-05 15:38:01+00:00
+Total Audience Size: 4955
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 2081
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (4663 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 134.2
+- Post-Campaign Daily Offer Average (cohort): 148.5
+- Pre-Campaign Daily Offer Average (per user): 0.0288
+- Post-Campaign Daily Offer Average (per user): 0.0318
+- Offer Uplift: 10.68%
+
+--- Opened Cohort (1955 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 56.0
+- Post-Campaign Daily Offer Average (cohort): 61.0
+- Pre-Campaign Daily Offer Average (per user): 0.0287
+- Post-Campaign Daily Offer Average (per user): 0.0312
+- Offer Uplift: 8.86%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754579584
+Subject Line: Throwback Thursday: The White Cement 3 Reimagined is Back in the Game
+Subject Line Test ID: ab_test_13
+Send Timestamp: 2025-06-05 15:38:01+00:00
+Total Audience Size: 5024
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 2156
+Total Clicks: 3
+
+
+### Impact Summary ###
+
+--- Received Cohort (4730 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 101.3
+- Post-Campaign Daily Offer Average (cohort): 82.0
+- Pre-Campaign Daily Offer Average (per user): 0.0214
+- Post-Campaign Daily Offer Average (per user): 0.0173
+- Offer Uplift: -19.03%
+
+--- Opened Cohort (2038 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 53.1
+- Post-Campaign Daily Offer Average (cohort): 42.0
+- Pre-Campaign Daily Offer Average (per user): 0.0260
+- Post-Campaign Daily Offer Average (per user): 0.0206
+- Offer Uplift: -20.85%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.2
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0833
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754581144
+Subject Line: Throwback Thursday: The White Cement 3 Reimagined is Making a Comeback
+Send Timestamp: 2025-06-05 20:00:12+00:00
+Total Audience Size: 40127
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 15353
+Total Clicks: 37
+
+
+### Impact Summary ###
+
+--- Received Cohort (37629 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1024.8
+- Post-Campaign Daily Offer Average (cohort): 992.0
+- Pre-Campaign Daily Offer Average (per user): 0.0272
+- Post-Campaign Daily Offer Average (per user): 0.0264
+- Offer Uplift: -3.20%
+
+--- Opened Cohort (14461 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 517.1
+- Post-Campaign Daily Offer Average (cohort): 489.5
+- Pre-Campaign Daily Offer Average (per user): 0.0358
+- Post-Campaign Daily Offer Average (per user): 0.0338
+- Offer Uplift: -5.34%
+
+--- Clicked Cohort (36 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.5
+- Post-Campaign Daily Offer Average (cohort): 1.0
+- Pre-Campaign Daily Offer Average (per user): 0.0694
+- Post-Campaign Daily Offer Average (per user): 0.0278
+- Offer Uplift: -60.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754650782
+Subject Line: Done with “I only trade for DS” replies?
+Send Timestamp: 2025-06-12 16:49:08+00:00
+Total Audience Size: 3423
+Subject Line Test ID: ab_test_9
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Community Norms
+framing: Pain Point Agitation
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1569
+Total Clicks: 42
+
+
+### Impact Summary ###
+
+--- Received Cohort (3194 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 76.5
+- Post-Campaign Daily Offer Average (cohort): 27.0
+- Pre-Campaign Daily Offer Average (per user): 0.0240
+- Post-Campaign Daily Offer Average (per user): 0.0085
+- Offer Uplift: -64.71%
+
+--- Opened Cohort (1473 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 46.1
+- Post-Campaign Daily Offer Average (cohort): 10.5
+- Pre-Campaign Daily Offer Average (per user): 0.0313
+- Post-Campaign Daily Offer Average (per user): 0.0071
+- Offer Uplift: -77.22%
+
+--- Clicked Cohort (41 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 7.9
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.1927
+- Post-Campaign Daily Offer Average (per user): 0.0366
+- Offer Uplift: -81.01%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754650784
+Subject Line: Tired of DS-only traders? Let’s change that.
+Send Timestamp: 2025-06-12 16:49:08+00:00
+Total Audience Size: 3417
+Subject Line Test ID: ab_test_8
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Community Norms
+framing: Pain Point Agitation
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1603
+Total Clicks: 42
+
+
+### Impact Summary ###
+
+--- Received Cohort (3203 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 107.3
+- Post-Campaign Daily Offer Average (cohort): 79.5
+- Pre-Campaign Daily Offer Average (per user): 0.0335
+- Post-Campaign Daily Offer Average (per user): 0.0248
+- Offer Uplift: -25.91%
+
+--- Opened Cohort (1505 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 62.1
+- Post-Campaign Daily Offer Average (cohort): 42.0
+- Pre-Campaign Daily Offer Average (per user): 0.0413
+- Post-Campaign Daily Offer Average (per user): 0.0279
+- Offer Uplift: -32.37%
+
+--- Clicked Cohort (42 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 18.0
+- Post-Campaign Daily Offer Average (cohort): 25.0
+- Pre-Campaign Daily Offer Average (per user): 0.4294
+- Post-Campaign Daily Offer Average (per user): 0.5952
+- Offer Uplift: 38.63%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754650786
+Subject Line: You’re not the only one trying to trade used
+Send Timestamp: 2025-06-12 16:49:09+00:00
+Total Audience Size: 3413
+Subject Line Test ID: ab_test_9
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Community Norms
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 1610
+Total Clicks: 43
+
+
+### Impact Summary ###
+
+--- Received Cohort (3209 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 59.3
+- Post-Campaign Daily Offer Average (cohort): 60.5
+- Pre-Campaign Daily Offer Average (per user): 0.0185
+- Post-Campaign Daily Offer Average (per user): 0.0189
+- Offer Uplift: 2.08%
+
+--- Opened Cohort (1519 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 38.3
+- Post-Campaign Daily Offer Average (cohort): 38.5
+- Pre-Campaign Daily Offer Average (per user): 0.0252
+- Post-Campaign Daily Offer Average (per user): 0.0253
+- Offer Uplift: 0.61%
+
+--- Clicked Cohort (40 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.4
+- Post-Campaign Daily Offer Average (cohort): 3.0
+- Pre-Campaign Daily Offer Average (per user): 0.1108
+- Post-Campaign Daily Offer Average (per user): 0.0750
+- Offer Uplift: -32.33%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754651868
+Subject Line: Done with “I only trade for DS” replies?
+Send Timestamp: 2025-06-12 19:30:15+00:00
+Total Audience Size: 41029
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Community Norms
+framing: Pain Point Agitation
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test_winner
+--- Raw Campaign Performance ---
+Total Opens: 15951
+Total Clicks: 531
+
+
+### Impact Summary ###
+
+--- Received Cohort (38496 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 980.8
+- Post-Campaign Daily Offer Average (cohort): 762.5
+- Pre-Campaign Daily Offer Average (per user): 0.0255
+- Post-Campaign Daily Offer Average (per user): 0.0198
+- Offer Uplift: -22.26%
+
+--- Opened Cohort (15012 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 605.3
+- Post-Campaign Daily Offer Average (cohort): 466.5
+- Pre-Campaign Daily Offer Average (per user): 0.0403
+- Post-Campaign Daily Offer Average (per user): 0.0311
+- Offer Uplift: -22.93%
+
+--- Clicked Cohort (499 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 136.5
+- Post-Campaign Daily Offer Average (cohort): 106.5
+- Pre-Campaign Daily Offer Average (per user): 0.2735
+- Post-Campaign Daily Offer Average (per user): 0.2134
+- Offer Uplift: -21.98%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754710018
+Subject Line: Ferrari 14s just dropped. You in the race or nah?
+Subject Line Test ID: ab_test_14
+Send Timestamp: 2025-06-16 18:28:09+00:00
+Total Audience Size: 2107
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 916
+Total Clicks: 6
+
+
+### Impact Summary ###
+
+--- Received Cohort (1972 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 95.5
+- Post-Campaign Daily Offer Average (cohort): 102.5
+- Pre-Campaign Daily Offer Average (per user): 0.0484
+- Post-Campaign Daily Offer Average (per user): 0.0520
+- Offer Uplift: 7.37%
+
+--- Opened Cohort (861 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 65.8
+- Post-Campaign Daily Offer Average (cohort): 78.0
+- Pre-Campaign Daily Offer Average (per user): 0.0764
+- Post-Campaign Daily Offer Average (per user): 0.0906
+- Offer Uplift: 18.54%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754710020
+Subject Line: 🏁 You don’t need SNKRS to get in this race 🏁
+Subject Line Test ID: ab_test_14
+Send Timestamp: 2025-06-16 18:28:09+00:00
+Total Audience Size: 2107
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 973
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (1988 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 70.5
+- Post-Campaign Daily Offer Average (cohort): 43.0
+- Pre-Campaign Daily Offer Average (per user): 0.0355
+- Post-Campaign Daily Offer Average (per user): 0.0216
+- Offer Uplift: -39.01%
+
+--- Opened Cohort (925 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 35.6
+- Post-Campaign Daily Offer Average (cohort): 18.5
+- Pre-Campaign Daily Offer Average (per user): 0.0385
+- Post-Campaign Daily Offer Average (per user): 0.0200
+- Offer Uplift: -47.99%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754710022
+Subject Line: Ferrari 14s just dropped. You in the race or nah? 🏁
+Subject Line Test ID: ab_test_14
+Send Timestamp: 2025-06-16 18:28:09+00:00
+Total Audience Size: 2122
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 945
+Total Clicks: 8
+
+
+### Impact Summary ###
+
+--- Received Cohort (1971 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 76.1
+- Post-Campaign Daily Offer Average (cohort): 74.0
+- Pre-Campaign Daily Offer Average (per user): 0.0386
+- Post-Campaign Daily Offer Average (per user): 0.0375
+- Offer Uplift: -2.76%
+
+--- Opened Cohort (879 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 40.4
+- Post-Campaign Daily Offer Average (cohort): 35.0
+- Pre-Campaign Daily Offer Average (per user): 0.0459
+- Post-Campaign Daily Offer Average (per user): 0.0398
+- Offer Uplift: -13.29%
+
+--- Clicked Cohort (8 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.8
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.1000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754719244
+Subject Line: Ferrari 14s just dropped. You in the race or nah? 🏁
+Send Timestamp: 2025-06-17 14:31:22+00:00
+Total Audience Size: 25295
+
+--- Tags ---
+playbook_type: Promotional
+topic_focus: Shoe Spotlight
+personalization_level: Generic Broadcast
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 10474
+Total Clicks: 38
+
+
+### Impact Summary ###
+
+--- Received Cohort (23723 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 943.1
+- Post-Campaign Daily Offer Average (cohort): 918.0
+- Pre-Campaign Daily Offer Average (per user): 0.0398
+- Post-Campaign Daily Offer Average (per user): 0.0387
+- Offer Uplift: -2.66%
+
+--- Opened Cohort (9847 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 480.6
+- Post-Campaign Daily Offer Average (cohort): 413.0
+- Pre-Campaign Daily Offer Average (per user): 0.0488
+- Post-Campaign Daily Offer Average (per user): 0.0419
+- Offer Uplift: -14.07%
+
+--- Clicked Cohort (38 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 7.5
+- Post-Campaign Daily Offer Average (cohort): 17.0
+- Pre-Campaign Daily Offer Average (per user): 0.1982
+- Post-Campaign Daily Offer Average (per user): 0.4474
+- Offer Uplift: 125.66%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754738316
+Subject Line: Size 9's Top Hunters: Who’s making moves?
+Subject Line Test ID: ab_test_15
+Send Timestamp: 2025-06-19 16:32:14+00:00
+Total Audience Size: 1598
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 718
+Total Clicks: 13
+
+
+### Impact Summary ###
+
+--- Received Cohort (1490 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 72.4
+- Post-Campaign Daily Offer Average (cohort): 47.5
+- Pre-Campaign Daily Offer Average (per user): 0.0486
+- Post-Campaign Daily Offer Average (per user): 0.0319
+- Offer Uplift: -34.39%
+
+--- Opened Cohort (673 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 36.6
+- Post-Campaign Daily Offer Average (cohort): 21.5
+- Pre-Campaign Daily Offer Average (per user): 0.0544
+- Post-Campaign Daily Offer Average (per user): 0.0319
+- Offer Uplift: -41.31%
+
+--- Clicked Cohort (10 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.5
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.0533
+- Post-Campaign Daily Offer Average (per user): 0.2000
+- Offer Uplift: 275.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754738318
+Subject Line: Top offer creators in size 17—and what they want
+Subject Line Test ID: ab_test_15
+Send Timestamp: 2025-06-19 16:32:14+00:00
+Total Audience Size: 1573
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 672
+Total Clicks: 12
+
+
+### Impact Summary ###
+
+--- Received Cohort (1483 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 100.5
+- Post-Campaign Daily Offer Average (cohort): 57.5
+- Pre-Campaign Daily Offer Average (per user): 0.0677
+- Post-Campaign Daily Offer Average (per user): 0.0388
+- Offer Uplift: -42.77%
+
+--- Opened Cohort (644 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 54.6
+- Post-Campaign Daily Offer Average (cohort): 27.0
+- Pre-Campaign Daily Offer Average (per user): 0.0848
+- Post-Campaign Daily Offer Average (per user): 0.0419
+- Offer Uplift: -50.58%
+
+--- Clicked Cohort (11 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.2
+- Post-Campaign Daily Offer Average (cohort): 3.5
+- Pre-Campaign Daily Offer Average (per user): 0.1970
+- Post-Campaign Daily Offer Average (per user): 0.3182
+- Offer Uplift: 61.54%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754738320
+Subject Line: Who’s most active in your size? Meet size  11's Top Hunters
+Subject Line Test ID: ab_test_15
+Send Timestamp: 2025-06-19 16:32:14+00:00
+Total Audience Size: 1591
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 714
+Total Clicks: 12
+
+
+### Impact Summary ###
+
+--- Received Cohort (1498 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 111.9
+- Post-Campaign Daily Offer Average (cohort): 104.0
+- Pre-Campaign Daily Offer Average (per user): 0.0747
+- Post-Campaign Daily Offer Average (per user): 0.0694
+- Offer Uplift: -7.03%
+
+--- Opened Cohort (680 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 57.9
+- Post-Campaign Daily Offer Average (cohort): 79.5
+- Pre-Campaign Daily Offer Average (per user): 0.0851
+- Post-Campaign Daily Offer Average (per user): 0.1169
+- Offer Uplift: 37.38%
+
+--- Clicked Cohort (12 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 3.9
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.3250
+- Post-Campaign Daily Offer Average (per user): 0.0417
+- Offer Uplift: -87.18%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754739348
+Subject Line: Top offer creators in size 11—and what they want
+Send Timestamp: 2025-06-19 19:30:02+00:00
+Total Audience Size: 19056
+
+--- Tags ---
+playbook_type: Community
+topic_focus: Top Hunters
+framing: Social Proof
+personalization_level: Personalized
+call_to_action: Explore Feature
+test_details: Subject Line A/B Test_winner
+--- Raw Campaign Performance ---
+Total Opens: 8564
+Total Clicks: 185
+
+
+### Impact Summary ###
+
+--- Received Cohort (17858 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 943.6
+- Post-Campaign Daily Offer Average (cohort): 1131.0
+- Pre-Campaign Daily Offer Average (per user): 0.0528
+- Post-Campaign Daily Offer Average (per user): 0.0633
+- Offer Uplift: 19.86%
+
+--- Opened Cohort (8036 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 544.5
+- Post-Campaign Daily Offer Average (cohort): 684.0
+- Pre-Campaign Daily Offer Average (per user): 0.0678
+- Post-Campaign Daily Offer Average (per user): 0.0851
+- Offer Uplift: 25.62%
+
+--- Clicked Cohort (173 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 39.8
+- Post-Campaign Daily Offer Average (cohort): 78.0
+- Pre-Campaign Daily Offer Average (per user): 0.2299
+- Post-Campaign Daily Offer Average (per user): 0.4509
+- Offer Uplift: 96.14%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754739634
+Subject Line: You just got $20 for being one of size 11.5's Top Hunters!
+Send Timestamp: 2025-06-19 20:30:02+00:00
+Total Audience Size: 48
+
+--- Tags ---
+playbook_type: Lifecycle
+topic_focus: Top Hunters
+framing: Congratulatory, Financial Benefit, Reward
+personalization_level: Personalized
+call_to_action: Learn More
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 37
+Total Clicks: 0
+
+
+### Impact Summary ###
+
+--- Received Cohort (45 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 202.5
+- Post-Campaign Daily Offer Average (cohort): 159.5
+- Pre-Campaign Daily Offer Average (per user): 4.5007
+- Post-Campaign Daily Offer Average (per user): 3.5444
+- Offer Uplift: -21.25%
+
+--- Opened Cohort (34 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 132.0
+- Post-Campaign Daily Offer Average (cohort): 108.0
+- Pre-Campaign Daily Offer Average (per user): 3.8814
+- Post-Campaign Daily Offer Average (per user): 3.1765
+- Offer Uplift: -18.16%
+
+--- Clicked Cohort (0 users) ---
+- No users in this cohort.
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754856524
+Subject Line: 3 shoes running the market in your size right now 📈
+Subject Line Test ID: ab_test_16
+Send Timestamp: 2025-07-01 19:18:51+00:00
+Total Audience Size: 2217
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Personalized
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 665
+Total Clicks: 6
+
+
+### Impact Summary ###
+
+--- Received Cohort (2071 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 69.0
+- Post-Campaign Daily Offer Average (cohort): 64.0
+- Pre-Campaign Daily Offer Average (per user): 0.0333
+- Post-Campaign Daily Offer Average (per user): 0.0309
+- Offer Uplift: -7.20%
+
+--- Opened Cohort (619 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 44.7
+- Post-Campaign Daily Offer Average (cohort): 41.0
+- Pre-Campaign Daily Offer Average (per user): 0.0722
+- Post-Campaign Daily Offer Average (per user): 0.0662
+- Offer Uplift: -8.21%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.7
+- Post-Campaign Daily Offer Average (cohort): 0.5
+- Pre-Campaign Daily Offer Average (per user): 0.1333
+- Post-Campaign Daily Offer Average (per user): 0.1000
+- Offer Uplift: -25.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754856526
+Subject Line: Your size 9 market intelligence: This week's hottest shoes 🔥
+Subject Line Test ID: ab_test_16
+Send Timestamp: 2025-07-01 19:18:51+00:00
+Total Audience Size: 2222
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Market Trend
+personalization_level: Personalized
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 685
+Total Clicks: 3
+
+
+### Impact Summary ###
+
+--- Received Cohort (2071 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 76.5
+- Post-Campaign Daily Offer Average (cohort): 70.5
+- Pre-Campaign Daily Offer Average (per user): 0.0370
+- Post-Campaign Daily Offer Average (per user): 0.0340
+- Offer Uplift: -7.88%
+
+--- Opened Cohort (639 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 35.2
+- Post-Campaign Daily Offer Average (cohort): 33.5
+- Pre-Campaign Daily Offer Average (per user): 0.0551
+- Post-Campaign Daily Offer Average (per user): 0.0524
+- Offer Uplift: -4.92%
+
+--- Clicked Cohort (3 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.9
+- Post-Campaign Daily Offer Average (cohort): 8.5
+- Pre-Campaign Daily Offer Average (per user): 0.6222
+- Post-Campaign Daily Offer Average (per user): 2.8333
+- Offer Uplift: 355.36%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754856528
+Subject Line: Market movers alert: 3 shoes every size 12 collector is watching 👀
+Subject Line Test ID: ab_test_16
+Send Timestamp: 2025-07-01 19:18:51+00:00
+Total Audience Size: 2200
+
+--- Tags ---
+playbook_type: Transactional
+topic_focus: Market Trend
+personalization_level: Personalized
+call_to_action: Make Offer
+test_details: Subject Line A/B Test
+--- Raw Campaign Performance ---
+Total Opens: 600
+Total Clicks: 7
+
+
+### Impact Summary ###
+
+--- Received Cohort (2065 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 50.4
+- Post-Campaign Daily Offer Average (cohort): 40.0
+- Pre-Campaign Daily Offer Average (per user): 0.0244
+- Post-Campaign Daily Offer Average (per user): 0.0194
+- Offer Uplift: -20.63%
+
+--- Opened Cohort (562 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 23.9
+- Post-Campaign Daily Offer Average (cohort): 24.5
+- Pre-Campaign Daily Offer Average (per user): 0.0425
+- Post-Campaign Daily Offer Average (per user): 0.0436
+- Offer Uplift: 2.65%
+
+--- Clicked Cohort (6 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.1
+- Post-Campaign Daily Offer Average (cohort): 1.0
+- Pre-Campaign Daily Offer Average (per user): 0.0222
+- Post-Campaign Daily Offer Average (per user): 0.1667
+- Offer Uplift: 650.00%
+
+
+
+================================================================================
+
+
+
+--- Campaign Info and Stats ---
+Campaign ID: 7754857014
+Subject Line: 3 shoes running the market in your size right now 📈
+Send Timestamp: 2025-07-01 21:00:23+00:00
+Total Audience Size: 26417
+
+--- Tags ---
+playbook_type: Transactional
+personalization_level: Personalized
+call_to_action: Make Offer
+test_details: Not a Test
+--- Raw Campaign Performance ---
+Total Opens: 10913
+Total Clicks: 82
+
+
+### Impact Summary ###
+
+--- Received Cohort (24801 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 930.8
+- Post-Campaign Daily Offer Average (cohort): 857.0
+- Pre-Campaign Daily Offer Average (per user): 0.0375
+- Post-Campaign Daily Offer Average (per user): 0.0346
+- Offer Uplift: -7.93%
+
+--- Opened Cohort (10282 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 514.0
+- Post-Campaign Daily Offer Average (cohort): 488.0
+- Pre-Campaign Daily Offer Average (per user): 0.0500
+- Post-Campaign Daily Offer Average (per user): 0.0475
+- Offer Uplift: -5.06%
+
+--- Clicked Cohort (78 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 23.3
+- Post-Campaign Daily Offer Average (cohort): 26.0
+- Pre-Campaign Daily Offer Average (per user): 0.2991
+- Post-Campaign Daily Offer Average (per user): 0.3333
+- Offer Uplift: 11.43%

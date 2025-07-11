@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Hub - Performance Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('email_hub.static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Email Hub - Performance Dashboard</h1>
             <nav>
-                <a href="{{ url_for('index') }}" class="nav-link">CSV Generator</a>
-                <a href="{{ url_for('performance') }}" class="nav-link active">Performance Dashboard</a>
+                <a href="{{ url_for('email_hub.index') }}" class="nav-link">CSV Generator</a>
+                <a href="{{ url_for('email_hub.performance') }}" class="nav-link active">Performance Dashboard</a>
             </nav>
         </header>
 
@@ -110,9 +110,9 @@
         viewToggle.forEach(radio => {
             radio.addEventListener('change', function() {
                 const sortParam = this.value;
-                const currentUrl = new URL(window.location);
-                currentUrl.searchParams.set('sort', sortParam);
-                window.location.href = currentUrl.toString();
+                // Simplified URL construction to avoid potential issues with the URL object
+                const baseUrl = "{{ url_for('email_hub.performance') }}";
+                window.location.href = `${baseUrl}?sort_by=${sortParam}`;
             });
         });
     </script>
