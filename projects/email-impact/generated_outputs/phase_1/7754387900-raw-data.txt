@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754387900
+Subject Line: These 3 shoes are running the app right now
+Send Timestamp: 2025-05-15 18:45:26+00:00
+Total Audience Size: 3544
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1583
+Total Clicks: 10

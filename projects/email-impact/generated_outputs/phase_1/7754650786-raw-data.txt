@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754650786
+Subject Line: You’re not the only one trying to trade used
+Send Timestamp: 2025-06-12 16:49:09+00:00
+Total Audience Size: 3413
+Subject Line Test ID: ab_test_9
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1610
+Total Clicks: 43

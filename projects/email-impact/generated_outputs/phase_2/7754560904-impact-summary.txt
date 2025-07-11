@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754560904
+Subject Line: Top offer creators in size 14—and what they want
+Send Timestamp: 2025-06-03 15:39:36+00:00
+Total Audience Size: 1652
+Subject Line Test ID: ab_test_7
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 774
+Total Clicks: 17
+
+
+### Impact Summary ###
+
+--- Received Cohort (1550 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 51.8
+- Post-Campaign Daily Offer Average (cohort): 70.0
+- Pre-Campaign Daily Offer Average (per user): 0.0334
+- Post-Campaign Daily Offer Average (per user): 0.0452
+- Offer Uplift: 35.14%
+
+--- Opened Cohort (732 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 41.1
+- Post-Campaign Daily Offer Average (cohort): 57.0
+- Pre-Campaign Daily Offer Average (per user): 0.0562
+- Post-Campaign Daily Offer Average (per user): 0.0779
+- Offer Uplift: 38.57%
+
+--- Clicked Cohort (17 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 14.2
+- Post-Campaign Daily Offer Average (cohort): 16.0
+- Pre-Campaign Daily Offer Average (per user): 0.8353
+- Post-Campaign Daily Offer Average (per user): 0.9412
+- Offer Uplift: 12.68%

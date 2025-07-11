@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradeblock Internal Operations Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+        
+        .tool-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+        
+        .tool-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tool-card .features {
+            list-style: none;
+        }
+        
+        .tool-card .features li {
+            padding: 0.3rem 0;
+            color: #4b5563;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .tool-card .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        .status.live {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status.coming-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Internal Operations Hub</h1>
+            <p>AI-powered tools and systems for internal operations, data analysis, and workflow automation</p>
+        </div>
+        
+        <div class="tools-grid">
+            <a href="/tools/email-hub/" class="tool-card">
+                <h3>Email Hub</h3>
+                <p>Comprehensive email campaign management system with CSV generation and performance analytics</p>
+                <ul class="features">
+                    <li>Dynamic CSV generation for email campaigns</li>
+                    <li>Performance dashboard with lift analysis</li>
+                    <li>Multiple email type configurations</li>
+                    <li>Automated data processing workflows</li>
+                </ul>
+                <div class="status live">● Live</div>
+            </a>
+            
+            <div class="tool-card">
+                <h3>Data Analysis Suite</h3>
+                <p>Advanced analytics and reporting tools for business intelligence and decision support</p>
+                <ul class="features">
+                    <li>Trade propensity scoring</li>
+                    <li>User engagement analysis</li>
+                    <li>Revenue impact measurement</li>
+                    <li>Predictive modeling</li>
+                </ul>
+                <div class="status coming-soon">Coming Soon</div>
+            </div>
+            
+            <div class="tool-card">
+                <h3>Stripe Reporting</h3>
+                <p>Financial analytics and transaction monitoring with automated reconciliation</p>
+                <ul class="features">
+                    <li>Transaction classification</li>
+                    <li>Revenue recognition</li>
+                    <li>Refund analysis</li>
+                    <li>Financial reporting automation</li>
+                </ul>
+                <div class="status coming-soon">Coming Soon</div>
+            </div>
+            
+            <div class="tool-card">
+                <h3>Operations Dashboard</h3>
+                <p>Centralized monitoring and management interface for all internal systems</p>
+                <ul class="features">
+                    <li>System health monitoring</li>
+                    <li>Performance metrics</li>
+                    <li>Alert management</li>
+                    <li>Resource utilization tracking</li>
+                </ul>
+                <div class="status coming-soon">Coming Soon</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Tradeblock Internal Operations</strong></p>
+            <p>For support or feature requests, contact the internal tools team</p>
+            <p><a href="https://github.com/tradeblock-beems/main-ai-apps">GitHub Repository</a></p>
+        </div>
+    </div>
+</body>
+</html> 

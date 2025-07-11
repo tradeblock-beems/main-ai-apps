@@ -1,0 +1,12 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754377486
+Subject Line: Tradeblock just got an upgrade 👀 - see what’s new
+Send Timestamp: 2025-05-14 13:30:03+00:00
+Total Audience Size: 42373
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 18963
+Total Clicks: 91

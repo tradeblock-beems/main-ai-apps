@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754453154
+Subject Line: Remember this shoe? So does the 'block.
+Send Timestamp: 2025-05-22 18:17:30+00:00
+Total Audience Size: 5082
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 2238
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (4779 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 123.1
+- Post-Campaign Daily Offer Average (cohort): 139.5
+- Pre-Campaign Daily Offer Average (per user): 0.0258
+- Post-Campaign Daily Offer Average (per user): 0.0292
+- Offer Uplift: 13.32%
+
+--- Opened Cohort (2104 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 71.5
+- Post-Campaign Daily Offer Average (cohort): 65.0
+- Pre-Campaign Daily Offer Average (per user): 0.0340
+- Post-Campaign Daily Offer Average (per user): 0.0309
+- Offer Uplift: -9.05%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%

@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754560900
+Subject Line: Size 10's Top Hunters: Who’s making moves?
+Send Timestamp: 2025-06-03 15:39:35+00:00
+Total Audience Size: 1120
+Subject Line Test ID: ab_test_6
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 509
+Total Clicks: 14

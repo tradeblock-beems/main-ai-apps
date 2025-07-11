@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754387902
+Subject Line: Heat check inside. 🔥
+Send Timestamp: 2025-05-15 18:45:28+00:00
+Total Audience Size: 3531
+Subject Line Test ID: ab_test_5
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 1548
+Total Clicks: 15
+
+
+### Impact Summary ###
+
+--- Received Cohort (3295 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 67.1
+- Post-Campaign Daily Offer Average (cohort): 61.0
+- Pre-Campaign Daily Offer Average (per user): 0.0204
+- Post-Campaign Daily Offer Average (per user): 0.0185
+- Offer Uplift: -9.09%
+
+--- Opened Cohort (1451 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 37.8
+- Post-Campaign Daily Offer Average (cohort): 37.5
+- Pre-Campaign Daily Offer Average (per user): 0.0261
+- Post-Campaign Daily Offer Average (per user): 0.0258
+- Offer Uplift: -0.79%
+
+--- Clicked Cohort (14 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 2.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.1405
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%

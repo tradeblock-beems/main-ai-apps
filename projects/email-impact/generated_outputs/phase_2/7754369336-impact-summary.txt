@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754369336
+Subject Line: 40% lower fees?? I guess it's time to start trading again 👀
+Send Timestamp: 2025-05-13 14:30:03+00:00
+Total Audience Size: 2939
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 1351
+Total Clicks: 16
+
+
+### Impact Summary ###
+
+--- Received Cohort (2767 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0016
+- Offer Uplift: inf%
+
+--- Opened Cohort (1279 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 4.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0031
+- Offer Uplift: inf%
+
+--- Clicked Cohort (14 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 1.5
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.1071
+- Offer Uplift: inf%

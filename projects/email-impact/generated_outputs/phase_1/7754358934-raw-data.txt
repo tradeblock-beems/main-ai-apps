@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754358934
+Subject Line: Trusted Traders just saved $10k in less than 3 weeks
+Send Timestamp: 2025-05-12 14:30:12+00:00
+Total Audience Size: 237
+Subject Line Test ID: ab_test_3
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 112
+Total Clicks: 0
