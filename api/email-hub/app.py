@@ -21,6 +21,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-i
 
 # Environment detection
 ENVIRONMENT = os.environ.get('VERCEL_ENV', 'development')
+TOOL_NAME = os.environ.get('TOOL_NAME', 'email-hub')
 
 # For Vercel serverless functions, no APPLICATION_ROOT needed
 APPLICATION_ROOT = ""
@@ -298,6 +299,16 @@ def performance():
                          current_sort=sort_by,
                          app_root=APPLICATION_ROOT)
 
+@app.route('/test')
+def test():
+    """Simple test endpoint to verify function is working"""
+    return {
+        'status': 'working',
+        'message': 'Flask app is responding',
+        'environment': ENVIRONMENT,
+        'tool_name': TOOL_NAME
+    }
+
 @app.route('/health')
 def health():
     """Health check endpoint for monitoring"""
@@ -450,6 +461,9 @@ def generate_csv():
             'error': 'Request processing failed'
         }), 500
 
+# Export the app for Vercel serverless deployment
+# Vercel automatically detects Flask apps when the app object is available at module level
+
+# For local development  
 if __name__ == '__main__':
-    # Local development settings
     app.run(debug=True, host='0.0.0.0', port=5001) 
