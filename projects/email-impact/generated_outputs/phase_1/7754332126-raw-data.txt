@@ -1,0 +1,12 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754332126
+Subject Line: Trusted Traders saved >$10k in 3 weeks!
+Send Timestamp: 2025-05-09 14:30:01+00:00
+Total Audience Size: 1688
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 729
+Total Clicks: 4

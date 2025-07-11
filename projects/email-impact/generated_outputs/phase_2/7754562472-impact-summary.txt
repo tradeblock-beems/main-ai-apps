@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754562472
+Subject Line: Top offer creators in size 10.5—and what they want
+Send Timestamp: 2025-06-03 19:30:02+00:00
+Total Audience Size: 12498
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 5574
+Total Clicks: 151
+
+
+### Impact Summary ###
+
+--- Received Cohort (11720 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 465.0
+- Post-Campaign Daily Offer Average (cohort): 474.0
+- Pre-Campaign Daily Offer Average (per user): 0.0397
+- Post-Campaign Daily Offer Average (per user): 0.0404
+- Offer Uplift: 1.93%
+
+--- Opened Cohort (5223 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 245.3
+- Post-Campaign Daily Offer Average (cohort): 276.5
+- Pre-Campaign Daily Offer Average (per user): 0.0470
+- Post-Campaign Daily Offer Average (per user): 0.0529
+- Offer Uplift: 12.70%
+
+--- Clicked Cohort (141 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 28.8
+- Post-Campaign Daily Offer Average (cohort): 60.0
+- Pre-Campaign Daily Offer Average (per user): 0.2040
+- Post-Campaign Daily Offer Average (per user): 0.4255
+- Offer Uplift: 108.57%

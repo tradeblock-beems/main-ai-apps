@@ -3,7 +3,7 @@ Email Hub Microsite
 Flask application for CSV generation and email performance dashboard
 """
 
-from flask import Flask, render_template, request, jsonify, send_file, abort
+from flask import Flask, render_template, request, jsonify, send_file, abort, Blueprint, session, redirect, url_for, flash
 import os
 import json
 import subprocess
@@ -12,18 +12,49 @@ import time
 from datetime import datetime
 from typing import Dict, List, Any
 import re
+from functools import wraps
 
 # Initialize Flask application
 app = Flask(__name__)
 
+<<<<<<< HEAD
 # Configuration
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+=======
+# --- Blueprint Configuration ---
+# Use a Blueprint for modular routing and to handle subpath deployment cleanly.
+# This is more robust than manually setting APPLICATION_ROOT.
+email_hub_bp = Blueprint(
+    'email_hub', 
+    __name__, 
+    url_prefix='/tools/email-hub',
+    template_folder='templates',
+    static_folder='static'
+)
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+
+# Environment detection
+ENVIRONMENT = os.environ.get('VERCEL_ENV', 'development')
+>>>>>>> origin/master
+
+# Password protection configuration
+SITE_PASSWORD = os.environ.get('SITE_PASSWORD', 'Offtheblock25!')
+
+def requires_auth(f):
+    """Authentication decorator to protect routes"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('authenticated'):
+            return redirect(url_for('email_hub.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 def load_campaign_data():
     """Load and parse campaign data from JSON file with error handling"""
     try:
-        # Path to the campaign data JSON file
-        data_path = os.path.join(os.path.dirname(__file__), '..', 'email-impact', 'generated_outputs', 'microsite_campaign_data.json')
+        # Path to the campaign data JSON file, now relative to this project's structure
+        data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'projects', 'email-impact', 'generated_outputs', 'microsite_campaign_data.json')
         
         with open(data_path, 'r', encoding='utf-8') as f:
             campaigns = json.load(f)
@@ -89,8 +120,8 @@ def get_csv_scripts():
     """Discover and return available CSV generation scripts"""
     scripts = {}
     
-    # Base path for email-csv-creation scripts
-    base_path = os.path.join(os.path.dirname(__file__), '..', 'email-csv-creation')
+    # Base path for email-csv-creation scripts, now relative to this project's structure
+    base_path = os.path.join(os.path.dirname(__file__), '..', '..', 'projects', 'email-csv-creation')
     
     # Define available scripts and their metadata
     script_definitions = {
@@ -269,13 +300,23 @@ def execute_csv_script(script_name: str, params: Dict[str, Any]) -> str:
     except Exception as e:
         raise RuntimeError(f"Script execution error: {str(e)}")
 
-@app.route('/')
+# --- Routes ---
+
+@email_hub_bp.route('/')
+@requires_auth
 def index():
+<<<<<<< HEAD
     """CSV Generator page"""
     return render_template('index.html')
+=======
+    """Render main page for CSV generation tool"""
+    return render_template('index.html', scripts=get_csv_scripts())
+>>>>>>> origin/master
 
-@app.route('/performance')
+@email_hub_bp.route('/performance')
+@requires_auth
 def performance():
+<<<<<<< HEAD
     """Performance Dashboard page"""
     # Get sort parameter from query string
     sort_by = request.args.get('sort', 'chronological')
@@ -288,69 +329,69 @@ def performance():
     
     # Pass current sort method to template for UI state
     return render_template('performance.html', campaigns=sorted_campaigns, current_sort=sort_by)
+=======
+    """Render performance dashboard page"""
+    sort_by = request.args.get('sort_by', 'chronological')
+    all_campaigns = load_campaign_data()
+    sorted_campaigns = sort_campaigns(all_campaigns, sort_by)
+    return render_template('performance.html', campaigns=sorted_campaigns, current_sort=sort_by)
 
-# CSV Generation API Routes
-@app.route('/api/email-types')
+@email_hub_bp.route('/health')
+def health():
+    """Health check endpoint"""
+    return jsonify({"status": "ok", "timestamp": datetime.utcnow().isoformat()}), 200
+
+
+# Note: The static route is now handled automatically by the Blueprint's `static_folder` config.
+# A manual static route is no longer needed.
+>>>>>>> origin/master
+
+@email_hub_bp.route('/api/email-types')
+@requires_auth
 def api_email_types():
-    """Return available email types/scripts"""
-    try:
-        scripts = get_csv_scripts()
-        
-        # Format response for frontend consumption
-        email_types = []
-        for script_id, script_info in scripts.items():
-            email_types.append({
-                'id': script_id,
-                'name': script_info['display_name'],
-                'description': script_info['description'],
-                'requires_product_id': script_info['requires_product_id'],
-                'requires_multiple_products': script_info['requires_multiple_products'],
-                'requires_input_file': script_info['requires_input_file']
-            })
-        
-        return jsonify({
-            'success': True,
-            'email_types': email_types
+    """API endpoint to get available email types (CSV scripts)"""
+    scripts = get_csv_scripts()
+    # Format response for frontend consumption
+    email_types = []
+    for script_id, script_info in scripts.items():
+        email_types.append({
+            'id': script_id,
+            'name': script_info['display_name'],
+            'description': script_info['description'],
+            'requires_product_id': script_info['requires_product_id'],
+            'requires_multiple_products': script_info['requires_multiple_products'],
+            'requires_input_file': script_info['requires_input_file']
         })
-    
-    except Exception as e:
-        app.logger.error(f"Error getting email types: {str(e)}")
-        return jsonify({
-            'success': False,
-            'error': 'Failed to retrieve email types'
-        }), 500
+    return jsonify({
+        'success': True,
+        'email_types': email_types
+    })
 
-@app.route('/api/email-type-fields/<email_type>')
+@email_hub_bp.route('/api/email-type-fields/<email_type>')
+@requires_auth
 def api_email_type_fields(email_type):
-    """Return CSV field information for a specific email type"""
-    try:
-        scripts = get_csv_scripts()
-        
-        if email_type not in scripts:
-            return jsonify({
-                'success': False,
-                'error': f'Unknown email type: {email_type}'
-            }), 404
-        
-        script_info = scripts[email_type]
-        
-        return jsonify({
-            'success': True,
-            'email_type': email_type,
-            'fields': script_info['fields'],
-            'field_count': len(script_info['fields'])
-        })
+    """API endpoint to get the required fields for a specific email type"""
+    scripts = get_csv_scripts()
     
-    except Exception as e:
-        app.logger.error(f"Error getting fields for {email_type}: {str(e)}")
+    if email_type not in scripts:
         return jsonify({
             'success': False,
-            'error': 'Failed to retrieve field information'
-        }), 500
+            'error': f'Unknown email type: {email_type}'
+        }), 404
+    
+    script_info = scripts[email_type]
+    
+    return jsonify({
+        'success': True,
+        'email_type': email_type,
+        'fields': script_info['fields'],
+        'field_count': len(script_info['fields'])
+    })
 
-@app.route('/generate-csv', methods=['POST'])
+@email_hub_bp.route('/generate-csv', methods=['POST'])
+@requires_auth
 def generate_csv():
-    """Generate CSV file based on email type and parameters"""
+    """API endpoint to trigger CSV generation script"""
     try:
         # Get form data
         form_data = request.form.to_dict()
@@ -371,14 +412,14 @@ def generate_csv():
         
         # Execute CSV generation script
         try:
-            csv_file_path = execute_csv_script(validated_params['email_type'], validated_params)
+            output_file = execute_csv_script(validated_params['email_type'], validated_params)
             
             # Return CSV file as download
             return send_file(
-                csv_file_path,
+                output_file,
+                mimetype='text/csv',
                 as_attachment=True,
-                download_name=os.path.basename(csv_file_path),
-                mimetype='text/csv'
+                download_name=os.path.basename(output_file)
             )
             
         except Exception as e:
@@ -395,6 +436,53 @@ def generate_csv():
             'error': 'Request processing failed'
         }), 500
 
+# --- Authentication Routes ---
+@email_hub_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    """Login page and authentication handler"""
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        
+        # More detailed debugging
+        app.logger.info(f"SITE_PASSWORD bytes: {SITE_PASSWORD.encode('utf-8')}")
+        app.logger.info(f"Submitted password bytes: {password.encode('utf-8')}")
+        app.logger.info(f"Lengths - Expected: {len(SITE_PASSWORD)}, Got: {len(password)}")
+        app.logger.info(f"Direct comparison: {password == SITE_PASSWORD}")
+        app.logger.info(f"Stripped comparison: {password.strip() == SITE_PASSWORD.strip()}")
+        
+        # Try multiple comparison methods
+        if (password == SITE_PASSWORD or 
+            password.strip() == SITE_PASSWORD.strip() or
+            password == 'Offtheblock25!'):  # Hardcoded fallback
+            session['authenticated'] = True
+            flash('Successfully logged in!', 'success')
+            return redirect(url_for('email_hub.index'))
+        else:
+            flash(f'Invalid password. Expected "{SITE_PASSWORD}" (len: {len(SITE_PASSWORD)}), got "{password}" (len: {len(password)})', 'error')
+    
+    return render_template('login.html')
+
+@email_hub_bp.route('/logout')
+def logout():
+    """Logout handler"""
+    session.pop('authenticated', None)
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('email_hub.login'))
+
+# --- Register Blueprint ---
+# Register the blueprint with the Flask app. 
+# This applies the `url_prefix` to all routes defined in the blueprint.
+app.register_blueprint(email_hub_bp)
+
+# --- Root route for Vercel health check ---
+# Vercel may check the root of the serverless function. 
+# This ensures it gets a valid response.
+@app.route('/')
+def vercel_root_health_check():
+    """Provide a basic response at the serverless function's root."""
+    return "Flask app is running."
+
+
 if __name__ == '__main__':
-    # Local development settings
-    app.run(debug=True, host='0.0.0.0', port=5001) 
+    # For local development without `vercel dev`
+    app.run(debug=True, port=5001) 

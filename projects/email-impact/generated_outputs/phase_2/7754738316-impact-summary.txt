@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754738316
+Subject Line: Size 9's Top Hunters: Who’s making moves?
+Send Timestamp: 2025-06-19 16:32:14+00:00
+Total Audience Size: 1598
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 718
+Total Clicks: 13
+
+
+### Impact Summary ###
+
+--- Received Cohort (1490 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 72.4
+- Post-Campaign Daily Offer Average (cohort): 47.5
+- Pre-Campaign Daily Offer Average (per user): 0.0486
+- Post-Campaign Daily Offer Average (per user): 0.0319
+- Offer Uplift: -34.39%
+
+--- Opened Cohort (673 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 36.6
+- Post-Campaign Daily Offer Average (cohort): 21.5
+- Pre-Campaign Daily Offer Average (per user): 0.0544
+- Post-Campaign Daily Offer Average (per user): 0.0319
+- Offer Uplift: -41.31%
+
+--- Clicked Cohort (10 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.5
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.0533
+- Post-Campaign Daily Offer Average (per user): 0.2000
+- Offer Uplift: 275.00%

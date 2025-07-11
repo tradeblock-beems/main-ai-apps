@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
@@ -41,10 +42,32 @@ instance/
 .env.production.local
 
 # IDEs
+=======
+# Vercel deployment configuration
+.vercel
+
+# Dependency directories
+node_modules/
+package-lock.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.env
+
+# IDE files
+>>>>>>> origin/master
 .vscode/
 .idea/
 *.swp
 *.swo
+<<<<<<< HEAD
 *~
 
 # OS
@@ -196,3 +219,5 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json 
+=======
+>>>>>>> origin/master

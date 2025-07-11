@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754710020
+Subject Line: 🏁 You don’t need SNKRS to get in this race 🏁
+Send Timestamp: 2025-06-16 18:28:09+00:00
+Total Audience Size: 2107
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 973
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (1988 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 70.5
+- Post-Campaign Daily Offer Average (cohort): 43.0
+- Pre-Campaign Daily Offer Average (per user): 0.0355
+- Post-Campaign Daily Offer Average (per user): 0.0216
+- Offer Uplift: -39.01%
+
+--- Opened Cohort (925 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 35.6
+- Post-Campaign Daily Offer Average (cohort): 18.5
+- Pre-Campaign Daily Offer Average (per user): 0.0385
+- Post-Campaign Daily Offer Average (per user): 0.0200
+- Offer Uplift: -47.99%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%

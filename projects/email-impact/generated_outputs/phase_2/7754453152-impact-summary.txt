@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754453152
+Subject Line: Throwback Thursday: The Pine Green SB4 is still cookin’ 🔥
+Send Timestamp: 2025-05-22 18:17:30+00:00
+Total Audience Size: 5117
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 2169
+Total Clicks: 7
+
+
+### Impact Summary ###
+
+--- Received Cohort (4814 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 117.9
+- Post-Campaign Daily Offer Average (cohort): 136.0
+- Pre-Campaign Daily Offer Average (per user): 0.0245
+- Post-Campaign Daily Offer Average (per user): 0.0283
+- Offer Uplift: 15.35%
+
+--- Opened Cohort (2047 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 52.4
+- Post-Campaign Daily Offer Average (cohort): 66.5
+- Pre-Campaign Daily Offer Average (per user): 0.0256
+- Post-Campaign Daily Offer Average (per user): 0.0325
+- Offer Uplift: 26.83%
+
+--- Clicked Cohort (6 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%

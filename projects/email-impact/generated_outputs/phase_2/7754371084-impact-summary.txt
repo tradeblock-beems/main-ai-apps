@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754371084
+Subject Line: Don’t call it a glow up... (Translation: new app updates!)
+Send Timestamp: 2025-05-13 18:55:15+00:00
+Total Audience Size: 3555
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 1658
+Total Clicks: 5
+
+
+### Impact Summary ###
+
+--- Received Cohort (3312 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 93.5
+- Post-Campaign Daily Offer Average (cohort): 116.0
+- Pre-Campaign Daily Offer Average (per user): 0.0282
+- Post-Campaign Daily Offer Average (per user): 0.0350
+- Offer Uplift: 24.06%
+
+--- Opened Cohort (1557 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 52.7
+- Post-Campaign Daily Offer Average (cohort): 50.0
+- Pre-Campaign Daily Offer Average (per user): 0.0338
+- Post-Campaign Daily Offer Average (per user): 0.0321
+- Offer Uplift: -5.12%
+
+--- Clicked Cohort (5 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 1.5
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.2933
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: -100.00%

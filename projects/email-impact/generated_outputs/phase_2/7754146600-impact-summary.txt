@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754146600
+Subject Line: Congrats–You're a Trusted Trader 👏 👟
+Send Timestamp: 2025-04-18 14:18:07+00:00
+Total Audience Size: 651
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 315
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (608 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 9.3
+- Post-Campaign Daily Offer Average (cohort): 34.0
+- Pre-Campaign Daily Offer Average (per user): 0.0152
+- Post-Campaign Daily Offer Average (per user): 0.0559
+- Offer Uplift: 266.91%
+
+--- Opened Cohort (294 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 6.4
+- Post-Campaign Daily Offer Average (cohort): 27.5
+- Pre-Campaign Daily Offer Average (per user): 0.0217
+- Post-Campaign Daily Offer Average (per user): 0.0935
+- Offer Uplift: 331.94%
+
+--- Clicked Cohort (1 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.3
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.2667
+- Post-Campaign Daily Offer Average (per user): 2.0000
+- Offer Uplift: 650.00%

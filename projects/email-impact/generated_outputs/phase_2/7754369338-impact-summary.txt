@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754369338
+Subject Line: Save $20 on EVERY future trade – you’re so close
+Send Timestamp: 2025-05-13 14:30:04+00:00
+Total Audience Size: 3777
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 1839
+Total Clicks: 2
+
+
+### Impact Summary ###
+
+--- Received Cohort (3524 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 23.5
+- Post-Campaign Daily Offer Average (cohort): 24.5
+- Pre-Campaign Daily Offer Average (per user): 0.0067
+- Post-Campaign Daily Offer Average (per user): 0.0070
+- Offer Uplift: 4.26%
+
+--- Opened Cohort (1717 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 13.8
+- Post-Campaign Daily Offer Average (cohort): 12.0
+- Pre-Campaign Daily Offer Average (per user): 0.0080
+- Post-Campaign Daily Offer Average (per user): 0.0070
+- Offer Uplift: -12.83%
+
+--- Clicked Cohort (2 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.0
+- Post-Campaign Daily Offer Average (cohort): 0.0
+- Pre-Campaign Daily Offer Average (per user): 0.0000
+- Post-Campaign Daily Offer Average (per user): 0.0000
+- Offer Uplift: 0.00%

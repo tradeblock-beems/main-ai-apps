@@ -1,0 +1,13 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754358942
+Subject Line: Wait... you LIKE paying higher fees?
+Send Timestamp: 2025-05-12 14:30:05+00:00
+Total Audience Size: 198
+Subject Line Test ID: ab_test_2
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 116
+Total Clicks: 10

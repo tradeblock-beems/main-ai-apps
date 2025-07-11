@@ -1,0 +1,418 @@
+{
+    "single_tag_performance": {
+        "playbook_type": {
+            "Lifecycle": {
+                "average_uplift": 0.0,
+                "campaign_count": 6
+            },
+            "Transactional": {
+                "average_uplift": 0.0,
+                "campaign_count": 19
+            },
+            "Promotional": {
+                "average_uplift": 0.0,
+                "campaign_count": 18
+            },
+            "Product Update": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            },
+            "Community": {
+                "average_uplift": 0.0,
+                "campaign_count": 13
+            }
+        },
+        "topic_focus": {
+            "Fee Discount": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            },
+            "Status": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            },
+            "Trusted Trader": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            },
+            "New Feature": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            },
+            "Market Trend": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            },
+            "Shoe Spotlight": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            },
+            "Top Hunters": {
+                "average_uplift": 0.0,
+                "campaign_count": 14
+            },
+            "Community Norms": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            }
+        },
+        "framing": {
+            "Congratulatory": {
+                "average_uplift": 0.0,
+                "campaign_count": 9
+            },
+            "Financial Benefit": {
+                "average_uplift": 0.0,
+                "campaign_count": 12
+            },
+            "Reward": {
+                "average_uplift": 0.0,
+                "campaign_count": 9
+            },
+            "Social Proof": {
+                "average_uplift": 0.0,
+                "campaign_count": 15
+            },
+            "Pain Point Agitation": {
+                "average_uplift": 0.0,
+                "campaign_count": 5
+            },
+            "Urgency": {
+                "average_uplift": 0.0,
+                "campaign_count": 2
+            },
+            "Informational": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            }
+        },
+        "personalization_level": {
+            "Segmented": {
+                "average_uplift": 0.0,
+                "campaign_count": 4
+            },
+            "Generic Broadcast": {
+                "average_uplift": 0.0,
+                "campaign_count": 38
+            },
+            "Personalized": {
+                "average_uplift": 0.0,
+                "campaign_count": 18
+            }
+        },
+        "call_to_action": {
+            "Make Offer": {
+                "average_uplift": 0.0,
+                "campaign_count": 44
+            },
+            "Explore Feature": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            },
+            "Learn More": {
+                "average_uplift": 0.0,
+                "campaign_count": 8
+            }
+        },
+        "test_details": {
+            "Not a Test": {
+                "average_uplift": 0.0,
+                "campaign_count": 42
+            },
+            "Subject Line A/B Test": {
+                "average_uplift": 0.0,
+                "campaign_count": 18
+            }
+        }
+    },
+    "combo_performance": {
+        "(('Lifecycle',), ('Congratulatory', 'Financial Benefit', 'Reward'))": {
+            "average_uplift": 0.0,
+            "campaign_count": 4
+        },
+        "(('Lifecycle',), ('Congratulatory', 'Reward'))": {
+            "average_uplift": 0.0,
+            "campaign_count": 2
+        },
+        "(('Transactional',), ('Congratulatory', 'Reward'))": {
+            "average_uplift": 0.0,
+            "campaign_count": 3
+        },
+        "(('Promotional',), ('Financial Benefit',))": {
+            "average_uplift": 0.0,
+            "campaign_count": 4
+        },
+        "(('Transactional',), ('Social Proof',))": {
+            "average_uplift": 0.0,
+            "campaign_count": 3
+        },
+        "(('Promotional',), ('Financial Benefit', 'Pain Point Agitation'))": {
+            "average_uplift": 0.0,
+            "campaign_count": 2
+        },
+        "(('Promotional',), ('Financial Benefit', 'Urgency'))": {
+            "average_uplift": 0.0,
+            "campaign_count": 2
+        },
+        "(('Product Update',), ('Informational',))": {
+            "average_uplift": 0.0,
+            "campaign_count": 4
+        },
+        "(('Community',), ('Social Proof',))": {
+            "average_uplift": 0.0,
+            "campaign_count": 12
+        },
+        "(('Transactional',), ('Pain Point Agitation',))": {
+            "average_uplift": 0.0,
+            "campaign_count": 3
+        }
+    },
+    "top_5_campaigns": [
+        {
+            "tags": {
+                "playbook_type": [
+                    "Lifecycle"
+                ],
+                "topic_focus": [
+                    "Fee Discount"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Financial Benefit",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Segmented"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754142690",
+            "subject": "You\u2019ve earned 40% off your trade fees",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Lifecycle"
+                ],
+                "topic_focus": [
+                    "Status",
+                    "Trusted Trader"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Segmented"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754142692",
+            "subject": "Trusted Trader status unlocked \ud83d\udc5f\ud83d\udd25",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Lifecycle"
+                ],
+                "topic_focus": [
+                    "Status",
+                    "Trusted Trader"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Segmented"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754142714",
+            "subject": "You\u2019ve earned this, Trusted Trader \ud83d\udc4f \ud83d\udc5f",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Transactional"
+                ],
+                "topic_focus": [
+                    "Status",
+                    "Trusted Trader"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Generic Broadcast"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754142716",
+            "subject": "Congrats\u2013You\u2019re a Trusted Trader \ud83d\udc5f\ud83e\udd1d",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Lifecycle"
+                ],
+                "topic_focus": [
+                    "Fee Discount"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Financial Benefit",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Segmented"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754146340",
+            "subject": "You\u2019ve earned 40% off your trade fees",
+            "offer_uplift": 0.0
+        }
+    ],
+    "bottom_5_campaigns": [
+        {
+            "tags": {
+                "playbook_type": [
+                    "Lifecycle"
+                ],
+                "topic_focus": [
+                    "Top Hunters"
+                ],
+                "framing": [
+                    "Congratulatory",
+                    "Financial Benefit",
+                    "Reward"
+                ],
+                "personalization_level": [
+                    "Personalized"
+                ],
+                "call_to_action": [
+                    "Learn More"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754739634",
+            "subject": "You just got $20 for being one of size 11.5's Top Hunters!",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Transactional"
+                ],
+                "personalization_level": [
+                    "Personalized"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754856524",
+            "subject": "3 shoes running the market in your size right now \ud83d\udcc8",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Transactional"
+                ],
+                "topic_focus": [
+                    "Market Trend"
+                ],
+                "personalization_level": [
+                    "Personalized"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754856526",
+            "subject": "Your size 9 market intelligence: This week's hottest shoes \ud83d\udd25",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Transactional"
+                ],
+                "topic_focus": [
+                    "Market Trend"
+                ],
+                "personalization_level": [
+                    "Personalized"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754856528",
+            "subject": "Market movers alert: 3 shoes every size 12 collector is watching \ud83d\udc40",
+            "offer_uplift": 0.0
+        },
+        {
+            "tags": {
+                "playbook_type": [
+                    "Transactional"
+                ],
+                "personalization_level": [
+                    "Personalized"
+                ],
+                "call_to_action": [
+                    "Make Offer"
+                ],
+                "test_details": [
+                    "Not a Test"
+                ]
+            },
+            "campaign_id": "7754857014",
+            "subject": "3 shoes running the market in your size right now \ud83d\udcc8",
+            "offer_uplift": 0.0
+        }
+    ]
+}

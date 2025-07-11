@@ -1,0 +1,36 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754370434
+Subject Line: Wait... you LIKE paying higher fees?
+Send Timestamp: 2025-05-13 17:22:12+00:00
+Total Audience Size: 2394
+
+--- Tags ---
+- (no tags identified in this phase)
+
+--- Raw Campaign Performance ---
+Total Opens: 1321
+Total Clicks: 99
+
+
+### Impact Summary ###
+
+--- Received Cohort (2226 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 35.8
+- Post-Campaign Daily Offer Average (cohort): 93.5
+- Pre-Campaign Daily Offer Average (per user): 0.0161
+- Post-Campaign Daily Offer Average (per user): 0.0420
+- Offer Uplift: 161.42%
+
+--- Opened Cohort (1229 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 22.2
+- Post-Campaign Daily Offer Average (cohort): 60.0
+- Pre-Campaign Daily Offer Average (per user): 0.0181
+- Post-Campaign Daily Offer Average (per user): 0.0488
+- Offer Uplift: 170.27%
+
+--- Clicked Cohort (91 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 8.6
+- Post-Campaign Daily Offer Average (cohort): 45.5
+- Pre-Campaign Daily Offer Average (per user): 0.0941
+- Post-Campaign Daily Offer Average (per user): 0.5000
+- Offer Uplift: 431.13%

@@ -1,0 +1,37 @@
+--- Campaign Info and Stats ---
+Campaign ID: 7754358940
+Subject Line: You're leaving money on the table 👀
+Send Timestamp: 2025-05-12 14:30:07+00:00
+Total Audience Size: 195
+Subject Line Test ID: ab_test_4
+
+--- Tags ---
+- subject line test
+
+--- Raw Campaign Performance ---
+Total Opens: 106
+Total Clicks: 9
+
+
+### Impact Summary ###
+
+--- Received Cohort (181 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 4.5
+- Post-Campaign Daily Offer Average (cohort): 6.0
+- Pre-Campaign Daily Offer Average (per user): 0.0249
+- Post-Campaign Daily Offer Average (per user): 0.0331
+- Offer Uplift: 33.33%
+
+--- Opened Cohort (98 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 3.1
+- Post-Campaign Daily Offer Average (cohort): 4.5
+- Pre-Campaign Daily Offer Average (per user): 0.0313
+- Post-Campaign Daily Offer Average (per user): 0.0459
+- Offer Uplift: 46.74%
+
+--- Clicked Cohort (8 users) ---
+- Pre-Campaign Daily Offer Average (cohort): 0.2
+- Post-Campaign Daily Offer Average (cohort): 2.0
+- Pre-Campaign Daily Offer Average (per user): 0.0250
+- Post-Campaign Daily Offer Average (per user): 0.2500
+- Offer Uplift: 900.00%
