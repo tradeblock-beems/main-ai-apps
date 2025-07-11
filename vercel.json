@@ -1,12 +1,22 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/tools/email-hub/(.*)",
-      "destination": "/api/email-hub/app"
+      "src": "tools/email-hub-serverless/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.11"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/tools/email-hub/(.*)",
+      "dest": "/tools/email-hub-serverless/app.py"
     },
     {
-      "source": "/tools/email-hub",
-      "destination": "/api/email-hub/app"
+      "src": "/tools/email-hub",
+      "dest": "/tools/email-hub-serverless/app.py"
     }
   ]
 } 
