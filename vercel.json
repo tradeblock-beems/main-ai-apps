@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/tools/email-hub/(.*)",
-      "destination": "/api/email-hub/app.py"
+      "destination": "/api/email-hub/app"
     },
     {
       "source": "/tools/email-hub",
-      "destination": "/api/email-hub/app.py"
+      "destination": "/api/email-hub/app"
     }
   ]
 } 
