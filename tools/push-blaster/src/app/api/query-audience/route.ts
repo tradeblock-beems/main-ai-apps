@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Papa from 'papaparse';
-import { queryUsers, fetchDataPacks, fetchManualAudienceData } from '@/lib/databaseQueries';
+import { queryUsers, fetchDataPacks, fetchManualAudienceData } from '../../../lib/databaseQueries';
 
 interface AudienceFilters {
   lastActiveDays?: number;
