@@ -27,6 +27,10 @@
       "dest": "tools/push-blaster/$1"
     },
     {
+      "src": "/tools/push-blaster",
+      "dest": "tools/push-blaster/index"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
