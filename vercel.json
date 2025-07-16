@@ -9,6 +9,10 @@
       }
     },
     {
+      "src": "tools/push-blaster/package.json",
+      "use": "@vercel/next"
+    },
+    {
       "src": "index.html",
       "use": "@vercel/static"
     }
@@ -17,6 +21,10 @@
     {
       "src": "/tools/email-hub/(.*)",
       "dest": "tools/email-hub/app.py"
+    },
+    {
+      "src": "/tools/push-blaster/(.*)",
+      "dest": "tools/push-blaster/$1"
     },
     {
       "src": "/(.*)",
