@@ -19,18 +19,16 @@
   ],
   "rewrites": [
     {
-      "source": "/tools/push-blaster/(.*)",
-      "destination": "/tools/push-blaster/$1"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/tools/email-hub/(.*)",
-      "dest": "/tools/email-hub/app.py"
+      "source": "/tools/email-hub/(.*)",
+      "destination": "/tools/email-hub/app.py"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/tools/push-blaster/(.*)",
+      "destination": "/tools/push-blaster/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
