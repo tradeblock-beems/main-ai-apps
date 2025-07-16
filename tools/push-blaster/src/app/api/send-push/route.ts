@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Papa from 'papaparse';
 import { fetchDeviceTokens } from '@/lib/graphql';
-import { admin } from '@/lib/firebaseAdmin';
+import { admin, getPushClient } from '@/lib/firebaseAdmin';
 import { validateVariables, processVariableReplacements } from '@/lib/variableProcessor';
 import { addPushLog } from '@/lib/pushLogger';
 
@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
     console.log('User token map created:', userTokenMap.size, 'users with tokens');
 
     // Send personalized notifications
-    const messaging = admin.messaging();
+    const messaging = getPushClient();
     let successCount = 0;
     const failedTokens: string[] = [];
 
