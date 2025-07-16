@@ -17,17 +17,12 @@ from functools import wraps
 # Initialize Flask application
 app = Flask(__name__)
 
-<<<<<<< HEAD
-# Configuration
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-=======
 # --- Blueprint Configuration ---
 # Use a Blueprint for modular routing and to handle subpath deployment cleanly.
-# This is more robust than manually setting APPLICATION_ROOT.
+# Note: No url_prefix because Vercel routing handles /tools/email-hub/ part
 email_hub_bp = Blueprint(
     'email_hub', 
     __name__, 
-    url_prefix='/tools/email-hub',
     template_folder='templates',
     static_folder='static'
 )
@@ -36,7 +31,6 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-i
 
 # Environment detection
 ENVIRONMENT = os.environ.get('VERCEL_ENV', 'development')
->>>>>>> origin/master
 
 # Password protection configuration
 SITE_PASSWORD = os.environ.get('SITE_PASSWORD', 'Offtheblock25!')
@@ -305,31 +299,12 @@ def execute_csv_script(script_name: str, params: Dict[str, Any]) -> str:
 @email_hub_bp.route('/')
 @requires_auth
 def index():
-<<<<<<< HEAD
-    """CSV Generator page"""
-    return render_template('index.html')
-=======
     """Render main page for CSV generation tool"""
     return render_template('index.html', scripts=get_csv_scripts())
->>>>>>> origin/master
 
 @email_hub_bp.route('/performance')
 @requires_auth
 def performance():
-<<<<<<< HEAD
-    """Performance Dashboard page"""
-    # Get sort parameter from query string
-    sort_by = request.args.get('sort', 'chronological')
-    
-    # Load campaign data
-    campaigns = load_campaign_data()
-    
-    # Sort campaigns based on the requested view
-    sorted_campaigns = sort_campaigns(campaigns, sort_by)
-    
-    # Pass current sort method to template for UI state
-    return render_template('performance.html', campaigns=sorted_campaigns, current_sort=sort_by)
-=======
     """Render performance dashboard page"""
     sort_by = request.args.get('sort_by', 'chronological')
     all_campaigns = load_campaign_data()
@@ -344,7 +319,6 @@ def health():
 
 # Note: The static route is now handled automatically by the Blueprint's `static_folder` config.
 # A manual static route is no longer needed.
->>>>>>> origin/master
 
 @email_hub_bp.route('/api/email-types')
 @requires_auth
@@ -474,13 +448,8 @@ def logout():
 # This applies the `url_prefix` to all routes defined in the blueprint.
 app.register_blueprint(email_hub_bp)
 
-# --- Root route for Vercel health check ---
-# Vercel may check the root of the serverless function. 
-# This ensures it gets a valid response.
-@app.route('/')
-def vercel_root_health_check():
-    """Provide a basic response at the serverless function's root."""
-    return "Flask app is running."
+# --- Root route for email hub tool ---
+# No root redirect needed - Blueprint handles this automatically
 
 
 if __name__ == '__main__':

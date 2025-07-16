@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/tools/push-blaster",
+      "destination": "/"
+    },
+    {
+      "source": "/tools/push-blaster/(.*)",
+      "destination": "/$1"
+    }
+  ]
+} 
