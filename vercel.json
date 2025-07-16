@@ -1,27 +1,32 @@
 {
-  "functions": {
-    "tools/email-hub/app.py": {
-      "runtime": "python3.11"
-    }
-  },
+  "version": 2,
   "builds": [
+    {
+      "src": "tools/email-hub/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.11"
+      }
+    },
     {
       "src": "tools/push-blaster/package.json",
       "use": "@vercel/next"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/tools/push-blaster/(.*)",
+      "destination": "/tools/push-blaster/$1"
     }
   ],
   "routes": [
     {
       "src": "/tools/email-hub/(.*)",
       "dest": "/tools/email-hub/app.py"
-    },
-    {
-      "src": "/tools/push-blaster/(.*)",
-      "dest": "/tools/push-blaster/$1"
-    },
-    {
-      "src": "/tools/push-blaster",
-      "dest": "/tools/push-blaster/"
     },
     {
       "src": "/(.*)",
