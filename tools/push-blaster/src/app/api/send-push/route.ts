@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Papa from 'papaparse';
-import { fetchDeviceTokens } from '@/lib/graphql';
-import { admin, getPushClient } from '@/lib/firebaseAdmin';
-import { validateVariables, processVariableReplacements } from '@/lib/variableProcessor';
-import { addPushLog } from '@/lib/pushLogger';
+import { fetchDeviceTokens } from '../../../lib/graphql';
+import { admin, getPushClient } from '../../../lib/firebaseAdmin';
+import { validateVariables, processVariableReplacements } from '../../../lib/variableProcessor';
+import { addPushLog } from '../../../lib/pushLogger';
 
 interface CsvRow {
   user_id: string;

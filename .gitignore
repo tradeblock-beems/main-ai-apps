@@ -1,48 +1,3 @@
-<<<<<<< HEAD
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
-.venv/
-
-# Flask
-instance/
-.webassets-cache
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDEs
-=======
 # Vercel deployment configuration
 .vercel
 
@@ -62,12 +17,10 @@ pip-delete-this-directory.txt
 .env
 
 # IDE files
->>>>>>> origin/master
 .vscode/
 .idea/
 *.swp
 *.swo
-<<<<<<< HEAD
 *~
 
 # OS
@@ -78,17 +31,6 @@ pip-delete-this-directory.txt
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# Node.js (for any JS tooling)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Vercel
-.vercel
 
 # Logs
 logs/
@@ -104,81 +46,30 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
+# Coverage directory
 coverage/
-
-# nyc test coverage
 .nyc_output
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-.env.test
-
-# parcel-bundler cache (https://parceljs.org/)
+# Build outputs
+.next
+.nuxt
 .cache
 .parcel-cache
+dist/
+build/
 
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Temporary folders
-tmp/
-temp/
-
-# CSV outputs and data files
-*.csv
-data/
-outputs/
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
-# Backup files
-*.bak
-*.backup
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
-.cache
 nosetests.xml
 coverage.xml
 *.cover
@@ -187,37 +78,13 @@ coverage.xml
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
+# Virtual environments
 venv/
+env/
 ENV/
-env.bak/
-venv.bak/
+.venv/
 
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json 
-=======
->>>>>>> origin/master
+# Generated data files
+projects/email-csv-creation/example_csvs/*.csv
+projects/email-impact/generated_outputs/**/*.csv
+projects/example_csvs/*.csv

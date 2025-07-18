@@ -1,10 +1,10 @@
 {
-  "name": "temp-push-blaster-app",
+  "name": "push-blaster",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e ../../.env next dev",
-    "build": "next build",
+    "dev": "next dev",
+    "build": "ls -R src/lib && next build",
     "start": "next start",
     "lint": "next lint"
   },
