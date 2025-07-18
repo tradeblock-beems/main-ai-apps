@@ -5,28 +5,27 @@ console.log('🔍 Loading next.config.ts from:', __dirname);
 console.log('📁 Expected lib path:', path.join(__dirname, "src/lib"));
 
 const nextConfig: NextConfig = {
-  // Let Vercel handle the base path through rewrites
+  // Handle app directory and routing
+  output: 'standalone',
   trailingSlash: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // Configure paths for production only
+  basePath: process.env.NODE_ENV === 'production' ? '/tools/push-blaster' : '',
   // Ensure @/lib alias resolves during Next.js build
   webpack: (config) => {
-    console.log('⚙️ Webpack config function called');
-    console.log('📦 Current aliases:', config.resolve?.alias);
-    
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       "@/lib": path.join(__dirname, "src/lib"),
     };
-    
-    console.log('🔧 Updated aliases:', config.resolve.alias);
     return config;
   },
+  // Disable type checking and linting during build
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
+  }
 };
 
 export default nextConfig;
