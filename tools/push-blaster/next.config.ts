@@ -5,7 +5,7 @@ console.log('🔍 Loading next.config.ts from:', __dirname);
 console.log('📁 Expected lib path:', path.join(__dirname, "src/lib"));
 
 const nextConfig: NextConfig = {
-  basePath: '/tools/push-blaster',
+  assetPrefix: '/tools/push-blaster',
   eslint: {
     ignoreDuringBuilds: true,
   },
