@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-console.log('🔍 Loading next.config.ts from:', __dirname);
-console.log('📁 Expected lib path:', path.join(__dirname, "src/lib"));
-
 const nextConfig: NextConfig = {
   // Handle app directory and routing
   output: 'standalone',
