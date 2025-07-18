@@ -83,3 +83,8 @@ venv/
 env/
 ENV/
 .venv/
+
+# Generated data files
+projects/email-csv-creation/example_csvs/*.csv
+projects/email-impact/generated_outputs/**/*.csv
+projects/example_csvs/*.csv
