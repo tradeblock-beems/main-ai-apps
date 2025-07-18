@@ -19,13 +19,16 @@ app = Flask(__name__)
 
 # --- Blueprint Configuration ---
 # Use a Blueprint for modular routing and to handle subpath deployment cleanly.
-# Note: No url_prefix because Vercel routing handles /tools/email-hub/ part
 email_hub_bp = Blueprint(
     'email_hub', 
     __name__, 
     template_folder='templates',
-    static_folder='static'
+    static_folder='static',
+    url_prefix='/tools/email-hub'  # Add URL prefix to match Vercel routing
 )
+
+# Register the blueprint
+app.register_blueprint(email_hub_bp)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
@@ -442,11 +445,6 @@ def logout():
     session.pop('authenticated', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('email_hub.login'))
-
-# --- Register Blueprint ---
-# Register the blueprint with the Flask app. 
-# This applies the `url_prefix` to all routes defined in the blueprint.
-app.register_blueprint(email_hub_bp)
 
 # --- Root route for email hub tool ---
 # No root redirect needed - Blueprint handles this automatically
