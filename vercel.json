@@ -10,6 +10,10 @@
       "destination": "/tools/email-hub/app.py"
     },
     {
+      "source": "/tools/push-blaster",
+      "destination": "/tools/push-blaster/index.html"
+    },
+    {
       "source": "/tools/push-blaster/_next/(.*)",
       "destination": "/tools/push-blaster/_next/$1"
     },
@@ -24,6 +28,30 @@
     {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/tools/email-hub/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/tools/push-blaster/_next/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
