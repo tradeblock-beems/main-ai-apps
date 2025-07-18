@@ -5,7 +5,8 @@ console.log('🔍 Loading next.config.ts from:', __dirname);
 console.log('📁 Expected lib path:', path.join(__dirname, "src/lib"));
 
 const nextConfig: NextConfig = {
-  assetPrefix: process.env.VERCEL ? '/tools/push-blaster' : '',
+  // Let Vercel handle the base path through rewrites
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
