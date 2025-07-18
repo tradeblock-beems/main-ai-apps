@@ -10,6 +10,10 @@
       "destination": "/tools/email-hub/app.py"
     },
     {
+      "source": "/tools/push-blaster",
+      "destination": "/tools/push-blaster/index.html"
+    },
+    {
       "source": "/tools/push-blaster/_next/(.*)",
       "destination": "/tools/push-blaster/_next/$1"
     },
@@ -24,6 +28,35 @@
     {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/tools/email-hub/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
+    },
+    {
+      "source": "/tools/push-blaster/(.*).js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
+      "source": "/tools/push-blaster/(.*).css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        }
+      ]
     }
   ]
 }

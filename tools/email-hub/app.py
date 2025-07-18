@@ -30,6 +30,20 @@ email_hub_bp = Blueprint(
 # Register the blueprint
 app.register_blueprint(email_hub_bp)
 
+# Configure MIME types
+app.config['MIME_TYPES'] = {
+    '.py': 'text/html',
+    '.html': 'text/html',
+    '.css': 'text/css',
+    '.js': 'application/javascript'
+}
+
+@app.after_request
+def add_header(response):
+    if request.path.endswith('.py'):
+        response.headers['Content-Type'] = 'text/html'
+    return response
+
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Environment detection
