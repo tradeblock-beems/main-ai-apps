@@ -18,17 +18,26 @@ from functools import wraps
 app = Flask(__name__)
 
 # --- Blueprint Configuration ---
-# Use a Blueprint for modular routing and to handle subpath deployment cleanly.
 email_hub_bp = Blueprint(
     'email_hub', 
     __name__, 
     template_folder='templates',
     static_folder='static',
-    url_prefix='/tools/email-hub'  # Add URL prefix to match Vercel routing
+    url_prefix=None  # Remove URL prefix - let Vercel handle it
 )
 
 # Register the blueprint
 app.register_blueprint(email_hub_bp)
+
+# Configure MIME types and response headers
+@app.after_request
+def add_header(response):
+    if request.path.endswith('.py'):
+        response.headers['Content-Type'] = 'text/html'
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
