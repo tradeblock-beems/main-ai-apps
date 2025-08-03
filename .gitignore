@@ -88,3 +88,11 @@ ENV/
 projects/email-csv-creation/example_csvs/*.csv
 projects/email-impact/generated_outputs/**/*.csv
 projects/example_csvs/*.csv
+
+# Push-blaster specific ignores
+apps/push-blaster/*.csv
+apps/push-blaster/.push-logs/
+.env.push-blaster
+
+# Generated files
+**/next-env.d.ts
