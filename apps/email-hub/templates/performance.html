@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Hub - Performance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('email_hub.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Email Hub - Performance Dashboard</h1>
+            <nav>
+                <a href="{{ url_for('email_hub.index') }}" class="nav-link">CSV Generator</a>
+                <a href="{{ url_for('email_hub.performance') }}" class="nav-link active">Performance Dashboard</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="view-controls">
+                    <h2>Email Campaign Performance</h2>
+                    <div class="view-toggle">
+                        <label>View:</label>
+                        <input type="radio" id="chronological" name="view" value="chronological" 
+                               {% if current_sort == 'chronological' %}checked{% endif %}>
+                        <label for="chronological">Chronological</label>
+                        <input type="radio" id="leaderboard" name="view" value="lift" 
+                               {% if current_sort == 'lift' %}checked{% endif %}>
+                        <label for="leaderboard">Leaderboard</label>
+                    </div>
+                </div>
+
+                <div class="tag-filters">
+                    <h3>Filter by Tags</h3>
+                    <div class="tag-pills" id="tag-filters">
+                        <!-- Tag filter pills will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="campaigns-grid" id="campaigns-grid">
+                    <!-- Campaign cards populated via Jinja2 templating -->
+                    {% if campaigns %}
+                        {% for campaign in campaigns %}
+                        <div class="campaign-card" data-tags="{{ campaign.tags|join(',') }}">
+                            <div class="campaign-header">
+                                <h3>{{ campaign.subject }}</h3>
+                                <span class="campaign-id">ID: {{ campaign.id }}</span>
+                                <span class="send-date">{{ campaign.send_date }}</span>
+                            </div>
+                            
+                            <div class="campaign-tags">
+                                {% for tag in campaign.tags %}
+                                <span class="tag" data-tag="{{ tag }}">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="performance-metrics">
+                                <div class="email-performance">
+                                    <h4>Email Performance</h4>
+                                    <div class="metric">
+                                        <span class="label">Audience Size:</span>
+                                        <span class="value">{{ campaign.audience_size }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Open Rate:</span>
+                                        <span class="value">{{ campaign.open_rate }}%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Click Rate:</span>
+                                        <span class="value">{{ campaign.click_rate }}%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Total Clicks:</span>
+                                        <span class="value">{{ campaign.total_clicks }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="business-impact">
+                                    <h4>Business Impact</h4>
+                                    <div class="metric">
+                                        <span class="label">Offers Before:</span>
+                                        <span class="value">{{ campaign.offers_before }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Offers After:</span>
+                                        <span class="value">{{ campaign.offers_after }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Absolute Lift:</span>
+                                        <span class="value">{{ campaign.absolute_lift }}</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="label">Percentage Lift:</span>
+                                        <span class="value 
+                                        {% if campaign.percentage_lift > 0 %}positive{% elif campaign.percentage_lift < 0 %}negative{% endif %}">
+                                            {{ campaign.percentage_lift }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="campaign-actions">
+                                <a href="https://app.mailjet.com/stats/campaigns/{{ campaign.id }}" 
+                                   target="_blank" 
+                                   class="btn-view-more">
+                                    View more
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-data">
+                            <p>No campaign data available. Please check if the data file exists.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Tag Tooltip -->
+    <div id="tag-tooltip" class="tag-tooltip">
+        <button class="close-btn" onclick="hideTooltip()">&times;</button>
+        <h4 id="tooltip-title"></h4>
+        <p id="tooltip-description"></p>
+    </div>
+
+    <script>
+        // Tag definitions from taxonomy v2
+        const tagDefinitions = {
+            // Playbook Types
+            'Lifecycle': 'Sent based on a user\'s specific journey or milestone (e.g., welcome, activation, retention, reward).',
+            'Promotional': 'A campaign focused on driving a specific, time-bound action (e.g., participating in a hot drop, using a new feature).',
+            'Transactional': 'A system-triggered email confirming a user action (e.g., trade confirmation, password reset).',
+            'Product Update': 'Announcing new features, changes, or improvements to the platform.',
+            'Community': 'Focused on building community, sharing user-generated content, or highlighting social activity.',
+            
+            // Topic Focus
+            'Fee Discount': 'Centered on offering reduced transaction fees.',
+            'Status': 'Related to user status, tiers, or recognition (e.g., Trusted Trader).',
+            'New Feature': 'Highlighting a new tool or capability in the app.',
+            'Market Trend': 'Sharing data or insights about what\'s hot in the market (e.g., trending shoes).',
+            'Shoe Spotlight': 'Focusing on a specific sneaker.',
+            'Community Norms': 'Addressing user behavior or platform etiquette (e.g., "DS-only" traders).',
+            'Top Hunters': 'Featuring the most active users in a specific size.',
+            'Trusted Trader': 'Related to Trusted Trader status or benefits.',
+            
+            // Framing
+            'Congratulatory': 'Celebrating a user\'s achievement or milestone.',
+            'Urgency': 'Encouraging immediate action due to time sensitivity.',
+            'Scarcity': 'Highlighting limited availability.',
+            'Social Proof': 'Using the actions or success of other users to motivate.',
+            'Financial Benefit': 'Explicitly stating a monetary advantage.',
+            'Exclusivity': 'Making the user feel part of a special, select group.',
+            'Pain Point Agitation': 'Highlighting a common frustration that our platform can solve.',
+            'Reward': 'A tangible or intangible prize for a specific action or status.',
+            'Informational': 'A neutral, direct presentation of information.',
+            
+            // Personalization Level
+            'Generic Broadcast': 'The same message sent to a large, undifferentiated list.',
+            'Segmented': 'Targeted to a specific user group based on shared attributes (e.g., all Trusted Traders).',
+            'Personalized': 'Includes basic recipient-specific data (e.g., username, shoe size).',
+            'Hyper-Personalized': 'Tailored based on specific, individual user behaviors (e.g., "We noticed you were looking at these shoes...").',
+            
+            // Call to Action
+            'Make Offer': 'Encouraging users to create a trade offer.',
+            'View Shoe': 'Driving traffic to a specific shoe\'s page.',
+            'Explore Feature': 'Prompting users to try a new feature.',
+            'Learn More': 'Directing users to informational content.',
+            'Join Discussion': 'Encouraging community engagement.',
+            
+            // Test Details
+            'Subject Line A/B Test': 'An A/B test on the email\'s subject line.',
+            'Content A/B Test': 'An A/B test on the body of the email.',
+            'Not a Test': 'A standard, non-experimental campaign.'
+        };
+
+        // Global state
+        let activeFilters = new Set();
+        let allTags = [];
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTagFilters();
+            initializeTagTooltips();
+            initializeViewToggle();
+            initializeDarkMode();
+        });
+
+        // View toggle functionality - reload page with sort parameter
+        function initializeViewToggle() {
+            const viewToggle = document.querySelectorAll('input[name="view"]');
+            viewToggle.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const sortParam = this.value;
+                    const currentUrl = new URL(window.location);
+                    currentUrl.searchParams.set('sort', sortParam);
+                    window.location.href = currentUrl.toString();
+                });
+            });
+        }
+
+        // Dark mode initialization
+        function initializeDarkMode() {
+            // Apply dark mode on load
+            document.body.classList.add('dark-mode');
+        }
+
+        // Initialize tag filters
+        function initializeTagFilters() {
+            const campaignCards = document.querySelectorAll('.campaign-card');
+            const tagSet = new Set();
+            
+            // Collect all unique tags
+            campaignCards.forEach(card => {
+                const tags = card.dataset.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+                tags.forEach(tag => tagSet.add(tag));
+            });
+            
+            allTags = Array.from(tagSet).sort();
+            
+            // Initialize all filters as active
+            activeFilters = new Set(allTags);
+            
+            // Create tag filter pills
+            const tagFiltersContainer = document.getElementById('tag-filters');
+            tagFiltersContainer.innerHTML = '';
+            
+            allTags.forEach(tag => {
+                const pill = document.createElement('button');
+                pill.className = 'tag-pill';
+                pill.textContent = tag;
+                pill.dataset.tag = tag;
+                pill.onclick = () => toggleTagFilter(tag);
+                tagFiltersContainer.appendChild(pill);
+            });
+            
+            // Apply initial filter (show all)
+            applyTagFilters();
+        }
+
+        // Toggle tag filter
+        function toggleTagFilter(tag) {
+            if (activeFilters.has(tag)) {
+                activeFilters.delete(tag);
+            } else {
+                activeFilters.add(tag);
+            }
+            
+            updateTagFilterUI();
+            applyTagFilters();
+        }
+
+        // Update tag filter UI
+        function updateTagFilterUI() {
+            const pills = document.querySelectorAll('.tag-pill');
+            pills.forEach(pill => {
+                const tag = pill.dataset.tag;
+                if (activeFilters.has(tag)) {
+                    pill.classList.remove('inactive');
+                } else {
+                    pill.classList.add('inactive');
+                }
+            });
+        }
+
+        // Apply tag filters to campaign cards
+        function applyTagFilters() {
+            const campaignCards = document.querySelectorAll('.campaign-card');
+            campaignCards.forEach(card => {
+                const cardTags = card.dataset.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+                
+                // EXCLUSIVE FILTERING: Hide card if it has ANY inactive tag
+                const hasInactiveTag = cardTags.some(tag => !activeFilters.has(tag));
+                
+                if (hasInactiveTag) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = '';
+                }
+            });
+        }
+
+        // Initialize tag tooltips
+        function initializeTagTooltips() {
+            const tags = document.querySelectorAll('.campaign-tags .tag');
+            tags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showTooltip(this.dataset.tag, e);
+                });
+            });
+            
+            // Close tooltip when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.tag-tooltip') && !e.target.closest('.tag')) {
+                    hideTooltip();
+                }
+            });
+        }
+
+        // Show tooltip
+        function showTooltip(tagName, event) {
+            const tooltip = document.getElementById('tag-tooltip');
+            const title = document.getElementById('tooltip-title');
+            const description = document.getElementById('tooltip-description');
+            
+            title.textContent = tagName;
+            description.textContent = tagDefinitions[tagName] || 'No definition available for this tag.';
+            
+            // Position tooltip near the clicked tag
+            const rect = event.target.getBoundingClientRect();
+            tooltip.style.left = Math.min(rect.left, window.innerWidth - 320) + 'px';
+            tooltip.style.top = (rect.bottom + 10) + 'px';
+            
+            tooltip.classList.add('show');
+        }
+
+        // Hide tooltip
+        function hideTooltip() {
+            const tooltip = document.getElementById('tag-tooltip');
+            tooltip.classList.remove('show');
+        }
+    </script>
+</body>
+</html> 

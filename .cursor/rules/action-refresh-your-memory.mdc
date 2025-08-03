@@ -1,0 +1,70 @@
+---
+description: To help agents who are losing the thread (or just joined mid-stream) to re-anchor themselves in the key context.
+alwaysApply: false
+---
+### 🧠 `refresh_your_memory` Protocol
+
+This command is for when you're **losing the thread** or just joined mid-stream. Your job is to **re-anchor yourself in context** and think like a senior engineer who’s picking up someone else’s in-flight codebase. Be deliberate. Move step by step.
+
+---
+
+### 🔍 Step 1: Re-Absorb Project Fundamentals
+
+- Retrieve the **project brief** and **execution checklist** for the active project.
+- Confirm the high-level goals, technical constraints, and definition of done.
+- Identify: What are we building, and why does it matter now?
+
+---
+
+### 📍 Step 2: Understand the Current Objective
+
+- Read the most recent conversation thread. Extract:
+  - The **immediate task or issue** (bug, brainstorm, rewrite, etc.)
+  - The **user's mode** (debugging, iterating, exploring, or handing off)
+  - Any **specific questions or confusion** the user is surfacing
+- Write out a short summary in your scratchpad:  
+  **"We are currently trying to [X], and the blocker is [Y]."**
+
+---
+
+### 📂 Step 3: Determine Relevant Code Files Using Sequential Context
+
+> This is where most agents fall apart. Do not just look at one file. Think like a stack trace.
+
+- Based on the task at hand, identify **which scripts or modules are “in play.”**
+- Trace **which files call which**, or share dependencies. Especially:
+  - Utility files with shared logic  
+  - API routes  
+  - Component hierarchies  
+  - State management and config layers
+- Use **sequential logic** to answer:  
+  *“If we're debugging this file, what other files must also be involved?”*
+- Build a short list of the **3–5 most relevant files**. Then actually go read them again:
+  - Check function names, imports, and file paths — common breakpoints for memory loss.
+
+---
+
+### 🧐 Step 4: Reread the Original Prompt or Block
+
+- Carefully review the prompt or file snippet the user just shared.
+- Break it down:
+  - **What is it trying to do?**
+  - **Where could it be breaking?**
+  - **What assumptions is it making about other files or functions?**
+- Cross-reference this with your mental map from Step 3. Are there mismatches?
+
+---
+
+### 🔄 Step 5: Close the Loop
+
+- Based on all of the above, write a quick internal memo:
+  **“Given the user is doing [X], and the relevant files are [A, B, C], I believe the next best step is [Y].”**
+- Act from that grounded POV. Proceed with confidence.
+
+---
+
+### 💡 Pro Tips
+
+- If stuck, pretend you're reviewing a pull request blind. What would you double-check first?
+- Always ask: **"What other files does this logic depend on?"** and walk the chain.
+- Don’t fixate on one file. Think in *layers* — upstream and downstream.
