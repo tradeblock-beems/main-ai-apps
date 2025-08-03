@@ -1,0 +1,10 @@
+
+{
+  "name": "email-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Starting email-hub (Flask server)...' && python3 app.py",
+    "dev:email": "python3 ../../apps/email-hub/app.py"
+  }
+} 
