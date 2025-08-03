@@ -10,6 +10,7 @@ interface ServerResponse {
   message: string;
   success?: boolean;
   failedTokens?: string[];
+  jobId?: string;
 }
 
 interface AudienceResponse {
@@ -111,6 +112,8 @@ export default function Home() {
   const [modalCsvPreview, setModalCsvPreview] = useState<any[] | null>(null);
   const [modalAudienceLoading, setModalAudienceLoading] = useState(false);
   const [modalFile, setModalFile] = useState<File | null>(null);
+  const [modalResponse, setModalResponse] = useState<ServerResponse | null>(null);
+  const [modalIsLoading, setModalIsLoading] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -458,13 +461,19 @@ export default function Home() {
       body: push.body,
       deepLinkUrl: push.deepLinkUrl || ''
     });
+    // Clear modal-specific state when opening
+    setModalResponse(null);
+    setModalAudienceResponse(null);
+    setModalGeneratedCsv(null);
+    setModalFile(null);
     setShowPushModal(true);
   };
 
   const handleSavePushChanges = async () => {
     if (!selectedPush || !editingPush) return;
 
-    setIsLoading(true);
+    setModalIsLoading(true);
+    setModalResponse(null);
     try {
       const res = await fetch(`/api/scheduled-pushes/${selectedPush.id}`, {
         method: 'PUT',
@@ -484,14 +493,14 @@ export default function Home() {
               : push
           )
         );
-        setResponse({ success: true, message: 'Push updated successfully!' });
+        setModalResponse({ success: true, message: 'Push updated successfully!' });
       } else {
-        setResponse({ success: false, message: data.message || 'Failed to update push.' });
+        setModalResponse({ success: false, message: data.message || 'Failed to update push.' });
       }
     } catch (error: any) {
-      setResponse({ success: false, message: error.message || 'An unexpected error occurred.' });
+      setModalResponse({ success: false, message: error.message || 'An unexpected error occurred.' });
     } finally {
-      setIsLoading(false);
+      setModalIsLoading(false);
     }
   };
 
@@ -580,17 +589,17 @@ export default function Home() {
 
   const handleModalSendPush = async (isDryRun: boolean = false) => {
     if (!modalFile || !editingPush?.title || !editingPush?.body) {
-      setResponse({ message: 'Please fill out the title, body, and ensure a CSV file is available.' });
+      setModalResponse({ message: 'Please fill out the title, body, and ensure a CSV file is available.' });
       return;
     }
 
     if (editingPush.deepLinkUrl && !isValidDeepLink(editingPush.deepLinkUrl)) {
-      setResponse({ message: 'Deep link must be a valid tradeblock.us URL.' });
+      setModalResponse({ message: 'Deep link must be a valid tradeblock.us URL.' });
       return;
     }
 
-    setIsLoading(true);
-    setResponse(null);
+    setModalIsLoading(true);
+    setModalResponse(null);
 
     const formData = new FormData();
     formData.append('title', editingPush.title);
@@ -607,11 +616,11 @@ export default function Home() {
         body: formData,
       });
       const data: ServerResponse = await res.json();
-      setResponse(data);
+      setModalResponse(data);
     } catch (error: any) {
-      setResponse({ message: error.message || 'An unexpected error occurred.' });
+      setModalResponse({ message: error.message || 'An unexpected error occurred.' });
     } finally {
-      setIsLoading(false);
+      setModalIsLoading(false);
     }
   };
 
@@ -1799,7 +1808,7 @@ export default function Home() {
                     type="text"
                     value={editingPush?.title || ''}
                     onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, title: e.target.value} : null)}
-                    disabled={isLoading}
+                    disabled={modalIsLoading}
                   />
                 </div>
 
@@ -1810,7 +1819,7 @@ export default function Home() {
                   <Textarea
                     value={editingPush?.body || ''}
                     onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, body: e.target.value} : null)}
-                    disabled={isLoading}
+                    disabled={modalIsLoading}
                     rows={3}
                   />
                 </div>
@@ -1823,7 +1832,7 @@ export default function Home() {
                     type="url"
                     value={editingPush?.deepLinkUrl || ''}
                     onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, deepLinkUrl: e.target.value} : null)}
-                    disabled={isLoading}
+                    disabled={modalIsLoading}
                   />
                 </div>
               </div>
@@ -1833,12 +1842,38 @@ export default function Home() {
                 <Button
                   type="button"
                   onClick={handleSavePushChanges}
-                  disabled={isLoading}
+                  disabled={modalIsLoading}
                   className="w-full"
                 >
-                  {isLoading ? 'Saving...' : 'Save Changes'}
+                  {modalIsLoading ? 'Saving...' : 'Save Changes'}
                 </Button>
               </div>
+
+              {/* Modal Response Messages */}
+              {modalResponse && (
+                <div className={`p-4 rounded-md text-sm mb-6 ${
+                  modalResponse.success 
+                    ? 'bg-green-50 text-green-800 border border-green-200' 
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                }`}>
+                  <p className="font-bold">{modalResponse.success ? 'Success!' : 'Error'}</p>
+                  <p>{modalResponse.message}</p>
+                  {modalResponse.success && modalResponse.jobId && (
+                    <div className="mt-2">
+                      <p className="text-xs text-green-600">
+                        Job ID: {modalResponse.jobId}
+                      </p>
+                    </div>
+                  )}
+                  {modalResponse.failedTokens && modalResponse.failedTokens.length > 0 && (
+                    <div className="mt-2">
+                      <p className="text-xs text-red-600">
+                        {modalResponse.failedTokens.length} tokens failed
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Audience Generation Section */}
               <div className="border-t pt-6">
@@ -1922,7 +1957,7 @@ export default function Home() {
                     accept=".csv"
                     onChange={handleModalFileChange}
                     className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 disabled:opacity-50"
-                    disabled={isLoading}
+                    disabled={modalIsLoading}
                   />
                   {modalFile && <p className="text-xs text-gray-500 mt-1">Selected: {modalFile.name}</p>}
                 </div>
@@ -1932,15 +1967,15 @@ export default function Home() {
                   <Button 
                     type="button" 
                     onClick={() => handleModalSendPush(false)} 
-                    disabled={isLoading || !modalFile} 
+                    disabled={modalIsLoading || !modalFile} 
                     className="flex-1"
                   >
-                    {isLoading ? 'Sending...' : 'Blast It!'}
+                    {modalIsLoading ? 'Sending...' : 'Blast It!'}
                   </Button>
                   <Button 
                     type="button" 
                     onClick={() => handleModalSendPush(true)} 
-                    disabled={isLoading || !modalFile} 
+                    disabled={modalIsLoading || !modalFile} 
                     className="flex-1 bg-gray-600 hover:bg-gray-500"
                   >
                     Dry Run
