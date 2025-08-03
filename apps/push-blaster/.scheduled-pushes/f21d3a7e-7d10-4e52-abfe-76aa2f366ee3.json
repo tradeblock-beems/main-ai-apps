@@ -1,0 +1,15 @@
+{
+  "id": "f21d3a7e-7d10-4e52-abfe-76aa2f366ee3",
+  "createdAt": "2025-08-03T20:46:40.658Z",
+  "scheduledFor": "2025-12-25T10:00:00.000Z",
+  "title": "Updated Holiday Special",
+  "body": "Limited time holiday deals!",
+  "audienceCriteria": {
+    "filters": {
+      "lastActiveDays": 7,
+      "minLifetimeTrades": 5
+    }
+  },
+  "audienceDescription": "Active users with 5+ trades",
+  "status": "scheduled"
+}
