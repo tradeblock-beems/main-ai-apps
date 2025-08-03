@@ -1,0 +1,15 @@
+{
+  "id": "9573743e-a0b0-435e-8281-8ae5d6684b11",
+  "createdAt": "2025-08-03T20:56:15.776Z",
+  "scheduledFor": "2025-12-31T15:00:00.000Z",
+  "title": "Phase 2 Test Push",
+  "body": "Testing the UI integration!",
+  "audienceCriteria": {
+    "filters": {
+      "lastActiveDays": 30,
+      "minLifetimeTrades": 10
+    }
+  },
+  "audienceDescription": "Active users with 10+ trades",
+  "status": "scheduled"
+}

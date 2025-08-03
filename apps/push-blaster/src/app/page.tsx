@@ -88,6 +88,14 @@ export default function Home() {
   const [pushLogs, setPushLogs] = useState<any[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
 
+  // Scheduling state
+  const [pushMode, setPushMode] = useState<'now' | 'schedule'>('now');
+  const [savedAudienceCriteria, setSavedAudienceCriteria] = useState<any>(null);
+  const [savedAudienceDescription, setSavedAudienceDescription] = useState('');
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState('');
+  const [scheduledTime, setScheduledTime] = useState('');
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -109,6 +117,92 @@ export default function Home() {
     const lines = csvData.trim().split('\n');
     if (lines.length === 0) return [];
     return lines[0].split(',').map(col => col.trim().replace(/"/g, ''));
+  };
+
+  const handleSaveAudienceCriteria = () => {
+    const filters: any = {};
+    if (lastActiveDays !== '') filters.lastActiveDays = lastActiveDays;
+    if (daysSinceLastActiveInactive !== '') filters.daysSinceLastActive_inactive = daysSinceLastActiveInactive;
+    if (tradedInLastDays !== '') filters.tradedInLastDays = tradedInLastDays;
+    if (notTradedInLastDays !== '') filters.notTradedInLastDays = notTradedInLastDays;
+    if (minLifetimeTrades !== '') filters.minLifetimeTrades = minLifetimeTrades;
+    if (maxLifetimeTrades !== '') filters.maxLifetimeTrades = maxLifetimeTrades;
+    if (hasTrustedTrader !== null) filters.hasTrustedTrader = hasTrustedTrader;
+    if (isTrustedTraderCandidate !== null) filters.isTrustedTraderCandidate = isTrustedTraderCandidate;
+    if (joinedAfterDate) filters.joinedAfterDate = joinedAfterDate;
+
+    const dataPacks: any = {
+      topTargetShoe,
+      hottestShoeTraded,
+      hottestShoeOffers,
+    };
+
+    if (hottestShoeTraded && hottestShoeTradedLookback !== '') {
+      dataPacks.hottestShoeTradedLookback = hottestShoeTradedLookback;
+    }
+    if (hottestShoeOffers && hottestShoeOffersLookback !== '') {
+      dataPacks.hottestShoeOffersLookback = hottestShoeOffersLookback;
+    }
+
+    const criteria = { filters, dataPacks };
+    setSavedAudienceCriteria(criteria);
+    
+    // Generate description for saved criteria
+    const desc = generateAudienceDescription(criteria);
+    setSavedAudienceDescription(desc);
+    
+    alert('Audience criteria saved successfully!');
+  };
+
+  const handleSaveManualAudienceCriteria = () => {
+    if (!manualUserIds.trim()) {
+      alert('Please enter user IDs before saving criteria');
+      return;
+    }
+
+    const userIdsArray = manualUserIds.split(',').map(id => id.trim()).filter(id => id);
+    
+    const dataPacks: any = {
+      topTargetShoe: manualTopTargetShoe,
+      hottestShoeTraded: manualHottestShoeTraded,
+      hottestShoeOffers: manualHottestShoeOffers
+    };
+
+    if (manualHottestShoeTraded && manualHottestShoeTradedLookback !== '') {
+      dataPacks.hottestShoeTradedLookback = manualHottestShoeTradedLookback;
+    }
+    if (manualHottestShoeOffers && manualHottestShoeOffersLookback !== '') {
+      dataPacks.hottestShoeOffersLookback = manualHottestShoeOffersLookback;
+    }
+
+    const criteria = { manualUserIds: userIdsArray, dataPacks };
+    setSavedAudienceCriteria(criteria);
+    setSavedAudienceDescription(`Manual audience: ${userIdsArray.length} specified user(s)`);
+    
+    alert('Manual audience criteria saved successfully!');
+  };
+
+  const generateAudienceDescription = (criteria: any) => {
+    const parts = [];
+    const { filters, dataPacks } = criteria;
+    
+    if (filters?.lastActiveDays) parts.push(`active in last ${filters.lastActiveDays} days`);
+    if (filters?.tradedInLastDays) parts.push(`traded in last ${filters.tradedInLastDays} days`);
+    if (filters?.minLifetimeTrades) parts.push(`min ${filters.minLifetimeTrades} lifetime trades`);
+    if (filters?.hasTrustedTrader === true) parts.push('trusted traders');
+    if (filters?.hasTrustedTrader === false) parts.push('non-trusted traders');
+    
+    const dataPackParts = [];
+    if (dataPacks?.topTargetShoe) dataPackParts.push('TOP TARGET SHOE');
+    if (dataPacks?.hottestShoeTraded) dataPackParts.push('HOTTEST SHOE TRADED');
+    if (dataPacks?.hottestShoeOffers) dataPackParts.push('HOTTEST SHOE OFFERS');
+    
+    let description = parts.length > 0 ? `Users with ${parts.join(', ')}` : 'All users';
+    if (dataPackParts.length > 0) {
+      description += ` + data packs: ${dataPackParts.join(', ')}`;
+    }
+    
+    return description;
   };
 
   const handleGenerateAudience = async () => {
@@ -403,6 +497,83 @@ export default function Home() {
     }
   };
 
+  const handleScheduleClick = () => {
+    if (!savedAudienceCriteria) {
+      alert('Please save audience criteria first using the "Save Audience Criteria" button in one of the audience sections above.');
+      return;
+    }
+
+    if (!title || !body) {
+      alert('Please fill out the notification title and body before scheduling.');
+      return;
+    }
+
+    setShowScheduleModal(true);
+  };
+
+  const handleScheduleSubmit = async () => {
+    if (!scheduledDate || !scheduledTime) {
+      alert('Please select both date and time for scheduling.');
+      return;
+    }
+
+    const scheduledDateTime = new Date(`${scheduledDate}T${scheduledTime}`);
+    
+    if (scheduledDateTime <= new Date()) {
+      alert('Scheduled time must be in the future.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/scheduled-pushes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scheduledFor: scheduledDateTime.toISOString(),
+          title,
+          body,
+          deepLinkUrl: deepLink || null,
+          audienceCriteria: savedAudienceCriteria,
+          audienceDescription: savedAudienceDescription,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setResponse({ 
+          success: true, 
+          message: `Push notification scheduled successfully for ${scheduledDateTime.toLocaleString()}!` 
+        });
+        setShowScheduleModal(false);
+        setScheduledDate('');
+        setScheduledTime('');
+        // Clear form
+        setTitle('');
+        setBody('');
+        setDeepLink('');
+        setSavedAudienceCriteria(null);
+        setSavedAudienceDescription('');
+      } else {
+        setResponse({ 
+          success: false, 
+          message: data.message || 'Failed to schedule push notification.' 
+        });
+      }
+    } catch (error: any) {
+      setResponse({ 
+        success: false, 
+        message: error.message || 'An unexpected error occurred while scheduling.' 
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const getStatusInfo = (log: any) => {
     if (log.isDryRun) {
       return {
@@ -470,6 +641,40 @@ export default function Home() {
         
         {activeTab === 'make' && (
           <div>
+            {/* Push Mode Toggle */}
+            <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <h3 className="text-lg font-semibold mb-3 text-blue-800">Push Mode</h3>
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="pushMode"
+                    checked={pushMode === 'now'}
+                    onChange={() => setPushMode('now')}
+                    className="mr-2"
+                  />
+                  <span className="font-medium">Push Now</span>
+                  <span className="text-sm text-gray-600 ml-2">(existing experience)</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="pushMode"
+                    checked={pushMode === 'schedule'}
+                    onChange={() => setPushMode('schedule')}
+                    className="mr-2"
+                  />
+                  <span className="font-medium">Schedule a Push</span>
+                  <span className="text-sm text-gray-600 ml-2">(draft and schedule for later)</span>
+                </label>
+              </div>
+              {savedAudienceCriteria && (
+                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-md">
+                  <p className="text-sm font-medium text-green-800">✓ Saved Audience Criteria:</p>
+                  <p className="text-sm text-green-700">{savedAudienceDescription}</p>
+                </div>
+              )}
+            </div>
             <div className="mb-8 p-6 bg-gray-50 rounded-lg border-2 border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Query Push Audience</h2>
           
@@ -689,14 +894,34 @@ export default function Home() {
             </div>
           </div>
 
-          <Button 
-            type="button" 
-            onClick={handleGenerateAudience} 
-            disabled={audienceLoading}
-            className="mb-4"
-          >
-            {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
-          </Button>
+          {pushMode === 'now' ? (
+            <Button 
+              type="button" 
+              onClick={handleGenerateAudience} 
+              disabled={audienceLoading}
+              className="mb-4"
+            >
+              {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
+            </Button>
+          ) : (
+            <div className="flex gap-3 mb-4">
+              <Button 
+                type="button" 
+                onClick={handleSaveAudienceCriteria} 
+                disabled={audienceLoading}
+                className="bg-green-600 hover:bg-green-500"
+              >
+                Save Audience Criteria
+              </Button>
+              <Button 
+                type="button" 
+                onClick={handleGenerateAudience} 
+                disabled={audienceLoading}
+              >
+                {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
+              </Button>
+            </div>
+          )}
 
           {audienceResponse && (
             <div className={`p-4 rounded-md text-sm mb-4 ${audienceResponse.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
@@ -863,18 +1088,40 @@ export default function Home() {
             </div>
           </div>
 
-          <Button 
-            type="button" 
-            onClick={handleGenerateManualAudience}
-            disabled={audienceLoading || !manualUserIds.trim()}
-            className="mb-4"
-          >
-            {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
-          </Button>
+          {pushMode === 'now' ? (
+            <Button 
+              type="button" 
+              onClick={handleGenerateManualAudience}
+              disabled={audienceLoading || !manualUserIds.trim()}
+              className="mb-4"
+            >
+              {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
+            </Button>
+          ) : (
+            <div className="flex gap-3 mb-4">
+              <Button 
+                type="button" 
+                onClick={handleSaveManualAudienceCriteria}
+                disabled={audienceLoading || !manualUserIds.trim()}
+                className="bg-green-600 hover:bg-green-500"
+              >
+                Save Audience Criteria
+              </Button>
+              <Button 
+                type="button" 
+                onClick={handleGenerateManualAudience}
+                disabled={audienceLoading || !manualUserIds.trim()}
+              >
+                {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="border-t-2 border-gray-200 pt-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Send Push Notification</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">
+            {pushMode === 'now' ? 'Send Push Notification' : 'Draft Push Notification'}
+          </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
@@ -954,12 +1201,30 @@ export default function Home() {
           )}
 
           <div className="flex items-center space-x-4">
-              <Button type="submit" disabled={isLoading} className="flex-1">
-                Blast It!
-              </Button>
-              <Button type="button" onClick={handleDryRun} disabled={isLoading} className="flex-1 bg-gray-600 hover:bg-gray-500">
-                Dry Run
-              </Button>
+              {pushMode === 'now' ? (
+                <>
+                  <Button type="submit" disabled={isLoading} className="flex-1">
+                    Blast It!
+                  </Button>
+                  <Button type="button" onClick={handleDryRun} disabled={isLoading} className="flex-1 bg-gray-600 hover:bg-gray-500">
+                    Dry Run
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    type="button" 
+                    onClick={handleScheduleClick} 
+                    disabled={isLoading} 
+                    className="flex-1 bg-blue-600 hover:bg-blue-500"
+                  >
+                    Schedule It!
+                  </Button>
+                  <Button type="button" onClick={handleDryRun} disabled={isLoading} className="flex-1 bg-gray-600 hover:bg-gray-500">
+                    Dry Run
+                  </Button>
+                </>
+              )}
             </div>
         </form>
         </div>
@@ -1032,6 +1297,79 @@ export default function Home() {
                 })}
               </div>
             )}
+          </div>
+        )}
+
+        {/* Scheduling Modal */}
+        {showScheduleModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Schedule Push Notification</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="schedule_date" className="block text-sm font-medium text-gray-700 mb-1">
+                    Date
+                  </label>
+                  <Input
+                    id="schedule_date"
+                    type="date"
+                    value={scheduledDate}
+                    onChange={(e) => setScheduledDate(e.target.value)}
+                    min={new Date().toISOString().split('T')[0]}
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="schedule_time" className="block text-sm font-medium text-gray-700 mb-1">
+                    Time
+                  </label>
+                  <Input
+                    id="schedule_time"
+                    type="time"
+                    value={scheduledTime}
+                    onChange={(e) => setScheduledTime(e.target.value)}
+                    required
+                  />
+                </div>
+
+                {savedAudienceCriteria && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-md">
+                    <p className="text-sm font-medium text-blue-800">Audience:</p>
+                    <p className="text-sm text-blue-700">{savedAudienceDescription}</p>
+                  </div>
+                )}
+
+                <div className="p-3 bg-gray-50 border border-gray-200 rounded-md">
+                  <p className="text-sm font-medium text-gray-800">Notification Preview:</p>
+                  <p className="text-sm text-gray-700 mt-1"><strong>{title}</strong></p>
+                  <p className="text-sm text-gray-600">{body}</p>
+                  {deepLink && (
+                    <p className="text-xs text-blue-600 mt-1">→ {deepLink}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-3 mt-6">
+                <Button
+                  type="button"
+                  onClick={handleScheduleSubmit}
+                  disabled={isLoading}
+                  className="flex-1 bg-blue-600 hover:bg-blue-500"
+                >
+                  {isLoading ? 'Scheduling...' : 'Schedule It!'}
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => setShowScheduleModal(false)}
+                  disabled={isLoading}
+                  className="flex-1 bg-gray-600 hover:bg-gray-500"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
           </div>
         )}
     </div>
