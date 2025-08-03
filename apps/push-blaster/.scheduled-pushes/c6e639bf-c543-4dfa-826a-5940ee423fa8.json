@@ -3,7 +3,7 @@
   "createdAt": "2025-08-03T22:09:38.923Z",
   "scheduledFor": "2025-08-06T01:09:00.000Z",
   "title": "test",
-  "body": "test",
+  "body": "test test",
   "audienceCriteria": {
     "filters": {
       "lastActiveDays": 1,

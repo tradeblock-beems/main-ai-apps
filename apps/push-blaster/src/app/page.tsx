@@ -114,6 +114,7 @@ export default function Home() {
   const [modalFile, setModalFile] = useState<File | null>(null);
   const [modalResponse, setModalResponse] = useState<ServerResponse | null>(null);
   const [modalIsLoading, setModalIsLoading] = useState(false);
+  const [modalTrackingRecord, setModalTrackingRecord] = useState<any>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -461,11 +462,34 @@ export default function Home() {
       body: push.body,
       deepLinkUrl: push.deepLinkUrl || ''
     });
+    
     // Clear modal-specific state when opening
     setModalResponse(null);
     setModalAudienceResponse(null);
     setModalGeneratedCsv(null);
     setModalFile(null);
+    
+    // If push status is 'sent', we should show tracking record instead of edit interface
+    if (push.status === 'sent') {
+      // For sent pushes, we'll need to fetch the actual tracking record
+      // For now, create a basic tracking record structure
+      setModalTrackingRecord({
+        id: push.id,
+        timestamp: push.createdAt,
+        status: 'completed',
+        title: push.title,
+        body: push.body,
+        deepLink: push.deepLinkUrl || undefined,
+        audienceDescription: push.audienceDescription,
+        audienceSize: 0, // Would need to be stored when sent
+        isDryRun: false,
+        successCount: 0,
+        totalCount: 0
+      });
+    } else {
+      setModalTrackingRecord(null);
+    }
+    
     setShowPushModal(true);
   };
 
@@ -617,6 +641,48 @@ export default function Home() {
       });
       const data: ServerResponse = await res.json();
       setModalResponse(data);
+
+      // If successful and not a dry run, update push status and create tracking record
+      if (data.success && !isDryRun) {
+        try {
+          // Update the scheduled push status to 'sent'
+          await fetch(`/api/scheduled-pushes/${selectedPush.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: 'sent' }),
+          });
+
+          // Update local scheduled pushes state
+          setScheduledPushes(prev => 
+            prev.map(push => 
+              push.id === selectedPush.id 
+                ? { ...push, status: 'sent' }
+                : push
+            )
+          );
+
+          // Create tracking record for modal display
+          const trackingRecord = {
+            id: data.jobId,
+            timestamp: new Date().toISOString(),
+            status: 'completed',
+            title: editingPush.title,
+            body: editingPush.body,
+            deepLink: editingPush.deepLinkUrl || undefined,
+            audienceDescription: selectedPush.audienceDescription,
+            audienceSize: modalAudienceResponse?.userCount || 0,
+            isDryRun: false,
+            successCount: modalAudienceResponse?.userCount || 0,
+            totalCount: modalAudienceResponse?.userCount || 0
+          };
+
+          setModalTrackingRecord(trackingRecord);
+        } catch (error) {
+          console.error('Failed to update push status:', error);
+        }
+      }
     } catch (error: any) {
       setModalResponse({ message: error.message || 'An unexpected error occurred.' });
     } finally {
@@ -1675,11 +1741,17 @@ export default function Home() {
                               {i + 1}
                             </div>
                             <div className="mt-1 space-y-1">
-                              {dayPushes.map(push => (
+                              {dayPushes.map(push => {
+                                const isSent = push.status === 'sent';
+                                return (
                                 <div
                                   key={push.id}
                                   onClick={() => handlePushClick(push)}
-                                  className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200 truncate"
+                                  className={`text-xs px-2 py-1 rounded cursor-pointer truncate ${
+                                    isSent 
+                                      ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                                      : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+                                  }`}
                                   title={push.title}
                                 >
                                   {new Date(push.scheduledFor).toLocaleTimeString('en-US', {
@@ -1688,7 +1760,8 @@ export default function Home() {
                                     hour12: true
                                   })} - {push.title}
                                 </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         );
@@ -1739,11 +1812,17 @@ export default function Home() {
                               })}
                             </div>
                             <div className="space-y-1">
-                              {dayPushes.map(push => (
+                              {dayPushes.map(push => {
+                                const isSent = push.status === 'sent';
+                                return (
                                 <div
                                   key={push.id}
                                   onClick={() => handlePushClick(push)}
-                                  className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200"
+                                  className={`text-xs px-2 py-1 rounded cursor-pointer ${
+                                    isSent 
+                                      ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                                      : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+                                  }`}
                                   title={push.title}
                                 >
                                   <div className="font-medium">
@@ -1755,7 +1834,8 @@ export default function Home() {
                                   </div>
                                   <div className="truncate">{push.title}</div>
                                 </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         );
@@ -1780,7 +1860,9 @@ export default function Home() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">Push Draft Details</h3>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {modalTrackingRecord ? 'Push Notification Tracking' : 'Push Draft Details'}
+                </h3>
                 <button
                   onClick={() => setShowPushModal(false)}
                   className="text-gray-400 hover:text-gray-600"
@@ -1789,7 +1871,41 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Audience Criteria (Read-only) */}
+              {/* Tracking Record Display */}
+              {modalTrackingRecord ? (
+                <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900">{modalTrackingRecord.title}</h3>
+                      <p className="text-sm text-gray-600 mt-1">{modalTrackingRecord.body}</p>
+                      {modalTrackingRecord.deepLink && (
+                        <p 
+                          className="text-xs text-blue-600 mt-1 cursor-pointer hover:text-blue-800" 
+                          onClick={() => copyToClipboard(modalTrackingRecord.deepLink)}
+                          title={`Click to copy full URL: ${modalTrackingRecord.deepLink}`}
+                        >
+                          → {truncateUrl(modalTrackingRecord.deepLink)}
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${getStatusInfo(modalTrackingRecord).className}`}>
+                        {getStatusInfo(modalTrackingRecord).text}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="text-xs text-gray-500 space-y-1">
+                    <p><strong>Audience:</strong> {modalTrackingRecord.audienceDescription} ({modalTrackingRecord.audienceSize} users)</p>
+                    {modalTrackingRecord.successCount !== undefined && modalTrackingRecord.totalCount !== undefined && (
+                      <p><strong>Delivery:</strong> {modalTrackingRecord.successCount} of {modalTrackingRecord.totalCount} notifications sent</p>
+                    )}
+                    <p><strong>Sent:</strong> {new Date(modalTrackingRecord.timestamp).toLocaleString()}</p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {/* Audience Criteria (Read-only) */}
               <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
                 <h4 className="text-md font-medium text-gray-800 mb-2">Audience Criteria</h4>
                 <p className="text-sm text-gray-700">{selectedPush.audienceDescription}</p>
@@ -1982,6 +2098,8 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
+                </>
+              )}
 
               {/* Close Button */}
               <div className="mt-6 flex justify-end">

@@ -111,21 +111,22 @@ export async function PUT(
       }, { status: 404 });
     }
 
-    // Check if push has already been sent
-    if (existingPush.status === 'sent') {
+    // Check if push has already been sent (only prevent content modifications, allow status updates TO 'sent')
+    const body = await req.json();
+    const { status } = body;
+    
+    if (existingPush.status === 'sent' && !(Object.keys(body).length === 1 && status)) {
       return NextResponse.json({
         success: false,
-        message: 'Cannot modify a push that has already been sent'
+        message: 'Cannot modify content of a push that has already been sent'
       }, { status: 400 });
     }
 
-    const body = await req.json();
     const { 
       scheduledFor, 
       title, 
       body: pushBody, 
-      deepLink, 
-      status 
+      deepLink 
     } = body;
 
     // Validate scheduled time if provided
