@@ -82,7 +82,7 @@ export default function Home() {
   const [splitSegments, setSplitSegments] = useState<number | ''>(2);
   
   // Tab state
-  const [activeTab, setActiveTab] = useState<'make' | 'track'>('make');
+  const [activeTab, setActiveTab] = useState<'make' | 'track' | 'calendar'>('make');
   
   // Push logs state
   const [pushLogs, setPushLogs] = useState<any[]>([]);
@@ -95,6 +95,22 @@ export default function Home() {
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [scheduledDate, setScheduledDate] = useState('');
   const [scheduledTime, setScheduledTime] = useState('');
+
+  // Calendar state
+  const [scheduledPushes, setScheduledPushes] = useState<any[]>([]);
+  const [calendarLoading, setCalendarLoading] = useState(false);
+  const [calendarView, setCalendarView] = useState<'monthly' | 'weekly'>('monthly');
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedPush, setSelectedPush] = useState<any>(null);
+  const [showPushModal, setShowPushModal] = useState(false);
+  const [editingPush, setEditingPush] = useState<any>(null);
+
+  // Modal-specific audience state
+  const [modalAudienceResponse, setModalAudienceResponse] = useState<AudienceResponse | null>(null);
+  const [modalGeneratedCsv, setModalGeneratedCsv] = useState<string | null>(null);
+  const [modalCsvPreview, setModalCsvPreview] = useState<any[] | null>(null);
+  const [modalAudienceLoading, setModalAudienceLoading] = useState(false);
+  const [modalFile, setModalFile] = useState<File | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -420,6 +436,185 @@ export default function Home() {
     }
   };
 
+  const fetchScheduledPushes = async () => {
+    setCalendarLoading(true);
+    try {
+      const res = await fetch('/api/scheduled-pushes');
+      const data = await res.json();
+      if (data.success) {
+        setScheduledPushes(data.scheduledPushes);
+      }
+    } catch (error) {
+      console.error('Failed to fetch scheduled pushes:', error);
+    } finally {
+      setCalendarLoading(false);
+    }
+  };
+
+  const handlePushClick = (push: any) => {
+    setSelectedPush(push);
+    setEditingPush({
+      title: push.title,
+      body: push.body,
+      deepLinkUrl: push.deepLinkUrl || ''
+    });
+    setShowPushModal(true);
+  };
+
+  const handleSavePushChanges = async () => {
+    if (!selectedPush || !editingPush) return;
+
+    setIsLoading(true);
+    try {
+      const res = await fetch(`/api/scheduled-pushes/${selectedPush.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editingPush),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        // Update the scheduled pushes list
+        setScheduledPushes(prev => 
+          prev.map(push => 
+            push.id === selectedPush.id 
+              ? { ...push, ...editingPush }
+              : push
+          )
+        );
+        setResponse({ success: true, message: 'Push updated successfully!' });
+      } else {
+        setResponse({ success: false, message: data.message || 'Failed to update push.' });
+      }
+    } catch (error: any) {
+      setResponse({ success: false, message: error.message || 'An unexpected error occurred.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGenerateModalAudience = async () => {
+    if (!selectedPush?.audienceCriteria) return;
+
+    setModalAudienceLoading(true);
+    setModalAudienceResponse(null);
+
+    try {
+      const criteria = selectedPush.audienceCriteria;
+      
+      const requestBody: any = {
+        ...criteria.filters,
+        dataPacks: criteria.dataPacks
+      };
+
+      if (criteria.manualUserIds) {
+        requestBody.manualUserIds = criteria.manualUserIds;
+      }
+
+      const res = await fetch('/api/query-audience', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const data: AudienceResponse = await res.json();
+      setModalAudienceResponse(data);
+      
+      if (data.success && data.csvData) {
+        setModalGeneratedCsv(data.csvData);
+        Papa.parse(data.csvData, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            setModalCsvPreview(results.data.slice(0, 4));
+          },
+        });
+      }
+    } catch (error: any) {
+      setModalAudienceResponse({ 
+        success: false, 
+        message: error.message || 'An unexpected error occurred.',
+        userCount: 0,
+        csvData: '',
+        audienceDescription: ''
+      });
+    } finally {
+      setModalAudienceLoading(false);
+    }
+  };
+
+  const downloadModalCsv = () => {
+    if (!modalGeneratedCsv) return;
+    
+    const blob = new Blob([modalGeneratedCsv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `audience_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
+  const useModalGeneratedCsv = () => {
+    if (!modalGeneratedCsv) return;
+    
+    const blob = new Blob([modalGeneratedCsv], { type: 'text/csv' });
+    const csvFile = new File([blob], 'generated_audience.csv', { type: 'text/csv' });
+    
+    setModalFile(csvFile);
+  };
+
+  const handleModalFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setModalFile(selectedFile);
+    }
+  };
+
+  const handleModalSendPush = async (isDryRun: boolean = false) => {
+    if (!modalFile || !editingPush?.title || !editingPush?.body) {
+      setResponse({ message: 'Please fill out the title, body, and ensure a CSV file is available.' });
+      return;
+    }
+
+    if (editingPush.deepLinkUrl && !isValidDeepLink(editingPush.deepLinkUrl)) {
+      setResponse({ message: 'Deep link must be a valid tradeblock.us URL.' });
+      return;
+    }
+
+    setIsLoading(true);
+    setResponse(null);
+
+    const formData = new FormData();
+    formData.append('title', editingPush.title);
+    formData.append('body', editingPush.body);
+    if (editingPush.deepLinkUrl) {
+      formData.append('deepLink', editingPush.deepLinkUrl);
+    }
+    formData.append('file', modalFile);
+
+    try {
+      const url = isDryRun ? '/api/send-push?dryRun=true' : '/api/send-push';
+      const res = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+      const data: ServerResponse = await res.json();
+      setResponse(data);
+    } catch (error: any) {
+      setResponse({ message: error.message || 'An unexpected error occurred.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -608,6 +803,74 @@ export default function Home() {
     alert('URL copied to clipboard!');
   };
 
+  // Calendar utility functions
+  const getDaysInMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'short', 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
+  const isSameDay = (date1: Date, date2: Date) => {
+    return date1.getDate() === date2.getDate() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getFullYear() === date2.getFullYear();
+  };
+
+  const getPushesForDate = (date: Date) => {
+    return scheduledPushes.filter(push => {
+      const pushDate = new Date(push.scheduledFor);
+      return isSameDay(pushDate, date);
+    });
+  };
+
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      if (direction === 'prev') {
+        newDate.setMonth(prev.getMonth() - 1);
+      } else {
+        newDate.setMonth(prev.getMonth() + 1);
+      }
+      return newDate;
+    });
+  };
+
+  const navigateWeek = (direction: 'prev' | 'next') => {
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      if (direction === 'prev') {
+        newDate.setDate(prev.getDate() - 7);
+      } else {
+        newDate.setDate(prev.getDate() + 7);
+      }
+      return newDate;
+    });
+  };
+
+  const getWeekDays = (date: Date) => {
+    const week = [];
+    const startOfWeek = new Date(date);
+    startOfWeek.setDate(date.getDate() - date.getDay());
+    
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek);
+      day.setDate(startOfWeek.getDate() + i);
+      week.push(day);
+    }
+    return week;
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-gray-50">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
@@ -636,6 +899,19 @@ export default function Home() {
             }}
           >
             TRACK
+          </button>
+          <button
+            className={`px-4 py-2 font-medium text-sm ${
+              activeTab === 'calendar' 
+                ? 'border-b-2 border-blue-500 text-blue-600' 
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+            onClick={() => {
+              setActiveTab('calendar');
+              fetchScheduledPushes();
+            }}
+          >
+            CALENDAR
           </button>
         </div>
         
@@ -1297,6 +1573,392 @@ export default function Home() {
                 })}
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === 'calendar' && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-gray-800">Scheduled Push Notifications</h2>
+              <div className="flex items-center gap-4">
+                <div className="flex border border-gray-300 rounded-lg">
+                  <button
+                    className={`px-4 py-2 text-sm font-medium ${
+                      calendarView === 'monthly' 
+                        ? 'bg-blue-500 text-white' 
+                        : 'bg-white text-gray-700 hover:bg-gray-50'
+                    } rounded-l-lg border-r border-gray-300`}
+                    onClick={() => setCalendarView('monthly')}
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    className={`px-4 py-2 text-sm font-medium ${
+                      calendarView === 'weekly' 
+                        ? 'bg-blue-500 text-white' 
+                        : 'bg-white text-gray-700 hover:bg-gray-50'
+                    } rounded-r-lg`}
+                    onClick={() => setCalendarView('weekly')}
+                  >
+                    Weekly
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {calendarLoading ? (
+              <div className="text-center py-8">
+                <p className="text-gray-500">Loading scheduled pushes...</p>
+              </div>
+            ) : (
+              <div>
+                {calendarView === 'monthly' ? (
+                  <div className="bg-white border border-gray-200 rounded-lg">
+                    {/* Month Navigation */}
+                    <div className="flex justify-between items-center p-4 border-b border-gray-200">
+                      <button
+                        onClick={() => navigateMonth('prev')}
+                        className="p-2 hover:bg-gray-100 rounded-lg"
+                      >
+                        ←
+                      </button>
+                      <h3 className="text-lg font-semibold">
+                        {currentDate.toLocaleDateString('en-US', { 
+                          month: 'long', 
+                          year: 'numeric' 
+                        })}
+                      </h3>
+                      <button
+                        onClick={() => navigateMonth('next')}
+                        className="p-2 hover:bg-gray-100 rounded-lg"
+                      >
+                        →
+                      </button>
+                    </div>
+
+                    {/* Calendar Grid */}
+                    <div className="grid grid-cols-7 gap-0">
+                      {/* Day Headers */}
+                      {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                        <div key={day} className="p-3 text-center text-sm font-medium text-gray-500 border-b border-gray-200">
+                          {day}
+                        </div>
+                      ))}
+
+                      {/* Calendar Days */}
+                      {Array.from({ length: getFirstDayOfMonth(currentDate) }, (_, i) => (
+                        <div key={`empty-${i}`} className="p-3 h-24 border-b border-r border-gray-200"></div>
+                      ))}
+
+                      {Array.from({ length: getDaysInMonth(currentDate) }, (_, i) => {
+                        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
+                        const dayPushes = getPushesForDate(date);
+                        const isToday = isSameDay(date, new Date());
+
+                        return (
+                          <div 
+                            key={i + 1} 
+                            className={`p-2 h-24 border-b border-r border-gray-200 ${
+                              isToday ? 'bg-blue-50' : ''
+                            } hover:bg-gray-50`}
+                          >
+                            <div className={`text-sm ${isToday ? 'font-bold text-blue-600' : ''}`}>
+                              {i + 1}
+                            </div>
+                            <div className="mt-1 space-y-1">
+                              {dayPushes.map(push => (
+                                <div
+                                  key={push.id}
+                                  onClick={() => handlePushClick(push)}
+                                  className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200 truncate"
+                                  title={push.title}
+                                >
+                                  {new Date(push.scheduledFor).toLocaleTimeString('en-US', {
+                                    hour: 'numeric',
+                                    minute: '2-digit',
+                                    hour12: true
+                                  })} - {push.title}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-white border border-gray-200 rounded-lg">
+                    {/* Week Navigation */}
+                    <div className="flex justify-between items-center p-4 border-b border-gray-200">
+                      <button
+                        onClick={() => navigateWeek('prev')}
+                        className="p-2 hover:bg-gray-100 rounded-lg"
+                      >
+                        ←
+                      </button>
+                      <h3 className="text-lg font-semibold">
+                        Week of {formatDate(getWeekDays(currentDate)[0])}
+                      </h3>
+                      <button
+                        onClick={() => navigateWeek('next')}
+                        className="p-2 hover:bg-gray-100 rounded-lg"
+                      >
+                        →
+                      </button>
+                    </div>
+
+                    {/* Weekly Grid */}
+                    <div className="grid grid-cols-7 gap-0">
+                      {getWeekDays(currentDate).map((date, i) => {
+                        const dayPushes = getPushesForDate(date);
+                        const isToday = isSameDay(date, new Date());
+
+                        return (
+                          <div 
+                            key={i}
+                            className={`p-3 h-32 border-r border-gray-200 ${
+                              isToday ? 'bg-blue-50' : ''
+                            } hover:bg-gray-50`}
+                          >
+                            <div className={`text-sm font-medium mb-2 ${
+                              isToday ? 'text-blue-600' : ''
+                            }`}>
+                              {date.toLocaleDateString('en-US', { 
+                                weekday: 'short', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })}
+                            </div>
+                            <div className="space-y-1">
+                              {dayPushes.map(push => (
+                                <div
+                                  key={push.id}
+                                  onClick={() => handlePushClick(push)}
+                                  className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200"
+                                  title={push.title}
+                                >
+                                  <div className="font-medium">
+                                    {new Date(push.scheduledFor).toLocaleTimeString('en-US', {
+                                      hour: 'numeric',
+                                      minute: '2-digit',
+                                      hour12: true
+                                    })}
+                                  </div>
+                                  <div className="truncate">{push.title}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {scheduledPushes.length === 0 && !calendarLoading && (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">No scheduled push notifications found.</p>
+                    <p className="text-sm text-gray-400 mt-1">Create scheduled pushes from the "Make" tab.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Push Details Modal */}
+        {showPushModal && selectedPush && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold text-gray-800">Push Draft Details</h3>
+                <button
+                  onClick={() => setShowPushModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Audience Criteria (Read-only) */}
+              <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
+                <h4 className="text-md font-medium text-gray-800 mb-2">Audience Criteria</h4>
+                <p className="text-sm text-gray-700">{selectedPush.audienceDescription}</p>
+                <div className="text-xs text-gray-500 mt-2">
+                  Scheduled for: {new Date(selectedPush.scheduledFor).toLocaleString()}
+                </div>
+              </div>
+
+              {/* Editable Push Content */}
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Notification Title
+                  </label>
+                  <Input
+                    type="text"
+                    value={editingPush?.title || ''}
+                    onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, title: e.target.value} : null)}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Notification Body
+                  </label>
+                  <Textarea
+                    value={editingPush?.body || ''}
+                    onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, body: e.target.value} : null)}
+                    disabled={isLoading}
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Deep Link URL (Optional)
+                  </label>
+                  <Input
+                    type="url"
+                    value={editingPush?.deepLinkUrl || ''}
+                    onChange={(e) => setEditingPush((prev: any) => prev ? {...prev, deepLinkUrl: e.target.value} : null)}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              {/* Save Changes Button */}
+              <div className="mb-6">
+                <Button
+                  type="button"
+                  onClick={handleSavePushChanges}
+                  disabled={isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? 'Saving...' : 'Save Changes'}
+                </Button>
+              </div>
+
+              {/* Audience Generation Section */}
+              <div className="border-t pt-6">
+                <h4 className="text-md font-medium text-gray-800 mb-4">Generate Audience & Send</h4>
+                
+                <Button
+                  type="button"
+                  onClick={handleGenerateModalAudience}
+                  disabled={modalAudienceLoading}
+                  className="mb-4"
+                >
+                  {modalAudienceLoading ? 'Generating...' : 'Generate Audience CSV'}
+                </Button>
+
+                <div className="text-sm text-gray-500 mb-4">
+                  <p>This will generate the audience based on the saved criteria:</p>
+                  <p className="italic">{selectedPush.audienceDescription}</p>
+                </div>
+
+                {/* Audience Results */}
+                {modalAudienceResponse && (
+                  <div className={`p-4 rounded-md text-sm mb-4 ${modalAudienceResponse.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                    <p className="font-bold">{modalAudienceResponse.success ? 'Success!' : 'Error'}</p>
+                    <p>{modalAudienceResponse.message}</p>
+                    {modalAudienceResponse.success && (
+                      <>
+                        <div className="flex gap-2 mt-3">
+                          <Button type="button" onClick={downloadModalCsv} disabled={!modalGeneratedCsv}>
+                            Download CSV ({modalAudienceResponse.userCount} users)
+                          </Button>
+                          <Button type="button" onClick={useModalGeneratedCsv} disabled={!modalGeneratedCsv}>
+                            Use for Push
+                          </Button>
+                        </div>
+                        
+                        {/* CSV Splitting for A/B Testing */}
+                        <div className="mt-4 p-4 bg-blue-50 rounded-md border">
+                          <h4 className="font-medium text-blue-900 mb-2">Split for A/B Testing</h4>
+                          <div className="flex items-center gap-4 mb-3">
+                            <label htmlFor="modal_split_segments" className="block text-sm font-medium text-gray-700">Number of segments (1-20)</label>
+                            <Input
+                              id="modal_split_segments"
+                              type="number"
+                              min="1"
+                              max="20"
+                              value={splitSegments}
+                              onChange={(e) => {
+                                  const val = e.target.value;
+                                  if (val === '') {
+                                      setSplitSegments('');
+                                  } else {
+                                      const num = Math.max(1, Math.min(20, Number(val)));
+                                      setSplitSegments(num);
+                                  }
+                              }}
+                              placeholder="e.g. 5"
+                              className="w-24"
+                              disabled={!modalGeneratedCsv || modalAudienceLoading}
+                            />
+                          </div>
+                          
+                          <Button 
+                            type="button" 
+                            onClick={handleSplitAndDownload} 
+                            disabled={!modalGeneratedCsv || modalAudienceLoading || !splitSegments}
+                            className="mb-3"
+                          >
+                            {modalAudienceLoading ? 'Generating...' : 'Generate & Download Segments (.zip)'}
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {/* Upload User ID CSV Section */}
+                <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
+                  <h4 className="font-medium text-gray-800 mb-3">Upload User ID CSV</h4>
+                  <input
+                    type="file"
+                    accept=".csv"
+                    onChange={handleModalFileChange}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 disabled:opacity-50"
+                    disabled={isLoading}
+                  />
+                  {modalFile && <p className="text-xs text-gray-500 mt-1">Selected: {modalFile.name}</p>}
+                </div>
+
+                {/* Send Push Buttons */}
+                <div className="flex items-center space-x-4 mt-6">
+                  <Button 
+                    type="button" 
+                    onClick={() => handleModalSendPush(false)} 
+                    disabled={isLoading || !modalFile} 
+                    className="flex-1"
+                  >
+                    {isLoading ? 'Sending...' : 'Blast It!'}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    onClick={() => handleModalSendPush(true)} 
+                    disabled={isLoading || !modalFile} 
+                    className="flex-1 bg-gray-600 hover:bg-gray-500"
+                  >
+                    Dry Run
+                  </Button>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <div className="mt-6 flex justify-end">
+                <Button
+                  type="button"
+                  onClick={() => setShowPushModal(false)}
+                  className="bg-gray-600 hover:bg-gray-500"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
           </div>
         )}
 
