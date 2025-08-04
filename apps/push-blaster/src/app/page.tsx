@@ -1453,7 +1453,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                TOP TARGET SHOE - User's most desired item
+                <span className="text-slate-700 font-medium">TOP TARGET SHOE - User's most desired item</span>
               </label>
               
               <label className="flex items-center">
@@ -1464,7 +1464,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                YOUR HOTTEST SHOE - TRADES - Most traded item in past 30 days
+                <span className="text-slate-700 font-medium">YOUR HOTTEST SHOE - TRADES - Most traded item in past 30 days</span>
               </label>
               {manualHottestShoeTraded && (
                 <div className="pl-6">
@@ -1487,7 +1487,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                YOUR HOTTEST SHOE - OFFERS - Most offered item in past 7 days
+                <span className="text-slate-700 font-medium">YOUR HOTTEST SHOE - OFFERS - Most offered item in past 7 days</span>
               </label>
               {manualHottestShoeOffers && (
                 <div className="pl-6">
@@ -1874,7 +1874,7 @@ export default function Home() {
                         return (
                           <div 
                             key={i}
-                            className={`p-3 h-64 border-r border-gray-200 ${
+                            className={`p-3 h-80 border-r border-gray-200 ${
                               isToday ? 'bg-blue-50' : ''
                             } hover:bg-gray-50`}
                           >
