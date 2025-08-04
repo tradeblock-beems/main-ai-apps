@@ -947,48 +947,79 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-gray-50">
-      <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Push Blaster</h1>
-        
-        <div className="flex border-b border-gray-200 mb-6">
-          <button
-            className={`px-4 py-2 font-medium text-sm ${
-              activeTab === 'make' 
-                ? 'border-b-2 border-blue-500 text-blue-600' 
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('make')}
-          >
-            MAKE
-          </button>
-          <button
-            className={`px-4 py-2 font-medium text-sm ${
-              activeTab === 'track' 
-                ? 'border-b-2 border-blue-500 text-blue-600' 
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => {
-              setActiveTab('track');
-              fetchPushLogs();
-            }}
-          >
-            TRACK
-          </button>
-          <button
-            className={`px-4 py-2 font-medium text-sm ${
-              activeTab === 'calendar' 
-                ? 'border-b-2 border-blue-500 text-blue-600' 
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => {
-              setActiveTab('calendar');
-              fetchScheduledPushes();
-            }}
-          >
-            CALENDAR
-          </button>
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <div className="w-full max-w-6xl mx-auto">
+        {/* Enhanced Header */}
+        <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-40">
+          <div className="px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">PB</span>
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+                    Push Blaster
+                  </h1>
+                  <p className="text-sm text-slate-500">Push Notification Management</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                  System Online
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Main Content Container */}
+        <div className="px-6 py-8">
+        
+          {/* Enhanced Navigation */}
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm mb-8">
+            <div className="flex p-2">
+              <button
+                className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  activeTab === 'make' 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' 
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+                onClick={() => setActiveTab('make')}
+              >
+                <span className="text-lg">🚀</span>
+                <span>Create Push</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  activeTab === 'track' 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' 
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+                onClick={() => {
+                  setActiveTab('track');
+                  fetchPushLogs();
+                }}
+              >
+                <span className="text-lg">📊</span>
+                <span>Track Results</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  activeTab === 'calendar' 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' 
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+                onClick={() => {
+                  setActiveTab('calendar');
+                  fetchScheduledPushes();
+                }}
+              >
+                <span className="text-lg">📅</span>
+                <span>Scheduled Pushes</span>
+              </button>
+            </div>
+          </div>
         
         {activeTab === 'make' && (
           <div>
@@ -2187,7 +2218,8 @@ export default function Home() {
             </div>
           </div>
         )}
-    </div>
+        </div>
+      </div>
     </main>
   );
 }
