@@ -1184,7 +1184,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Any
+                <span className="text-slate-700 font-medium">Any</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1195,7 +1195,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Trusted Trader
+                <span className="text-slate-700 font-medium">Trusted Trader</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1206,7 +1206,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Non-Trusted Trader
+                <span className="text-slate-700 font-medium">Non-Trusted Trader</span>
               </label>
             </div>
           </div>
@@ -1223,7 +1223,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Any
+                <span className="text-slate-700 font-medium">Any</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1234,7 +1234,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Is a Candidate
+                <span className="text-slate-700 font-medium">Is a Candidate</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1245,7 +1245,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                Not a Candidate
+                <span className="text-slate-700 font-medium">Not a Candidate</span>
               </label>
             </div>
           </div>
@@ -1261,7 +1261,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                TOP TARGET SHOE
+                <span className="text-slate-700 font-medium">TOP TARGET SHOE</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1271,7 +1271,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                YOUR HOTTEST SHOE - TRADES
+                <span className="text-slate-700 font-medium">YOUR HOTTEST SHOE - TRADES</span>
               </label>
               {hottestShoeTraded && (
                   <div className="pl-6">
@@ -1293,7 +1293,7 @@ export default function Home() {
                   disabled={audienceLoading}
                   className="mr-2"
                 />
-                YOUR HOTTEST SHOE - OFFERS
+                <span className="text-slate-700 font-medium">YOUR HOTTEST SHOE - OFFERS</span>
               </label>
               {hottestShoeOffers && (
                   <div className="pl-6">
@@ -1534,12 +1534,22 @@ export default function Home() {
           )}
         </div>
 
-        <div className="border-t-2 border-gray-200 pt-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
-            {pushMode === 'now' ? 'Send Push Notification' : 'Draft Push Notification'}
-          </h2>
+        {/* Enhanced Push Notification Section */}
+        <div className="mb-8 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-slate-50 to-indigo-50 px-6 py-4 border-b border-slate-200">
+            <div className="flex items-center space-x-2">
+              <span className="text-xl">📤</span>
+              <h2 className="text-xl font-semibold text-slate-800">
+                {pushMode === 'now' ? 'Send Push Notification' : 'Draft Push Notification'}
+              </h2>
+            </div>
+            <p className="text-sm text-slate-600 mt-1">
+              {pushMode === 'now' ? 'Configure and send your push notification immediately' : 'Create and schedule your push notification for later'}
+            </p>
+          </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="p-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Notification Title</label>
             <Input
@@ -1642,23 +1652,24 @@ export default function Home() {
                 </>
               )}
             </div>
-        </form>
-        </div>
-
-        {response && (
-          <div className={`mt-6 p-4 rounded-md text-sm ${response.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-            <p className="font-bold">{response.success ? 'Success!' : 'Error'}</p>
-            <p>{response.message}</p>
-            {response.failedTokens && response.failedTokens.length > 0 && (
-              <div className="mt-2">
-                <p className="font-semibold">Failed tokens:</p>
-                <ul className="list-disc list-inside">
-                  {response.failedTokens.map(token => <li key={token} className="truncate">{token}</li>)}
-                </ul>
+            </form>
+            
+            {response && (
+              <div className={`mt-6 p-4 rounded-md text-sm ${response.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                <p className="font-bold">{response.success ? 'Success!' : 'Error'}</p>
+                <p>{response.message}</p>
+                {response.failedTokens && response.failedTokens.length > 0 && (
+                  <div className="mt-2">
+                    <p className="font-semibold">Failed tokens:</p>
+                    <ul className="list-disc list-inside">
+                      {response.failedTokens.map(token => <li key={token} className="truncate">{token}</li>)}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
           </div>
         )}
 
@@ -1863,7 +1874,7 @@ export default function Home() {
                         return (
                           <div 
                             key={i}
-                            className={`p-3 h-32 border-r border-gray-200 ${
+                            className={`p-3 h-64 border-r border-gray-200 ${
                               isToday ? 'bg-blue-50' : ''
                             } hover:bg-gray-50`}
                           >
