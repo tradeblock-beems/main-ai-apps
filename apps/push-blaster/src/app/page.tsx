@@ -1023,39 +1023,73 @@ export default function Home() {
         
         {activeTab === 'make' && (
           <div>
-            {/* Push Mode Toggle */}
-            <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h3 className="text-lg font-semibold mb-3 text-blue-800">Push Mode</h3>
-              <div className="flex gap-4">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="pushMode"
-                    checked={pushMode === 'now'}
-                    onChange={() => setPushMode('now')}
-                    className="mr-2"
-                  />
-                  <span className="font-medium">Push Now</span>
-                  <span className="text-sm text-gray-600 ml-2">(existing experience)</span>
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="pushMode"
-                    checked={pushMode === 'schedule'}
-                    onChange={() => setPushMode('schedule')}
-                    className="mr-2"
-                  />
-                  <span className="font-medium">Schedule a Push</span>
-                  <span className="text-sm text-gray-600 ml-2">(draft and schedule for later)</span>
-                </label>
-              </div>
-              {savedAudienceCriteria && (
-                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-md">
-                  <p className="text-sm font-medium text-green-800">✓ Saved Audience Criteria:</p>
-                  <p className="text-sm text-green-700">{savedAudienceDescription}</p>
+            {/* Enhanced Push Mode Toggle */}
+            <div className="mb-8 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="bg-gradient-to-r from-slate-50 to-blue-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">⚡</span>
+                  <h3 className="text-lg font-semibold text-slate-800">Delivery Mode</h3>
                 </div>
-              )}
+                <p className="text-sm text-slate-600 mt-1">Choose when to send your push notification</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="bg-slate-50 rounded-lg p-1 inline-flex space-x-1">
+                  <label className={`flex items-center space-x-3 px-4 py-3 rounded-md cursor-pointer transition-all duration-200 ${
+                    pushMode === 'now' 
+                      ? 'bg-white shadow-sm text-slate-800 font-medium' 
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="pushMode"
+                      checked={pushMode === 'now'}
+                      onChange={() => setPushMode('now')}
+                      className="sr-only"
+                    />
+                    <div className={`w-2 h-2 rounded-full transition-colors ${
+                      pushMode === 'now' ? 'bg-green-500' : 'bg-slate-300'
+                    }`} />
+                    <div>
+                      <span className="font-medium">Send Immediately</span>
+                      <p className="text-sm text-slate-500">Push notification sends right away</p>
+                    </div>
+                  </label>
+                  
+                  <label className={`flex items-center space-x-3 px-4 py-3 rounded-md cursor-pointer transition-all duration-200 ${
+                    pushMode === 'schedule' 
+                      ? 'bg-white shadow-sm text-slate-800 font-medium' 
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="pushMode"
+                      checked={pushMode === 'schedule'}
+                      onChange={() => setPushMode('schedule')}
+                      className="sr-only"
+                    />
+                    <div className={`w-2 h-2 rounded-full transition-colors ${
+                      pushMode === 'schedule' ? 'bg-blue-500' : 'bg-slate-300'
+                    }`} />
+                    <div>
+                      <span className="font-medium">Schedule for Later</span>
+                      <p className="text-sm text-slate-500">Draft and schedule for future delivery</p>
+                    </div>
+                  </label>
+                </div>
+                
+                {savedAudienceCriteria && (
+                  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-0.5">✓</span>
+                      <div>
+                        <p className="font-medium text-green-800">Audience Criteria Saved</p>
+                        <p className="text-sm text-green-700 mt-1">{savedAudienceDescription}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="mb-8 p-6 bg-gray-50 rounded-lg border-2 border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Query Push Audience</h2>
