@@ -79,6 +79,12 @@ export default function Home() {
   // For Manual Audience
   const [manualFile, setManualFile] = useState<File | null>(null);
   
+  // External file segmentation state
+  const [externalFile, setExternalFile] = useState<File | null>(null);
+  const [externalCsvData, setExternalCsvData] = useState<string | null>(null);
+  const [externalCsvPreview, setExternalCsvPreview] = useState<any[] | null>(null);
+  const [externalFileLoading, setExternalFileLoading] = useState(false);
+  
   // CSV splitting state
   const [splitSegments, setSplitSegments] = useState<number | ''>(2);
   
@@ -422,6 +428,85 @@ export default function Home() {
       alert(`Error: ${error.message}`);
     } finally {
       setAudienceLoading(false);
+    }
+  };
+
+  const handleExternalFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (!selectedFile) return;
+
+    if (!selectedFile.name.toLowerCase().endsWith('.csv')) {
+      alert('Please upload a CSV file.');
+      return;
+    }
+
+    setExternalFile(selectedFile);
+    setExternalFileLoading(true);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const csvText = e.target?.result as string;
+      setExternalCsvData(csvText);
+
+      // Parse CSV for preview
+      Papa.parse(csvText, {
+        header: true,
+        complete: (results) => {
+          setExternalCsvPreview(results.data.slice(0, 4));
+          setExternalFileLoading(false);
+        },
+        error: () => {
+          alert('Error parsing CSV file. Please check the format.');
+          setExternalFileLoading(false);
+        }
+      });
+    };
+    reader.readAsText(selectedFile);
+  };
+
+  const handleExternalFileSplit = async () => {
+    if (!externalCsvData || !splitSegments) return;
+
+    const numSegments = Number(splitSegments);
+    if (isNaN(numSegments) || numSegments < 1 || numSegments > 20) {
+      alert('Please enter a number of segments between 1 and 20.');
+      return;
+    }
+
+    setExternalFileLoading(true);
+
+    try {
+      const res = await fetch('/api/query-audience', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          csvData: externalCsvData,
+          splitCount: numSegments,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to generate zip file.');
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `external_audience_segments_${new Date().toISOString().slice(0, 10)}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+    } catch (error: any) {
+      alert(`Error: ${error.message}`);
+    } finally {
+      setExternalFileLoading(false);
     }
   };
 
@@ -1530,6 +1615,108 @@ export default function Home() {
               >
                 {audienceLoading ? 'Generating...' : 'Generate Audience CSV'}
               </Button>
+            </div>
+          )}
+        </div>
+
+        {/* External Audience File Segmentation */}
+        <div className="mb-8 p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
+          <h2 className="text-xl font-semibold mb-4 text-purple-800">Segment External Audience File</h2>
+          <p className="text-sm text-gray-600 mb-4">Upload a CSV audience file created elsewhere and split it into smaller segments for A/B testing.</p>
+          
+          <div className="mb-4">
+            <label htmlFor="external_file" className="block text-sm font-medium text-gray-700 mb-2">
+              Upload Audience CSV File
+            </label>
+            <input
+              id="external_file"
+              type="file"
+              accept=".csv"
+              onChange={handleExternalFileUpload}
+              disabled={externalFileLoading}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 disabled:opacity-50"
+            />
+            {externalFile && (
+              <p className="text-xs text-gray-500 mt-1">
+                Uploaded: {externalFile.name} ({(externalFile.size / 1024).toFixed(1)} KB)
+              </p>
+            )}
+          </div>
+
+          {externalFileLoading && (
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700">
+              Processing file...
+            </div>
+          )}
+
+          {externalCsvData && !externalFileLoading && (
+            <div className="space-y-4">
+              {/* File Preview */}
+              {externalCsvPreview && externalCsvPreview.length > 0 && (
+                <div className="p-4 border border-gray-200 rounded-lg bg-white">
+                  <h3 className="text-md font-medium text-gray-700 mb-2">File Preview (First 4 Rows)</h3>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full text-sm">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          {Object.keys(externalCsvPreview[0] || {}).map((header) => (
+                            <th key={header} className="px-3 py-2 text-left font-medium text-gray-700 border-b">
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {externalCsvPreview.map((row, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                            {Object.values(row).map((value, cellIndex) => (
+                              <td key={cellIndex} className="px-3 py-2 border-b text-gray-600">
+                                {String(value)}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* Segmentation Controls */}
+              <div className="p-4 border border-gray-200 rounded-lg bg-white">
+                <h4 className="font-medium text-purple-900 mb-2">Split for A/B Testing</h4>
+                <div className="flex items-center gap-2 mb-3">
+                  <label className="text-sm text-gray-600">Number of segments:</label>
+                  <Input
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={splitSegments}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === '') {
+                        setSplitSegments('');
+                      } else {
+                        const num = parseInt(value, 10);
+                        if (num >= 1 && num <= 20) {
+                          setSplitSegments(num);
+                        }
+                      }
+                    }}
+                    className="w-20 h-8 text-sm"
+                    disabled={externalFileLoading}
+                  />
+                </div>
+                
+                <Button 
+                  type="button" 
+                  onClick={handleExternalFileSplit} 
+                  disabled={!externalCsvData || externalFileLoading || !splitSegments}
+                  className="bg-purple-600 hover:bg-purple-500"
+                >
+                  {externalFileLoading ? 'Processing...' : 'Generate & Download Segments (.zip)'}
+                </Button>
+              </div>
             </div>
           )}
         </div>

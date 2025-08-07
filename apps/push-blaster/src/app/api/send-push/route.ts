@@ -191,17 +191,55 @@ export async function POST(req: NextRequest) {
       const text = await file.text();
       const result = Papa.parse(text, { header: true, skipEmptyLines: true });
       
-      // Type guard to ensure parsed data matches CsvRow[]
-      const parsedData = result.data as any[];
-      if (Array.isArray(parsedData) && parsedData.every(row => typeof row === 'object' && row !== null && 'user_id' in row)) {
-        csvData = parsedData as CsvRow[];
-      } else {
-        throw new Error('CSV parsing failed to produce valid data.');
+      // Check for parsing errors
+      if (result.errors && result.errors.length > 0) {
+        console.log('Papa Parse errors:', result.errors);
+        throw new Error(`CSV parsing errors: ${result.errors.map(err => err.message).join(', ')}`);
       }
+      
+      // Type guard to ensure parsed data exists and is valid
+      const parsedData = result.data as any[];
+      if (!Array.isArray(parsedData) || parsedData.length === 0) {
+        throw new Error('CSV file appears to be empty or invalid.');
+      }
+
+      // Check for user ID column with flexible naming
+      const firstRow = parsedData[0];
+      const availableColumns = Object.keys(firstRow || {});
+      console.log('Available CSV columns:', availableColumns);
+      
+      // Look for user ID column with various possible names
+      const possibleUserIdColumns = ['user_id', 'userId', 'id', 'User ID', 'ID', 'user', 'User'];
+      const userIdColumn = possibleUserIdColumns.find(col => availableColumns.includes(col));
+      
+      if (!userIdColumn) {
+        throw new Error(`CSV must contain a user ID column. Found columns: [${availableColumns.join(', ')}]. Expected one of: [${possibleUserIdColumns.join(', ')}]`);
+      }
+      
+      console.log(`Using '${userIdColumn}' as user ID column`);
+      
+      // Validate that all rows have the required structure
+      const validRows = parsedData.filter(row => 
+        typeof row === 'object' && 
+        row !== null && 
+        row[userIdColumn] && 
+        String(row[userIdColumn]).trim()
+      );
+      
+      if (validRows.length === 0) {
+        throw new Error(`No valid user IDs found in the '${userIdColumn}' column. Please check your CSV data.`);
+      }
+      
+      // Normalize the data structure to use 'user_id' as the standard key
+      csvData = validRows.map(row => ({
+        user_id: String(row[userIdColumn]).trim(),
+        ...row // Include all original columns for variable substitution
+      }));
 
       userIds = csvData.map(row => row.user_id).filter(Boolean);
       console.log('CSV data parsed:', csvData.length, 'rows');
-      console.log('User IDs from CSV:', userIds);
+      console.log('Valid user IDs extracted:', userIds.length);
+      console.log('Sample user IDs:', userIds.slice(0, 5));
     } else if (manualUserIds) {
       console.log('Processing manual user IDs:', manualUserIds);
       userIds = manualUserIds.split(',').map(id => id.trim()).filter(Boolean);

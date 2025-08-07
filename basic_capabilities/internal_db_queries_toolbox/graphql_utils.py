@@ -5,7 +5,7 @@ This script provides a helper function to execute queries against the
 Hasura GraphQL endpoint using the credentials from the config.
 """
 import requests
-from basic_capabilities.internal_db_queries_toolbox import config
+import config
 
 def execute_graphql_query(query, variables=None):
     """

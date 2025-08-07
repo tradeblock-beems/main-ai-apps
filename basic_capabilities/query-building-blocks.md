@@ -1005,4 +1005,80 @@ WHERE ua.last_active < NOW() - INTERVAL '90 days';
 **Trusted Traders:**
 ```sql
 -- Select all users who are marked as trusted traders
+SELECT u.id, u.username
+FROM users u
+WHERE u.is_trusted_trader = TRUE;
 ```
+
+---
+
+## Batch Mutation Patterns
+
+### 23. **Batch Variant Price Updates**
+*Update min/max market prices for multiple product variants based on size-specific pricing data*
+
+This pattern enables efficient bulk price updates by working at the product level - you provide a product ID and size-based pricing, and the system handles variant identification and batch updates.
+
+**Core Query - Get Product Variants by Size:**
+```sql
+query GetProductVariants($productId: uuid!) {
+    product_variants(where: {product_id: {_eq: $productId}}) {
+        id
+        product_id
+        index_cache
+        min_market_price
+        max_market_price
+    }
+}
+```
+
+**Batch Update Mutation Pattern:**
+```graphql
+mutation UpdateVariantPrices($variantId: uuid!, $minPrice: String!, $maxPrice: String!) {
+    update_product_variants(
+        where: {id: {_eq: $variantId}},
+        _set: {
+            min_market_price: $minPrice,
+            max_market_price: $maxPrice
+        }
+    ) {
+        affected_rows
+        returning {
+            id
+            min_market_price
+            max_market_price
+        }
+    }
+}
+```
+
+**Verification Query Pattern:**
+```sql
+query VerifyUpdates($variantIds: [uuid!]!) {
+    product_variants(where: {id: {_in: $variantIds}}) {
+        id
+        index_cache
+        min_market_price
+        max_market_price
+    }
+}
+```
+
+**Implementation Notes:**
+- **Size Extraction**: Uses `index_cache->>'mens_size'` to map sizes to variant IDs
+- **Error Handling**: Validates data at each step (variant lookup, size matching, price validation)
+- **Batch Processing**: Executes individual mutations sequentially for better error isolation
+- **Verification**: Re-queries updated variants to confirm changes applied correctly
+- **Input Flexibility**: Supports CSV, JSON, or programmatic data input
+
+**Key Insights:**
+- Product-centric approach is more intuitive than variant-centric for price management
+- Size-based mapping enables natural workflow (think in sizes, not UUIDs)
+- Individual mutations provide better error granularity than single bulk mutation
+- Verification step catches edge cases where mutations succeed but changes don't persist
+- Pattern is extensible to other variant-level bulk updates (stock levels, availability, etc.)
+
+**Performance Considerations:**
+- Pre-loads all variants for a product to avoid N+1 queries during size matching
+- Uses sequential mutations rather than parallel to avoid overwhelming the GraphQL endpoint
+- Batches verification into single query for efficiency
