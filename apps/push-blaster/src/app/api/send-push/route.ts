@@ -173,6 +173,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Deep link must be a valid tradeblock.us URL' }, { status: 400 });
     }
 
+    const layerId = parseInt(formData.get('layerId') as string, 10);
+    if (!layerId || ![1, 2, 3].includes(layerId)) {
+      return NextResponse.json({ success: false, message: 'Invalid or missing notification layer. Must be 1, 2, or 3.' }, { status: 400 });
+    }
+
     if (!file && !manualUserIds) {
       console.log('No file or manual user IDs provided');
       return NextResponse.json({ success: false, message: 'Please provide either a CSV file or manual user IDs' }, { status: 400 });
@@ -255,6 +260,29 @@ export async function POST(req: NextRequest) {
     if (userIds.length === 0) {
       console.log('No user IDs found after processing');
       return NextResponse.json({ success: false, message: 'No user IDs found to send notifications to.' }, { status: 400 });
+    }
+
+    // CADENCE FILTERING
+    const cadenceResponse = await fetch('http://localhost:3002/api/filter-audience', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userIds, layerId }),
+    });
+
+    if (!cadenceResponse.ok) {
+        console.error('Cadence service error, failing open.');
+    }
+
+    const { eligibleUserIds = userIds, excludedCount = 0 } = await cadenceResponse.json();
+    
+    console.log(`Cadence check: ${excludedCount} users excluded. ${eligibleUserIds.length} users remaining.`);
+    
+    userIds = eligibleUserIds;
+    // END CADENCE FILTERING
+
+    if (userIds.length === 0) {
+      console.log('No user IDs remaining after cadence filtering');
+      return NextResponse.json({ success: true, message: `All ${excludedCount} users were excluded by cadence rules. No notifications sent.` });
     }
 
     // Validate variables in title, body, and deep link
@@ -381,6 +409,27 @@ export async function POST(req: NextRequest) {
           const successes = response.responses
             .map((resp, idx) => resp.success ? tokenBatch[idx] : null)
             .filter((token): token is string => token !== null);
+
+          // Track successful notifications
+          if (!dryRun) {
+            const userIdsForSuccessfulTokens = csvData
+              .filter(row => userToTokensMap.get(row.user_id)?.some(token => successes.includes(token)))
+              .map(row => row.user_id);
+            
+            for (const userId of userIdsForSuccessfulTokens) {
+              fetch('http://localhost:3002/api/track-notification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  userId,
+                  layerId,
+                  pushTitle: title,
+                  pushBody: body,
+                  audienceDescription: file ? `CSV: ${file.name}` : `Manual: ${manualUserIds}`,
+                }),
+              }).catch(err => console.error(`Failed to track notification for user ${userId}:`, err));
+            }
+          }
 
           return {
             success: response.successCount,

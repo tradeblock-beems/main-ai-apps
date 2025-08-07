@@ -39,6 +39,8 @@ export default function Home() {
   const [manualUserIds, setManualUserIds] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<ServerResponse | null>(null);
+  const [notificationLayer, setNotificationLayer] = useState<number>(3); // Default to Layer 3
+  const [cadenceResponse, setCadenceResponse] = useState<{ excludedCount: number } | null>(null);
 
   // Audience query state
   const [lastActiveDays, setLastActiveDays] = useState<number | ''>('');
@@ -799,6 +801,7 @@ export default function Home() {
       formData.append('deepLink', deepLink);
     }
     formData.append('file', file);
+    formData.append('layerId', String(notificationLayer));
 
     try {
       const res = await fetch('/api/send-push', {
@@ -837,6 +840,7 @@ export default function Home() {
       formData.append('deepLink', deepLink);
     }
     formData.append('file', file);
+    formData.append('layerId', String(notificationLayer));
 
     try {
       const res = await fetch('/api/send-push?dryRun=true', {
@@ -1775,6 +1779,25 @@ export default function Home() {
               disabled={isLoading}
             />
             <p className="text-xs text-gray-500 mt-1">Where to direct users when they tap the notification. Use variables for personalized links!</p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Push Notification Type (Layer)</label>
+            <div className="flex gap-4 p-2 bg-slate-100 rounded-lg">
+              <label className="flex items-center">
+                <input type="radio" name="notificationLayer" value={1} checked={notificationLayer === 1} onChange={() => setNotificationLayer(1)} className="mr-2" />
+                <span className="text-sm font-medium text-slate-700">Layer 1: Platform-Wide Moments</span>
+              </label>
+              <label className="flex items-center">
+                <input type="radio" name="notificationLayer" value={2} checked={notificationLayer === 2} onChange={() => setNotificationLayer(2)} className="mr-2" />
+                <span className="text-sm font-medium text-slate-700">Layer 2: Product/Trend Triggers</span>
+              </label>
+              <label className="flex items-center">
+                <input type="radio" name="notificationLayer" value={3} checked={notificationLayer === 3} onChange={() => setNotificationLayer(3)} className="mr-2" />
+                <span className="text-sm font-medium text-slate-700">Layer 3: Behavior-Responsive</span>
+              </label>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">This classification is required and will be used for smart cadence filtering.</p>
           </div>
 
           <div>
