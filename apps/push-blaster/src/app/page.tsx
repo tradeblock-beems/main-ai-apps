@@ -86,12 +86,40 @@ export default function Home() {
   const [externalCsvData, setExternalCsvData] = useState<string | null>(null);
   const [externalCsvPreview, setExternalCsvPreview] = useState<any[] | null>(null);
   const [externalFileLoading, setExternalFileLoading] = useState(false);
+
+  // Historical data restoration state
+  const [restorationFile, setRestorationFile] = useState<File | null>(null);
+  const [restorationLoading, setRestorationLoading] = useState(false);
+  const [restorationResponse, setRestorationResponse] = useState<any | null>(null);
+
+  // Audience-to-history conversion state
+  const [audienceFile, setAudienceFile] = useState<File | null>(null);
+  const [audienceToHistoryLoading, setAudienceToHistoryLoading] = useState(false);
+  const [audienceToHistoryResponse, setAudienceToHistoryResponse] = useState<any | null>(null);
+  const [historyPushTitle, setHistoryPushTitle] = useState('');
+  const [historyPushBody, setHistoryPushBody] = useState('');
+  const [historyDeepLink, setHistoryDeepLink] = useState('');
+  const [historyAudienceDescription, setHistoryAudienceDescription] = useState('');
+  const [historySentAt, setHistorySentAt] = useState('');
+  const [historyLayerId, setHistoryLayerId] = useState<number>(3);
+
+  // Smart CSV matching state
+  const [smartMatchingFile, setSmartMatchingFile] = useState<File | null>(null);
+  const [smartMatchingLoading, setSmartMatchingLoading] = useState(false);
+  const [matchingLogs, setMatchingLogs] = useState<any[]>([]);
+  const [selectedLog, setSelectedLog] = useState<any | null>(null);
+  const [smartConversionLoading, setSmartConversionLoading] = useState(false);
+  const [smartConversionResponse, setSmartConversionResponse] = useState<any | null>(null);
+
+  // Retroactive deep link update state
+  const [deepLinkUpdateLoading, setDeepLinkUpdateLoading] = useState(false);
+  const [deepLinkUpdateResponse, setDeepLinkUpdateResponse] = useState<any | null>(null);
   
   // CSV splitting state
   const [splitSegments, setSplitSegments] = useState<number | ''>(2);
   
   // Tab state
-  const [activeTab, setActiveTab] = useState<'make' | 'track' | 'calendar'>('make');
+  const [activeTab, setActiveTab] = useState<'make' | 'track' | 'calendar' | 'restore'>('make');
   
   // Push logs state
   const [pushLogs, setPushLogs] = useState<any[]>([]);
@@ -509,6 +537,255 @@ export default function Home() {
       alert(`Error: ${error.message}`);
     } finally {
       setExternalFileLoading(false);
+    }
+  };
+
+  const handleRestorationFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setRestorationFile(file);
+      setRestorationResponse(null);
+    }
+  };
+
+  const handleRestoreHistoricalData = async () => {
+    if (!restorationFile) {
+      alert('Please select a CSV file first');
+      return;
+    }
+
+    setRestorationLoading(true);
+    setRestorationResponse(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', restorationFile);
+
+      const response = await fetch('http://localhost:3002/api/restore-historical-data', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      setRestorationResponse(data);
+
+      if (data.success) {
+        // Clear the file after successful upload
+        setRestorationFile(null);
+        const fileInput = document.getElementById('restoration-file-input') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      }
+    } catch (error: any) {
+      setRestorationResponse({
+        success: false,
+        error: 'Failed to restore historical data',
+        details: error.message
+      });
+    } finally {
+      setRestorationLoading(false);
+    }
+  };
+
+  const handleAudienceFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setAudienceFile(file);
+      setAudienceToHistoryResponse(null);
+    }
+  };
+
+  const handleConvertAudienceToHistory = async () => {
+    if (!audienceFile) {
+      alert('Please select an audience CSV file first');
+      return;
+    }
+
+    if (!historyPushTitle || !historyAudienceDescription || !historySentAt) {
+      alert('Please fill in the push title, audience description, and sent at timestamp');
+      return;
+    }
+
+    setAudienceToHistoryLoading(true);
+    setAudienceToHistoryResponse(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('audienceFile', audienceFile);
+      formData.append('layerId', String(historyLayerId));
+      formData.append('pushTitle', historyPushTitle);
+      formData.append('pushBody', historyPushBody);
+      formData.append('deepLink', historyDeepLink);
+      formData.append('audienceDescription', historyAudienceDescription);
+      formData.append('sentAt', historySentAt);
+
+      const response = await fetch('http://localhost:3002/api/convert-audience-to-history', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      setAudienceToHistoryResponse(data);
+
+      if (data.success) {
+        // Clear the form after successful conversion
+        setAudienceFile(null);
+        setHistoryPushTitle('');
+        setHistoryPushBody('');
+        setHistoryDeepLink('');
+        setHistoryAudienceDescription('');
+        setHistorySentAt('');
+        setHistoryLayerId(3);
+        const fileInput = document.getElementById('audience-file-input') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      }
+    } catch (error: any) {
+      setAudienceToHistoryResponse({
+        success: false,
+        error: 'Failed to convert audience to historical data',
+        details: error.message
+      });
+    } finally {
+      setAudienceToHistoryLoading(false);
+    }
+  };
+
+  const handleSmartMatchingFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setSmartMatchingFile(file);
+    setMatchingLogs([]);
+    setSelectedLog(null);
+    setSmartConversionResponse(null);
+    setSmartMatchingLoading(true);
+
+    try {
+      // Parse CSV to get audience size
+      const csvText = await file.text();
+      const lines = csvText.trim().split('\n');
+      const audienceSize = Math.max(0, lines.length - 1); // Subtract header
+
+      // Get Track Results logs
+      const logsResponse = await fetch('/api/push-logs');
+      const logsData = await logsResponse.json();
+      
+      if (!logsData.success) {
+        throw new Error('Failed to fetch Track Results logs');
+      }
+
+      // Find matching logs
+      const matchResponse = await fetch('http://localhost:3002/api/find-matching-logs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          csvAudienceSize: audienceSize,
+          trackResultsLogs: logsData.logs
+        })
+      });
+
+      if (!matchResponse.ok) {
+        throw new Error(`HTTP ${matchResponse.status}: ${matchResponse.statusText}`);
+      }
+
+      const matchData = await matchResponse.json();
+      
+      if (matchData.success) {
+        setMatchingLogs(matchData.matchingLogs);
+      } else {
+        throw new Error(matchData.error || 'Failed to find matching logs');
+      }
+
+    } catch (error: any) {
+      alert(`Error processing file: ${error.message}`);
+    } finally {
+      setSmartMatchingLoading(false);
+    }
+  };
+
+  const handleSmartConversion = async () => {
+    if (!smartMatchingFile || !selectedLog) {
+      alert('Please select a CSV file and choose a matching log');
+      return;
+    }
+
+    setSmartConversionLoading(true);
+    setSmartConversionResponse(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('audienceFile', smartMatchingFile);
+      formData.append('layerId', String(selectedLog.layerId || 3));
+      formData.append('pushTitle', selectedLog.title);
+      formData.append('pushBody', selectedLog.body);
+      formData.append('deepLink', selectedLog.deepLink || '');
+      formData.append('audienceDescription', selectedLog.audienceDescription);
+      formData.append('sentAt', selectedLog.timestamp);
+
+      const response = await fetch('http://localhost:3002/api/convert-audience-to-history', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      setSmartConversionResponse(data);
+
+      if (data.success) {
+        // Clear the form after successful conversion
+        setSmartMatchingFile(null);
+        setMatchingLogs([]);
+        setSelectedLog(null);
+        const fileInput = document.getElementById('smart-matching-file-input') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      }
+    } catch (error: any) {
+      setSmartConversionResponse({
+        success: false,
+        error: 'Failed to convert with smart matching',
+        details: error.message
+      });
+    } finally {
+      setSmartConversionLoading(false);
+    }
+  };
+
+  const handleRetroactiveDeepLinkUpdate = async () => {
+    setDeepLinkUpdateLoading(true);
+    setDeepLinkUpdateResponse(null);
+
+    try {
+      // Get Track Results logs
+      const logsResponse = await fetch('/api/push-logs');
+      const logsData = await logsResponse.json();
+      
+      if (!logsData.success) {
+        throw new Error('Failed to fetch Track Results logs');
+      }
+
+      // Update existing records with deep links
+      const updateResponse = await fetch('http://localhost:3002/api/update-deep-links', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          trackResultsLogs: logsData.logs
+        })
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error(`HTTP ${updateResponse.status}: ${updateResponse.statusText}`);
+      }
+
+      const updateData = await updateResponse.json();
+      setDeepLinkUpdateResponse(updateData);
+
+    } catch (error: any) {
+      console.error('Deep link update error:', error);
+      setDeepLinkUpdateResponse({
+        success: false,
+        error: 'Failed to update deep links',
+        details: error.message
+      });
+    } finally {
+      setDeepLinkUpdateLoading(false);
     }
   };
 
@@ -1106,6 +1383,17 @@ export default function Home() {
               >
                 <span className="text-lg">📅</span>
                 <span>Scheduled Pushes</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  activeTab === 'restore' 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' 
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+                onClick={() => setActiveTab('restore')}
+              >
+                <span className="text-lg">📂</span>
+                <span>Restore Data</span>
               </button>
             </div>
           </div>
@@ -1783,7 +2071,11 @@ export default function Home() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Push Notification Type (Layer)</label>
-            <div className="flex gap-4 p-2 bg-slate-100 rounded-lg">
+            <div className="flex gap-4 p-2 bg-slate-100 rounded-lg flex-wrap">
+              <label className="flex items-center">
+                <input type="radio" name="notificationLayer" value={0} checked={notificationLayer === 0} onChange={() => setNotificationLayer(0)} className="mr-2" />
+                <span className="text-sm font-medium text-slate-700">Layer 0: New User Series</span>
+              </label>
               <label className="flex items-center">
                 <input type="radio" name="notificationLayer" value={1} checked={notificationLayer === 1} onChange={() => setNotificationLayer(1)} className="mr-2" />
                 <span className="text-sm font-medium text-slate-700">Layer 1: Platform-Wide Moments</span>
@@ -1796,8 +2088,12 @@ export default function Home() {
                 <input type="radio" name="notificationLayer" value={3} checked={notificationLayer === 3} onChange={() => setNotificationLayer(3)} className="mr-2" />
                 <span className="text-sm font-medium text-slate-700">Layer 3: Behavior-Responsive</span>
               </label>
+              <label className="flex items-center">
+                <input type="radio" name="notificationLayer" value={4} checked={notificationLayer === 4} onChange={() => setNotificationLayer(4)} className="mr-2" />
+                <span className="text-sm font-medium text-slate-700">Test</span>
+              </label>
             </div>
-            <p className="text-xs text-gray-500 mt-1">This classification is required and will be used for smart cadence filtering.</p>
+            <p className="text-xs text-gray-500 mt-1">Layer 0 has 96-hour cooldown, Layer 3 has 72-hour cooldown, and Layers 2+3 have combined weekly limits. This classification is required for smart cadence filtering.</p>
           </div>
 
           <div>
@@ -2396,6 +2692,538 @@ export default function Home() {
                 >
                   Close
                 </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'restore' && (
+          <div>
+            {/* Retroactive Deep Link Updates */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">🔗</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Update Existing Records with Deep Links</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Automatically add missing deep_link data to existing records using Track Results</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-700">
+                    This will match existing records in your database with Track Results logs and add any missing deep_link information.
+                  </p>
+                  
+                  <button
+                    onClick={handleRetroactiveDeepLinkUpdate}
+                    disabled={deepLinkUpdateLoading}
+                    className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                      deepLinkUpdateLoading
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-purple-600 text-white hover:bg-purple-700 shadow-md shadow-purple-500/25'
+                    }`}
+                  >
+                    {deepLinkUpdateLoading ? 'Updating...' : 'Update Missing Deep Links'}
+                  </button>
+
+                  {deepLinkUpdateResponse && (
+                    <div className={`p-4 rounded-lg border ${
+                      deepLinkUpdateResponse.success 
+                        ? 'bg-green-50 border-green-200' 
+                        : 'bg-red-50 border-red-200'
+                    }`}>
+                      <h3 className={`font-medium text-sm ${
+                        deepLinkUpdateResponse.success ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {deepLinkUpdateResponse.success ? 'Success!' : 'Error'}
+                      </h3>
+                      <p className={`text-sm mt-1 ${
+                        deepLinkUpdateResponse.success ? 'text-green-700' : 'text-red-700'
+                      }`}>
+                        {deepLinkUpdateResponse.message || deepLinkUpdateResponse.error}
+                      </p>
+                      
+                      {deepLinkUpdateResponse.details && (
+                        <div className="mt-3 text-xs space-y-1">
+                          {deepLinkUpdateResponse.details.updatedCount !== undefined && (
+                            <p className="text-green-600">
+                              <span className="font-medium">Records updated:</span> {deepLinkUpdateResponse.details.updatedCount}
+                            </p>
+                          )}
+                          {deepLinkUpdateResponse.details.errors && deepLinkUpdateResponse.details.errors.length > 0 && (
+                            <div className="text-red-600">
+                              <p className="font-medium">Errors:</p>
+                              <div className="ml-2 space-y-1">
+                                {deepLinkUpdateResponse.details.errors.map((error: string, index: number) => (
+                                  <p key={index}>{error}</p>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Smart CSV Matching */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">🎯</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Smart CSV Matching</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Upload audience CSV and we'll find the matching Track Results log automatically</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="space-y-6">
+                  {/* File Upload */}
+                  <div>
+                    <label htmlFor="smart-matching-file-input" className="block text-sm font-medium text-gray-700 mb-2">
+                      Select Audience CSV File
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      <input
+                        id="smart-matching-file-input"
+                        type="file"
+                        accept=".csv"
+                        onChange={handleSmartMatchingFileUpload}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      />
+                      {smartMatchingFile && (
+                        <span className="text-sm text-blue-600 font-medium">
+                          {smartMatchingFile.name}
+                        </span>
+                      )}
+                    </div>
+                    {smartMatchingLoading && (
+                      <p className="text-sm text-blue-600 mt-2">🔍 Analyzing CSV and finding matching Track Results...</p>
+                    )}
+                  </div>
+
+                  {/* Matching Results */}
+                  {matchingLogs.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-700 mb-3">
+                        Found {matchingLogs.length} potential matches - select the correct one:
+                      </h3>
+                      <div className="space-y-2 max-h-96 overflow-y-auto">
+                        {matchingLogs.map((log, index) => (
+                          <div
+                            key={log.id}
+                            className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                              selectedLog?.id === log.id
+                                ? 'border-blue-500 bg-blue-50'
+                                : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                            }`}
+                            onClick={() => setSelectedLog(log)}
+                          >
+                            <div className="flex justify-between items-start">
+                              <div className="flex-1">
+                                <h4 className="font-medium text-gray-900">{log.title}</h4>
+                                <p className="text-sm text-gray-600 mt-1">{log.body}</p>
+                                {log.deepLink && (
+                                  <p className="text-xs text-blue-600 mt-1">{log.deepLink}</p>
+                                )}
+                                <p className="text-xs text-gray-500 mt-2">
+                                  {log.audienceDescription} • {new Date(log.timestamp).toLocaleString()}
+                                </p>
+                              </div>
+                              <div className="ml-4 text-right">
+                                <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
+                                  log.matchQuality >= 95 ? 'bg-green-100 text-green-800' :
+                                  log.matchQuality >= 85 ? 'bg-blue-100 text-blue-800' :
+                                  log.matchQuality >= 70 ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-gray-100 text-gray-800'
+                                }`}>
+                                  {log.matchQuality}% match
+                                </span>
+                                <p className="text-xs text-gray-500 mt-1">
+                                  {log.audienceSize} users
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Convert Button */}
+                  {selectedLog && (
+                    <div>
+                      <button
+                        onClick={handleSmartConversion}
+                        disabled={smartConversionLoading}
+                        className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                          smartConversionLoading
+                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-500/25'
+                        }`}
+                      >
+                        {smartConversionLoading ? 'Converting...' : 'Convert to Historical Records'}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Response Display */}
+                  {smartConversionResponse && (
+                    <div className={`p-4 rounded-lg border ${
+                      smartConversionResponse.success 
+                        ? 'bg-green-50 border-green-200' 
+                        : 'bg-red-50 border-red-200'
+                    }`}>
+                      <h3 className={`font-medium text-sm ${
+                        smartConversionResponse.success ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {smartConversionResponse.success ? 'Success!' : 'Error'}
+                      </h3>
+                      <p className={`text-sm mt-1 ${
+                        smartConversionResponse.success ? 'text-green-700' : 'text-red-700'
+                      }`}>
+                        {smartConversionResponse.message || smartConversionResponse.error}
+                      </p>
+                      
+                      {smartConversionResponse.details && (
+                        <div className="mt-3 text-xs space-y-1">
+                          {smartConversionResponse.details.insertedRows !== undefined && (
+                            <p className="text-green-600">
+                              <span className="font-medium">Historical records created:</span> {smartConversionResponse.details.insertedRows}
+                            </p>
+                          )}
+                          {smartConversionResponse.details.duplicatesSkipped > 0 && (
+                            <p className="text-yellow-600">
+                              <span className="font-medium">Duplicates skipped:</span> {smartConversionResponse.details.duplicatesSkipped}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Historical Data Restoration */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-slate-50 to-blue-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">📂</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Manual CSV Upload</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Upload pre-formatted historical data CSV files (advanced users)</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="space-y-6">
+                  {/* File Upload Section */}
+                  <div>
+                    <label htmlFor="restoration-file-input" className="block text-sm font-medium text-gray-700 mb-2">
+                      Select Historical Data CSV
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      <input
+                        id="restoration-file-input"
+                        type="file"
+                        accept=".csv"
+                        onChange={handleRestorationFileUpload}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      />
+                      {restorationFile && (
+                        <span className="text-sm text-green-600 font-medium">
+                          {restorationFile.name}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                      CSV should contain columns: user_id, layer_id, push_title, sent_at (required), push_body, audience_description (optional)
+                    </p>
+                  </div>
+
+                  {/* Upload Button */}
+                  <div>
+                    <button
+                      onClick={handleRestoreHistoricalData}
+                      disabled={!restorationFile || restorationLoading}
+                      className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                        !restorationFile || restorationLoading
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-500/25'
+                      }`}
+                    >
+                      {restorationLoading ? 'Restoring Data...' : 'Restore Historical Data'}
+                    </button>
+                  </div>
+
+                  {/* Response Display */}
+                  {restorationResponse && (
+                    <div className={`p-4 rounded-lg border ${
+                      restorationResponse.success 
+                        ? 'bg-green-50 border-green-200' 
+                        : 'bg-red-50 border-red-200'
+                    }`}>
+                      <h3 className={`font-medium text-sm ${
+                        restorationResponse.success ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {restorationResponse.success ? 'Success!' : 'Error'}
+                      </h3>
+                      <p className={`text-sm mt-1 ${
+                        restorationResponse.success ? 'text-green-700' : 'text-red-700'
+                      }`}>
+                        {restorationResponse.message || restorationResponse.error}
+                      </p>
+                      
+                      {restorationResponse.details && (
+                        <div className="mt-3 text-xs space-y-1">
+                          {restorationResponse.details.totalRows && (
+                            <p className="text-slate-600">
+                              <span className="font-medium">Total rows processed:</span> {restorationResponse.details.totalRows}
+                            </p>
+                          )}
+                          {restorationResponse.details.insertedRows !== undefined && (
+                            <p className="text-green-600">
+                              <span className="font-medium">Successfully inserted:</span> {restorationResponse.details.insertedRows}
+                            </p>
+                          )}
+                          {restorationResponse.details.duplicatesSkipped > 0 && (
+                            <p className="text-yellow-600">
+                              <span className="font-medium">Duplicates skipped:</span> {restorationResponse.details.duplicatesSkipped}
+                            </p>
+                          )}
+                          {restorationResponse.details.invalidRows && restorationResponse.details.invalidRows.length > 0 && (
+                            <div className="text-red-600">
+                              <p className="font-medium">Invalid rows ({restorationResponse.details.invalidRows.length}):</p>
+                              <div className="ml-2 space-y-1 max-h-32 overflow-y-auto">
+                                {restorationResponse.details.invalidRows.slice(0, 5).map((row: any, index: number) => (
+                                  <p key={index}>Row {row.rowIndex}: {row.errors.join(', ')}</p>
+                                ))}
+                                {restorationResponse.details.invalidRows.length > 5 && (
+                                  <p>... and {restorationResponse.details.invalidRows.length - 5} more</p>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                          {restorationResponse.details.errors && restorationResponse.details.errors.length > 0 && (
+                            <div className="text-red-600">
+                              <p className="font-medium">Errors:</p>
+                              <div className="ml-2 space-y-1">
+                                {restorationResponse.details.errors.map((error: string, index: number) => (
+                                  <p key={index}>{error}</p>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Instructions */}
+                  <div className="bg-slate-50 rounded-lg p-4">
+                    <h4 className="text-sm font-medium text-slate-800 mb-2">CSV Format Requirements:</h4>
+                    <ul className="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                      <li><strong>user_id:</strong> Valid UUID of the user who received the notification</li>
+                      <li><strong>layer_id:</strong> Number (1, 2, 3, or 4) representing the notification layer</li>
+                      <li><strong>push_title:</strong> Title/subject of the push notification</li>
+                      <li><strong>sent_at:</strong> Date/time when the notification was sent (ISO format preferred)</li>
+                      <li><strong>push_body:</strong> (Optional) Body content of the notification</li>
+                      <li><strong>audience_description:</strong> (Optional) Description of the target audience</li>
+                    </ul>
+                    <p className="text-xs text-slate-500 mt-2">
+                      The system will automatically detect and skip duplicate entries based on user_id + sent_at combination.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Audience to History Conversion */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">🔄</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Convert Audience CSV to Historical Data</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Upload an audience CSV and fill in push details to create historical records</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="space-y-6">
+                  {/* Audience File Upload */}
+                  <div>
+                    <label htmlFor="audience-file-input" className="block text-sm font-medium text-gray-700 mb-2">
+                      Select Audience CSV File
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      <input
+                        id="audience-file-input"
+                        type="file"
+                        accept=".csv"
+                        onChange={handleAudienceFileUpload}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                      />
+                      {audienceFile && (
+                        <span className="text-sm text-green-600 font-medium">
+                          {audienceFile.name}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Any audience CSV with user_id column (or similar: userId, id, etc.)
+                    </p>
+                  </div>
+
+                  {/* Push Details Form */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Layer Selection */}
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Notification Layer</label>
+                      <div className="flex gap-4 p-2 bg-slate-100 rounded-lg">
+                        <label className="flex items-center">
+                          <input type="radio" name="historyNotificationLayer" value={1} checked={historyLayerId === 1} onChange={() => setHistoryLayerId(1)} className="mr-2" />
+                          <span className="text-sm font-medium text-slate-700">Layer 1: Platform-Wide</span>
+                        </label>
+                        <label className="flex items-center">
+                          <input type="radio" name="historyNotificationLayer" value={2} checked={historyLayerId === 2} onChange={() => setHistoryLayerId(2)} className="mr-2" />
+                          <span className="text-sm font-medium text-slate-700">Layer 2: Product/Trend</span>
+                        </label>
+                        <label className="flex items-center">
+                          <input type="radio" name="historyNotificationLayer" value={3} checked={historyLayerId === 3} onChange={() => setHistoryLayerId(3)} className="mr-2" />
+                          <span className="text-sm font-medium text-slate-700">Layer 3: Behavior-Responsive</span>
+                        </label>
+                        <label className="flex items-center">
+                          <input type="radio" name="historyNotificationLayer" value={4} checked={historyLayerId === 4} onChange={() => setHistoryLayerId(4)} className="mr-2" />
+                          <span className="text-sm font-medium text-slate-700">Test</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Push Title */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Push Title *</label>
+                      <input
+                        type="text"
+                        value={historyPushTitle}
+                        onChange={(e) => setHistoryPushTitle(e.target.value)}
+                        placeholder="Enter the push notification title"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+
+                    {/* Sent At Timestamp */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Sent At Timestamp *</label>
+                      <input
+                        type="text"
+                        value={historySentAt}
+                        onChange={(e) => setHistorySentAt(e.target.value)}
+                        placeholder="2025-01-15T10:30:00Z"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Copy from Track Results logs (ISO format)</p>
+                    </div>
+
+                    {/* Push Body */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Push Body</label>
+                      <textarea
+                        value={historyPushBody}
+                        onChange={(e) => setHistoryPushBody(e.target.value)}
+                        placeholder="Enter the push notification body content"
+                        rows={3}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+
+                    {/* Deep Link */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Deep Link URL</label>
+                      <input
+                        type="text"
+                        value={historyDeepLink}
+                        onChange={(e) => setHistoryDeepLink(e.target.value)}
+                        placeholder="https://tradeblock.us/..."
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+
+                    {/* Audience Description */}
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Audience Description *</label>
+                      <input
+                        type="text"
+                        value={historyAudienceDescription}
+                        onChange={(e) => setHistoryAudienceDescription(e.target.value)}
+                        placeholder="e.g., Users with active in last 7 days, min 10 trades"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Convert Button */}
+                  <div>
+                    <button
+                      onClick={handleConvertAudienceToHistory}
+                      disabled={!audienceFile || !historyPushTitle || !historyAudienceDescription || !historySentAt || audienceToHistoryLoading}
+                      className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                        !audienceFile || !historyPushTitle || !historyAudienceDescription || !historySentAt || audienceToHistoryLoading
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-green-600 text-white hover:bg-green-700 shadow-md shadow-green-500/25'
+                      }`}
+                    >
+                      {audienceToHistoryLoading ? 'Converting...' : 'Convert to Historical Records'}
+                    </button>
+                  </div>
+
+                  {/* Response Display */}
+                  {audienceToHistoryResponse && (
+                    <div className={`p-4 rounded-lg border ${
+                      audienceToHistoryResponse.success 
+                        ? 'bg-green-50 border-green-200' 
+                        : 'bg-red-50 border-red-200'
+                    }`}>
+                      <h3 className={`font-medium text-sm ${
+                        audienceToHistoryResponse.success ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {audienceToHistoryResponse.success ? 'Success!' : 'Error'}
+                      </h3>
+                      <p className={`text-sm mt-1 ${
+                        audienceToHistoryResponse.success ? 'text-green-700' : 'text-red-700'
+                      }`}>
+                        {audienceToHistoryResponse.message || audienceToHistoryResponse.error}
+                      </p>
+                      
+                      {audienceToHistoryResponse.details && (
+                        <div className="mt-3 text-xs space-y-1">
+                          {audienceToHistoryResponse.details.insertedRows !== undefined && (
+                            <p className="text-green-600">
+                              <span className="font-medium">Records created:</span> {audienceToHistoryResponse.details.insertedRows}
+                            </p>
+                          )}
+                          {audienceToHistoryResponse.details.duplicatesSkipped > 0 && (
+                            <p className="text-yellow-600">
+                              <span className="font-medium">Duplicates skipped:</span> {audienceToHistoryResponse.details.duplicatesSkipped}
+                            </p>
+                          )}
+                          {audienceToHistoryResponse.details.errors && audienceToHistoryResponse.details.errors.length > 0 && (
+                            <div className="text-red-600">
+                              <p className="font-medium">Errors:</p>
+                              <div className="ml-2 space-y-1">
+                                {audienceToHistoryResponse.details.errors.map((error: string, index: number) => (
+                                  <p key={index}>{error}</p>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

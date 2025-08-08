@@ -13,11 +13,43 @@ The `push-blaster` is a Next.js application with three primary functions:
 2.  **Push Notification Sender:** A UI for uploading a user CSV and sending personalized push notifications.
 3.  **Push Scheduling System:** A comprehensive scheduling interface with calendar management for drafting and scheduling future push notifications.
 
-The application follows a standard client-server model:
+### Unified Service Architecture
+
+**🔗 Tightly Coupled Services:** Push-blaster now runs as a unified system with the push-cadence-service to ensure responsible notification delivery and prevent user spam.
+
+The application follows a **dual-service model**:
+-   **Push-Blaster Service:** Main Next.js application on port 3001
+-   **Push-Cadence Service:** Notification filtering microservice on port 3002
+-   **Unified Startup:** Both services start together via `npm run dev` in push-blaster
+
+### Service Components:
 -   **Frontend:** A single-page React application built with Next.js App Router (`apps/push-blaster/src/app/page.tsx`).
 -   **Backend:** A set of Next.js API Routes (`apps/push-blaster/src/app/api/*`) that handle business logic.
 -   **Core Logic:** A `lib` directory containing modules for database access, external service integrations, and utility functions.
 -   **Scheduling Data:** JSON file-based storage system for scheduled push drafts (`.scheduled-pushes/` directory).
+-   **Cadence Logic:** Separate microservice managing notification frequency rules and user tracking.
+
+### Startup & Development
+
+**🚀 Unified Development Startup:**
+```bash
+cd apps/push-blaster
+npm run dev
+```
+This single command will start both services with colored console output:
+- **PUSH-BLASTER** (blue): Main UI on http://localhost:3001  
+- **CADENCE-SERVICE** (green): API service on http://localhost:3002
+
+**Individual Service Commands (if needed):**
+```bash
+# Push-blaster only
+npm run dev:push-only
+
+# Cadence service only (from push-blaster directory)
+npm run dev:cadence
+```
+
+**⚠️ Service Dependency:** Push-blaster requires the cadence service for all notification operations. Running push-blaster without cadence service will result in CORS errors and failed notifications.
 
 ---
 

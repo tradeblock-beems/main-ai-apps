@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { filterUsersByCadence, trackNotification } from '../../lib/cadence';
+import { filterUsersByCadence } from '@/lib/cadence';
 
 export async function POST(req: NextRequest) {
     try {

@@ -109,6 +109,7 @@ export async function POST(req: NextRequest) {
   let deepLink: string | null = null;
   let dryRun: boolean = false;
   let jobId: string = crypto.randomUUID(); // Initialize immediately
+  let layerId: number | null = null;
 
   try {
     const contentType = req.headers.get('content-type') || '';
@@ -125,13 +126,10 @@ export async function POST(req: NextRequest) {
       deepLink = jsonData.deepLink || null;
       dryRun = jsonData.dryRun === true;
       jobId = jsonData.jobId || crypto.randomUUID();
+      layerId = jsonData.layerId || null;
     } else {
       // Handle form data requests
       const formData = await req.formData();
-      // console.log('--- [BACKEND LOG] Received FormData request ---');
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(`[BACKEND LOG] FormData: ${key} =`, value);
-      // }
       file = formData.get('file') as File | null;
       manualUserIds = formData.get('userIds') as string | null;
       title = formData.get('title') as string | null;
@@ -139,6 +137,10 @@ export async function POST(req: NextRequest) {
       deepLink = formData.get('deepLink') as string | null;
       dryRun = isDryRunFromQuery || formData.get('dryRun') === 'true'; // Prioritize query param
       jobId = formData.get('jobId') as string || crypto.randomUUID();
+      const layerIdValue = formData.get('layerId');
+      if (layerIdValue) {
+        layerId = parseInt(layerIdValue as string, 10);
+      }
     }
 
     // --- Create Job Log ---
@@ -149,6 +151,8 @@ export async function POST(req: NextRequest) {
       body,
       deepLink,
       dryRun,
+      csvFileName: file ? file.name : null,
+      layerId
     });
     // --------------------
 
@@ -173,9 +177,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Deep link must be a valid tradeblock.us URL' }, { status: 400 });
     }
 
-    const layerId = parseInt(formData.get('layerId') as string, 10);
-    if (!layerId || ![1, 2, 3].includes(layerId)) {
-      return NextResponse.json({ success: false, message: 'Invalid or missing notification layer. Must be 1, 2, or 3.' }, { status: 400 });
+    if (!layerId || ![1, 2, 3, 4].includes(layerId)) {
+      return NextResponse.json({ success: false, message: 'Invalid or missing notification layer. Must be 1, 2, 3, or 4.' }, { status: 400 });
     }
 
     if (!file && !manualUserIds) {
@@ -262,28 +265,41 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'No user IDs found to send notifications to.' }, { status: 400 });
     }
 
-    // CADENCE FILTERING
-    const cadenceResponse = await fetch('http://localhost:3002/api/filter-audience', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userIds, layerId }),
-    });
 
-    if (!cadenceResponse.ok) {
-        console.error('Cadence service error, failing open.');
+    let eligibleUserIds = userIds;
+    let excludedCount = 0;
+
+    if (layerId !== 4) { // Bypass cadence check for Layer 4 (Test)
+      // CADENCE FILTERING
+      const cadenceResponse = await fetch('http://localhost:3002/api/filter-audience', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userIds, layerId }),
+      });
+
+      if (!cadenceResponse.ok) {
+          console.error('Cadence service error, failing open.');
+          // In fail-open, we proceed with the original user list
+      } else {
+        const cadenceData = await cadenceResponse.json();
+        eligibleUserIds = cadenceData.eligibleUserIds || userIds;
+        excludedCount = cadenceData.excludedCount || 0;
+      }
+      
+      console.log(`Cadence check: ${excludedCount} users excluded. ${eligibleUserIds.length} users remaining.`);
+      
+    } else {
+      console.log('Layer 4 (Test) push, bypassing cadence check.');
     }
-
-    const { eligibleUserIds = userIds, excludedCount = 0 } = await cadenceResponse.json();
-    
-    console.log(`Cadence check: ${excludedCount} users excluded. ${eligibleUserIds.length} users remaining.`);
-    
-    userIds = eligibleUserIds;
     // END CADENCE FILTERING
 
-    if (userIds.length === 0) {
+    if (eligibleUserIds.length === 0) {
       console.log('No user IDs remaining after cadence filtering');
-      return NextResponse.json({ success: true, message: `All ${excludedCount} users were excluded by cadence rules. No notifications sent.` });
+      return NextResponse.json({ success: true, message: `All ${userIds.length} users were excluded by cadence rules. No notifications sent.` });
     }
+
+    // Use the filtered list for the rest of the process
+    userIds = eligibleUserIds;
 
     // Validate variables in title, body, and deep link
     const variableValidation = validateVariables(title, body, deepLink || undefined, csvData);

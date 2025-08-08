@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { trackNotification } from '../../lib/cadence';
+import { trackNotification } from '@/lib/cadence';
 
 export async function POST(req: NextRequest) {
     try {

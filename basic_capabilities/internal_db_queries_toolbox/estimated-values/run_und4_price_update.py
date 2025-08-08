@@ -1,7 +1,7 @@
 """
 UND4 Price Update Script
 
-Running batch price update for product 1bf47fb6-52ea-4be1-9c86-43d6310ea02e
+Running batch price update for product 832b53d0-caae-409a-a7fb-7d2e86502eb4
 using the provided CSV data.
 """
 
@@ -14,7 +14,7 @@ def run_und4_update():
     updater = VariantPriceUpdater()
     
     # Your product ID
-    product_id = "1bf47fb6-52ea-4be1-9c86-43d6310ea02e"
+    product_id = "832b53d0-caae-409a-a7fb-7d2e86502eb4"
     
     print(f"🎯 Updating prices for UND4 product: {product_id}")
     
@@ -30,7 +30,7 @@ def run_und4_update():
     
     # Step 2: Load your pricing data
     print("\n📊 Loading pricing data from CSV...")
-    pricing_data = updater.load_pricing_data_from_csv("UND4_pricing_data_actual.csv")
+    pricing_data = updater.load_pricing_data_from_csv("UND4_pricing_data copy.csv")
     
     if not pricing_data:
         print("❌ No pricing data loaded. Check your file path.")

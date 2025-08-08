@@ -140,7 +140,7 @@
 - [ ] **Vercel Feature Branch:** `@vercel-debugger` to create a new feature branch for Phase 4.
 - [ ] **Comprehensive System Testing:**
   - [ ] End-to-end testing of complete notification workflow with cadence filtering
-  - [ ] Load testing with realistic user volumes (10k+ user audiences)
+  - [ ] Load testing with realistic user volumes (3k+ user audiences)
   - [ ] Edge case testing (timezone boundaries, concurrent notifications, database failures)
   - [ ] Rollback testing for critical notification scenarios
 - [ ] **Performance Optimization:**

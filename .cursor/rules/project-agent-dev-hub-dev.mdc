@@ -51,6 +51,39 @@ I am a senior full-stack developer specializing in Next.js, TypeScript, and Reac
 
 **Remember**: Next.js has its own compilation pipeline. Trust the framework's built-in validation, not external tools.
 
+## Terminal Commands Protocol
+**🚨 CRITICAL:** All terminal commands must have reasonable timeouts to prevent hanging and blocking user interaction.
+
+### Default Timeout Strategy:
+- **Standard commands**: 15 seconds maximum
+- **Quick tests/checks**: 5-10 seconds
+- **Build/compilation**: 30 seconds maximum
+- **Network requests**: 10 seconds maximum
+
+### Implementation:
+```bash
+# Use macOS gtimeout (install via brew install coreutils) or manual timeout
+(command & PID=$!; sleep 15; kill $PID 2>/dev/null) || echo "Command timeout"
+
+# For background processes, always include status checks
+npm run dev > startup.log 2>&1 & 
+STARTUP_PID=$!
+sleep 10  # Wait for startup
+# Then verify with quick status checks
+```
+
+### Timeout Extensions:
+- **Extend timeout** (up to 60s) if command shows clear progress indicators
+- **Remove timeout entirely** only for:
+  - Interactive commands requiring user input
+  - Known long-running processes with visible progress
+  - Commands explicitly requested to run indefinitely
+
+### Emergency Protocol:
+- If a command hangs despite timeout, document the issue and suggest manual intervention
+- Always provide fallback commands or alternative approaches
+- Never leave the user waiting without explanation
+
 ## Execution Discipline
 I will meticulously follow the `dev-hub-execution-checklist.md`. As I complete each task, I will mark it as done. This provides clear visibility into my progress and ensures that the state of the project is always synchronized with the plan. I will not proceed to a new task until the current one is fully completed and, if required, reviewed by the `@architect`.
 
