@@ -1,0 +1,188 @@
+{
+  "id": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+  "name": "Test Onboarding Funnel - Phase 2",
+  "description": "Created from template: New User Onboarding Funnel",
+  "type": "sequence",
+  "status": "draft",
+  "schedule": {
+    "timezone": "America/New_York",
+    "frequency": "daily",
+    "executionTime": "14:00",
+    "leadTimeMinutes": 30
+  },
+  "template": {
+    "id": "onboarding_funnel",
+    "name": "New User Onboarding Funnel",
+    "category": "onboarding",
+    "isSystemTemplate": true,
+    "config": {
+      "defaultSettings": {
+        "emergencyStopEnabled": true,
+        "dryRunFirst": true,
+        "cancellationWindowMinutes": 25,
+        "safeguards": {
+          "maxAudienceSize": 5000,
+          "requireTestFirst": true,
+          "emergencyContacts": [],
+          "alertThresholds": {
+            "audienceSize": 2500,
+            "failureRate": 0.1
+          }
+        }
+      },
+      "pushTemplates": [
+        {
+          "sequenceOrder": 1,
+          "titleTemplate": "Welcome to Tradeblock! Start building your closet 👟",
+          "bodyTemplate": "Add your first sneaker to unlock exclusive trading opportunities",
+          "deepLinkTemplate": "app://onboarding/add-closet?source=automation&segment={{user_segment}}",
+          "layerId": 0,
+          "timing": {
+            "delayAfterPrevious": 0
+          },
+          "variables": [
+            "user_segment"
+          ]
+        },
+        {
+          "sequenceOrder": 2,
+          "titleTemplate": "Ready to make your first offer? 💰",
+          "bodyTemplate": "Browse trending sneakers and make an offer to start trading",
+          "deepLinkTemplate": "app://offers/create?source=automation&segment={{user_segment}}",
+          "layerId": 0,
+          "timing": {
+            "delayAfterPrevious": 0
+          },
+          "variables": [
+            "user_segment"
+          ]
+        },
+        {
+          "sequenceOrder": 3,
+          "titleTemplate": "Complete your profile for better matches 📋",
+          "bodyTemplate": "Add your size preferences and location for personalized recommendations",
+          "deepLinkTemplate": "app://profile/complete?source=automation&segment={{user_segment}}",
+          "layerId": 0,
+          "timing": {
+            "delayAfterPrevious": 0
+          },
+          "variables": [
+            "user_segment"
+          ]
+        },
+        {
+          "sequenceOrder": 4,
+          "titleTemplate": "Build your wishlist and get notified 🔔",
+          "bodyTemplate": "Add sneakers to your wishlist and we'll alert you when they're available",
+          "deepLinkTemplate": "app://wishlist/add?source=automation&segment={{user_segment}}",
+          "layerId": 0,
+          "timing": {
+            "delayAfterPrevious": 0
+          },
+          "variables": [
+            "user_segment"
+          ]
+        }
+      ],
+      "requiredVariables": [
+        "user_segment"
+      ],
+      "usedVariables": {
+        "user_segment": "new_users",
+        "delay_hours": 24,
+        "personalization_level": "basic"
+      }
+    }
+  },
+  "pushSequence": [
+    {
+      "id": "976f854d-b673-4c99-9a2b-608ebbccadfc",
+      "automationId": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+      "sequenceOrder": 1,
+      "title": "Welcome to Tradeblock! Start building your closet 👟",
+      "body": "Add your first sneaker to unlock exclusive trading opportunities",
+      "deepLink": "app://onboarding/add-closet?source=automation&segment=new_users",
+      "layerId": 0,
+      "timing": {
+        "delayAfterPrevious": 0
+      },
+      "status": "pending"
+    },
+    {
+      "id": "2049c5f4-09c7-4ec7-af0b-80696eb5fd73",
+      "automationId": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+      "sequenceOrder": 2,
+      "title": "Ready to make your first offer? 💰",
+      "body": "Browse trending sneakers and make an offer to start trading",
+      "deepLink": "app://offers/create?source=automation&segment=new_users",
+      "layerId": 0,
+      "timing": {
+        "delayAfterPrevious": 1440
+      },
+      "status": "pending"
+    },
+    {
+      "id": "65686f6b-c1e7-478f-8f2c-71dc4ab90cb9",
+      "automationId": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+      "sequenceOrder": 3,
+      "title": "Complete your profile for better matches 📋",
+      "body": "Add your size preferences and location for personalized recommendations",
+      "deepLink": "app://profile/complete?source=automation&segment=new_users",
+      "layerId": 0,
+      "timing": {
+        "delayAfterPrevious": 1440
+      },
+      "status": "pending"
+    },
+    {
+      "id": "9d76f038-ea93-4479-997f-bda2a626862e",
+      "automationId": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+      "sequenceOrder": 4,
+      "title": "Build your wishlist and get notified 🔔",
+      "body": "Add sneakers to your wishlist and we'll alert you when they're available",
+      "deepLink": "app://wishlist/add?source=automation&segment=new_users",
+      "layerId": 0,
+      "timing": {
+        "delayAfterPrevious": 1440
+      },
+      "status": "pending"
+    }
+  ],
+  "audienceCriteria": {
+    "trustedTraderStatus": "any",
+    "trustedTraderCandidate": "any",
+    "activityDays": 30,
+    "tradingDays": 30,
+    "minTrades": 0,
+    "dataPacks": []
+  },
+  "settings": {
+    "testUserIds": [],
+    "emergencyStopEnabled": true,
+    "dryRunFirst": true,
+    "cancellationWindowMinutes": 25,
+    "safeguards": {
+      "maxAudienceSize": 5000,
+      "requireTestFirst": true,
+      "emergencyContacts": [],
+      "alertThresholds": {
+        "audienceSize": 2500,
+        "failureRate": 0.1
+      }
+    }
+  },
+  "metadata": {
+    "createdBy": "template_system",
+    "templateId": "onboarding_funnel",
+    "templateVariables": {
+      "user_segment": "new_users",
+      "delay_hours": 24,
+      "personalization_level": "basic"
+    },
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0
+  },
+  "createdAt": "2025-08-08T08:51:02.918Z",
+  "updatedAt": "2025-08-08T08:51:20.623Z"
+}
