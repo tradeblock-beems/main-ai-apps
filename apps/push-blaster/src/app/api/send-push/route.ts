@@ -109,6 +109,7 @@ export async function POST(req: NextRequest) {
   let deepLink: string | null = null;
   let dryRun: boolean = false;
   let jobId: string = crypto.randomUUID(); // Initialize immediately
+  let layerId: number | null = null;
 
   try {
     const contentType = req.headers.get('content-type') || '';
@@ -125,13 +126,10 @@ export async function POST(req: NextRequest) {
       deepLink = jsonData.deepLink || null;
       dryRun = jsonData.dryRun === true;
       jobId = jsonData.jobId || crypto.randomUUID();
+      layerId = jsonData.layerId || null;
     } else {
       // Handle form data requests
       const formData = await req.formData();
-      // console.log('--- [BACKEND LOG] Received FormData request ---');
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(`[BACKEND LOG] FormData: ${key} =`, value);
-      // }
       file = formData.get('file') as File | null;
       manualUserIds = formData.get('userIds') as string | null;
       title = formData.get('title') as string | null;
@@ -139,6 +137,10 @@ export async function POST(req: NextRequest) {
       deepLink = formData.get('deepLink') as string | null;
       dryRun = isDryRunFromQuery || formData.get('dryRun') === 'true'; // Prioritize query param
       jobId = formData.get('jobId') as string || crypto.randomUUID();
+      const layerIdValue = formData.get('layerId');
+      if (layerIdValue) {
+        layerId = parseInt(layerIdValue as string, 10);
+      }
     }
 
     // --- Create Job Log ---
@@ -149,6 +151,8 @@ export async function POST(req: NextRequest) {
       body,
       deepLink,
       dryRun,
+      csvFileName: file ? file.name : null,
+      layerId
     });
     // --------------------
 
@@ -173,6 +177,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Deep link must be a valid tradeblock.us URL' }, { status: 400 });
     }
 
+    if (!layerId || ![1, 2, 3, 4].includes(layerId)) {
+      return NextResponse.json({ success: false, message: 'Invalid or missing notification layer. Must be 1, 2, 3, or 4.' }, { status: 400 });
+    }
+
     if (!file && !manualUserIds) {
       console.log('No file or manual user IDs provided');
       return NextResponse.json({ success: false, message: 'Please provide either a CSV file or manual user IDs' }, { status: 400 });
@@ -191,17 +199,55 @@ export async function POST(req: NextRequest) {
       const text = await file.text();
       const result = Papa.parse(text, { header: true, skipEmptyLines: true });
       
-      // Type guard to ensure parsed data matches CsvRow[]
-      const parsedData = result.data as any[];
-      if (Array.isArray(parsedData) && parsedData.every(row => typeof row === 'object' && row !== null && 'user_id' in row)) {
-        csvData = parsedData as CsvRow[];
-      } else {
-        throw new Error('CSV parsing failed to produce valid data.');
+      // Check for parsing errors
+      if (result.errors && result.errors.length > 0) {
+        console.log('Papa Parse errors:', result.errors);
+        throw new Error(`CSV parsing errors: ${result.errors.map(err => err.message).join(', ')}`);
       }
+      
+      // Type guard to ensure parsed data exists and is valid
+      const parsedData = result.data as any[];
+      if (!Array.isArray(parsedData) || parsedData.length === 0) {
+        throw new Error('CSV file appears to be empty or invalid.');
+      }
+
+      // Check for user ID column with flexible naming
+      const firstRow = parsedData[0];
+      const availableColumns = Object.keys(firstRow || {});
+      console.log('Available CSV columns:', availableColumns);
+      
+      // Look for user ID column with various possible names
+      const possibleUserIdColumns = ['user_id', 'userId', 'id', 'User ID', 'ID', 'user', 'User'];
+      const userIdColumn = possibleUserIdColumns.find(col => availableColumns.includes(col));
+      
+      if (!userIdColumn) {
+        throw new Error(`CSV must contain a user ID column. Found columns: [${availableColumns.join(', ')}]. Expected one of: [${possibleUserIdColumns.join(', ')}]`);
+      }
+      
+      console.log(`Using '${userIdColumn}' as user ID column`);
+      
+      // Validate that all rows have the required structure
+      const validRows = parsedData.filter(row => 
+        typeof row === 'object' && 
+        row !== null && 
+        row[userIdColumn] && 
+        String(row[userIdColumn]).trim()
+      );
+      
+      if (validRows.length === 0) {
+        throw new Error(`No valid user IDs found in the '${userIdColumn}' column. Please check your CSV data.`);
+      }
+      
+      // Normalize the data structure to use 'user_id' as the standard key
+      csvData = validRows.map(row => ({
+        user_id: String(row[userIdColumn]).trim(),
+        ...row // Include all original columns for variable substitution
+      }));
 
       userIds = csvData.map(row => row.user_id).filter(Boolean);
       console.log('CSV data parsed:', csvData.length, 'rows');
-      console.log('User IDs from CSV:', userIds);
+      console.log('Valid user IDs extracted:', userIds.length);
+      console.log('Sample user IDs:', userIds.slice(0, 5));
     } else if (manualUserIds) {
       console.log('Processing manual user IDs:', manualUserIds);
       userIds = manualUserIds.split(',').map(id => id.trim()).filter(Boolean);
@@ -218,6 +264,42 @@ export async function POST(req: NextRequest) {
       console.log('No user IDs found after processing');
       return NextResponse.json({ success: false, message: 'No user IDs found to send notifications to.' }, { status: 400 });
     }
+
+
+    let eligibleUserIds = userIds;
+    let excludedCount = 0;
+
+    if (layerId !== 4) { // Bypass cadence check for Layer 4 (Test)
+      // CADENCE FILTERING
+      const cadenceResponse = await fetch('http://localhost:3002/api/filter-audience', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userIds, layerId }),
+      });
+
+      if (!cadenceResponse.ok) {
+          console.error('Cadence service error, failing open.');
+          // In fail-open, we proceed with the original user list
+      } else {
+        const cadenceData = await cadenceResponse.json();
+        eligibleUserIds = cadenceData.eligibleUserIds || userIds;
+        excludedCount = cadenceData.excludedCount || 0;
+      }
+      
+      console.log(`Cadence check: ${excludedCount} users excluded. ${eligibleUserIds.length} users remaining.`);
+      
+    } else {
+      console.log('Layer 4 (Test) push, bypassing cadence check.');
+    }
+    // END CADENCE FILTERING
+
+    if (eligibleUserIds.length === 0) {
+      console.log('No user IDs remaining after cadence filtering');
+      return NextResponse.json({ success: true, message: `All ${userIds.length} users were excluded by cadence rules. No notifications sent.` });
+    }
+
+    // Use the filtered list for the rest of the process
+    userIds = eligibleUserIds;
 
     // Validate variables in title, body, and deep link
     const variableValidation = validateVariables(title, body, deepLink || undefined, csvData);
@@ -343,6 +425,27 @@ export async function POST(req: NextRequest) {
           const successes = response.responses
             .map((resp, idx) => resp.success ? tokenBatch[idx] : null)
             .filter((token): token is string => token !== null);
+
+          // Track successful notifications
+          if (!dryRun) {
+            const userIdsForSuccessfulTokens = csvData
+              .filter(row => userToTokensMap.get(row.user_id)?.some(token => successes.includes(token)))
+              .map(row => row.user_id);
+            
+            for (const userId of userIdsForSuccessfulTokens) {
+              fetch('http://localhost:3002/api/track-notification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  userId,
+                  layerId,
+                  pushTitle: title,
+                  pushBody: body,
+                  audienceDescription: file ? `CSV: ${file.name}` : `Manual: ${manualUserIds}`,
+                }),
+              }).catch(err => console.error(`Failed to track notification for user ${userId}:`, err));
+            }
+          }
 
           return {
             success: response.successCount,

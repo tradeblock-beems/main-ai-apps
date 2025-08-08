@@ -1,0 +1,20 @@
+{
+  "id": "c6e639bf-c543-4dfa-826a-5940ee423fa8",
+  "createdAt": "2025-08-03T22:09:38.923Z",
+  "scheduledFor": "2025-08-06T01:09:00.000Z",
+  "title": "test",
+  "body": "test test",
+  "audienceCriteria": {
+    "filters": {
+      "lastActiveDays": 1,
+      "minLifetimeTrades": 100
+    },
+    "dataPacks": {
+      "topTargetShoe": true,
+      "hottestShoeTraded": false,
+      "hottestShoeOffers": false
+    }
+  },
+  "audienceDescription": "Users with active in last 1 days, min 100 lifetime trades + data packs: TOP TARGET SHOE",
+  "status": "sent"
+}
