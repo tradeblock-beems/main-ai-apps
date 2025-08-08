@@ -1,0 +1,70 @@
+{
+  "id": "ac38fbcf-c7fc-4bb7-9173-9d42a16cfe56",
+  "name": "Test Onboarding Automation",
+  "description": "Test automation for Phase 1 validation",
+  "type": "sequence",
+  "status": "draft",
+  "schedule": {
+    "timezone": "America/New_York",
+    "frequency": "daily",
+    "executionTime": "10:00",
+    "leadTimeMinutes": 30
+  },
+  "template": {
+    "id": "custom",
+    "name": "Custom Template",
+    "category": "custom",
+    "isSystemTemplate": false,
+    "config": {
+      "defaultSettings": {},
+      "pushTemplates": [],
+      "requiredVariables": []
+    }
+  },
+  "pushSequence": [
+    {
+      "id": "aac3c68f-ae0f-45c0-b5e6-77acecd25886",
+      "automationId": "ac38fbcf-c7fc-4bb7-9173-9d42a16cfe56",
+      "sequenceOrder": 1,
+      "title": "Welcome to Tradeblock!",
+      "body": "Start your sneaker trading journey",
+      "deepLink": "app://onboarding/step1",
+      "layerId": 1,
+      "timing": {
+        "delayAfterPrevious": 0
+      },
+      "status": "pending"
+    }
+  ],
+  "audienceCriteria": {
+    "trustedTraderStatus": "any",
+    "trustedTraderCandidate": "any",
+    "activityDays": 30,
+    "tradingDays": 30,
+    "minTrades": 0,
+    "dataPacks": []
+  },
+  "settings": {
+    "testUserIds": [],
+    "emergencyStopEnabled": true,
+    "dryRunFirst": true,
+    "cancellationWindowMinutes": 25,
+    "safeguards": {
+      "maxAudienceSize": 10000,
+      "requireTestFirst": true,
+      "emergencyContacts": [],
+      "alertThresholds": {
+        "audienceSize": 5000,
+        "failureRate": 0.1
+      }
+    }
+  },
+  "metadata": {
+    "createdBy": "api",
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0
+  },
+  "createdAt": "2025-08-08T08:23:09.767Z",
+  "updatedAt": "2025-08-08T08:23:09.767Z"
+}
