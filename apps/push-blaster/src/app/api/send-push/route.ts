@@ -197,7 +197,7 @@ export async function POST(req: NextRequest) {
     if (file) {
       console.log('Processing CSV file:', file.name);
       const text = await file.text();
-      const result = Papa.parse(text, { header: true, skipEmptyLines: true });
+      const result = Papa.parse(text, { header: true, skipEmptyLines: true, newline: "\r\n" });
       
       // Check for parsing errors
       if (result.errors && result.errors.length > 0) {

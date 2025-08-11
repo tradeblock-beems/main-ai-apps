@@ -1,0 +1,66 @@
+{
+  "automationId": "85b7117d-0954-4c60-953a-2c363bfc32c7",
+  "executionId": "6e05d656-9be6-459b-a800-3c0c9631cf00",
+  "generatedAt": "2025-08-08T09:06:22.165Z",
+  "expiresAt": "2025-08-08T09:36:22.165Z",
+  "totalAudiences": 4,
+  "cacheDirectory": "/Users/AstroLab/Desktop/code-projects/main-ai-apps/apps/push-blaster/.automations/audience-cache",
+  "jobs": [
+    {
+      "pushId": "976f854d-b673-4c99-9a2b-608ebbccadfc",
+      "pushTitle": "Welcome to Tradeblock! Start building your closet 👟",
+      "sequenceOrder": 1,
+      "status": "completed",
+      "audienceSize": 0,
+      "eligibleUsers": 0,
+      "excludedUsers": 0,
+      "startTime": "2025-08-08T09:01:36.995Z",
+      "userIds": [],
+      "csvPath": "/Users/AstroLab/Desktop/code-projects/main-ai-apps/apps/push-blaster/.automations/audience-cache/6e05d656-9be6-459b-a800-3c0c9631cf00-976f854d-b673-4c99-9a2b-608ebbccadfc.json",
+      "endTime": "2025-08-08T09:04:57.694Z",
+      "processingTime": 200699
+    },
+    {
+      "pushId": "2049c5f4-09c7-4ec7-af0b-80696eb5fd73",
+      "pushTitle": "Ready to make your first offer? 💰",
+      "sequenceOrder": 2,
+      "status": "completed",
+      "audienceSize": 0,
+      "eligibleUsers": 0,
+      "excludedUsers": 0,
+      "startTime": "2025-08-08T09:01:36.998Z",
+      "userIds": [],
+      "csvPath": "/Users/AstroLab/Desktop/code-projects/main-ai-apps/apps/push-blaster/.automations/audience-cache/6e05d656-9be6-459b-a800-3c0c9631cf00-2049c5f4-09c7-4ec7-af0b-80696eb5fd73.json",
+      "endTime": "2025-08-08T09:04:36.838Z",
+      "processingTime": 179840
+    },
+    {
+      "pushId": "65686f6b-c1e7-478f-8f2c-71dc4ab90cb9",
+      "pushTitle": "Complete your profile for better matches 📋",
+      "sequenceOrder": 3,
+      "status": "completed",
+      "audienceSize": 0,
+      "eligibleUsers": 0,
+      "excludedUsers": 0,
+      "startTime": "2025-08-08T09:01:36.998Z",
+      "userIds": [],
+      "csvPath": "/Users/AstroLab/Desktop/code-projects/main-ai-apps/apps/push-blaster/.automations/audience-cache/6e05d656-9be6-459b-a800-3c0c9631cf00-65686f6b-c1e7-478f-8f2c-71dc4ab90cb9.json",
+      "endTime": "2025-08-08T09:04:53.168Z",
+      "processingTime": 196170
+    },
+    {
+      "pushId": "9d76f038-ea93-4479-997f-bda2a626862e",
+      "pushTitle": "Build your wishlist and get notified 🔔",
+      "sequenceOrder": 4,
+      "status": "completed",
+      "audienceSize": 0,
+      "eligibleUsers": 0,
+      "excludedUsers": 0,
+      "startTime": "2025-08-08T09:04:58.696Z",
+      "userIds": [],
+      "csvPath": "/Users/AstroLab/Desktop/code-projects/main-ai-apps/apps/push-blaster/.automations/audience-cache/6e05d656-9be6-459b-a800-3c0c9631cf00-9d76f038-ea93-4479-997f-bda2a626862e.json",
+      "endTime": "2025-08-08T09:06:22.162Z",
+      "processingTime": 83466
+    }
+  ]
+}

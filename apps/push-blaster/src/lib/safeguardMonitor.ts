@@ -2,8 +2,9 @@
 // Real-time monitoring and enforcement of automation safety limits
 
 import { UniversalAutomation, SafeguardConfig } from '@/types/automation';
-import { automationLogger } from './automationLogger';
-import { automationEngine } from './automationEngine';
+// Temporarily disabled to fix memory issues
+// import { automationLogger } from './automationLogger';
+// import { automationEngine } from './automationEngine';
 
 export interface SafeguardViolation {
   id: string;
