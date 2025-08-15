@@ -52,15 +52,9 @@ The user has specifically requested a daily onboarding funnel with 6 sequential 
 
 ## Risk Mitigation
 - **User Safety**: Multiple layers of testing, audience size limits, and emergency stop capabilities
-- **System Reliability**: Cron-based execution with failure recovery and monitoring
-- **Backward Compatibility**: Migration strategy for existing scheduled pushes
+- **System Reliability**: Cron-based execution with monitoring
 - **Development Safety**: Incremental rollout with comprehensive testing at each phase
 - **Integration Risk**: Leverage existing push-blaster expertise and architecture patterns
 
-## Timeline
-- **Weeks 1-2**: Universal automation foundation and backend engine
-- **Weeks 3-4**: Sequence execution and UI integration
-- **Week 5**: Onboarding funnel implementation and testing
-- **Week 6+**: Advanced features and template expansion
 
 This project establishes the automation foundation that will power notification campaigns for years to come, building directly on the robust push-blaster and push-cadence infrastructure already in place.

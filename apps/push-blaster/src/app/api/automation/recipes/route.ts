@@ -63,8 +63,9 @@ export async function POST(req: NextRequest) {
       description: body.description || '',
       type: body.type,
       status: body.status || 'draft',
+      isActive: body.isActive !== undefined ? body.isActive : true,
       schedule: {
-        timezone: body.schedule.timezone || 'America/New_York',
+                  timezone: body.schedule.timezone || 'America/Chicago',
         frequency: body.schedule.frequency,
         startDate: body.schedule.startDate,
         endDate: body.schedule.endDate,
@@ -107,7 +108,7 @@ export async function POST(req: NextRequest) {
         maxAudienceSize: body.settings?.maxAudienceSize,
         emergencyStopEnabled: body.settings?.emergencyStopEnabled !== false,
         dryRunFirst: body.settings?.dryRunFirst !== false,
-        cancellationWindowMinutes: body.settings?.cancellationWindowMinutes || 25,
+                  cancellationWindowMinutes: body.settings?.cancellationWindowMinutes || 30,
         safeguards: body.settings?.safeguards || {
           maxAudienceSize: 10000,
           requireTestFirst: true,
@@ -206,14 +207,15 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json(saveResult, { status: 500 });
     }
 
-    // Handle scheduling changes
-    if (updatedAutomation.status === 'scheduled' && existingAutomation.status !== 'scheduled') {
-      // New scheduling
+    // Handle scheduling changes - CRITICAL FIX: Always reschedule active automations
+    if (updatedAutomation.status === 'active' || updatedAutomation.isActive || 
+        (updatedAutomation.status === 'scheduled' && existingAutomation.status !== 'scheduled')) {
+      // Cancel existing schedule and create new one
       const scheduleResult = await automationEngine.scheduleAutomation(updatedAutomation);
       if (!scheduleResult.success) {
         return NextResponse.json({
           success: false,
-          message: `Automation updated but scheduling failed: ${scheduleResult.message}`,
+          message: `Automation updated but rescheduling failed: ${scheduleResult.message}`,
           data: updatedAutomation
         }, { status: 207 });
       }

@@ -3,6 +3,7 @@
 
 import { UniversalAutomation, AutomationPush } from '@/types/automation';
 import { automationLogger } from './automationLogger';
+import { scriptExecutor } from './scriptExecutor';
 
 export class AutomationIntegration {
   private logPrefix = '[AutomationIntegration]';
@@ -25,41 +26,79 @@ export class AutomationIntegration {
       const audienceCriteria = push?.audienceQuery ? 
         JSON.parse(push.audienceQuery) : automation.audienceCriteria;
 
-      // Call existing query-audience API
-      const response = await fetch(`${this.pushBlasterApiUrl}/api/query-audience`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          activityDays: audienceCriteria.activityDays,
-          tradingDays: audienceCriteria.tradingDays,
-          minTrades: audienceCriteria.minTrades,
-          trustedTraderStatus: audienceCriteria.trustedTraderStatus,
-          trustedTraderCandidate: audienceCriteria.trustedTraderCandidate,
-          dataPacks: audienceCriteria.dataPacks
-        })
-      });
+      // Check if this is a script-based or query-based audience generation
+      if (audienceCriteria.customScript) {
+        // Execute custom Python script
+        this.log(`Generating audience using script: ${audienceCriteria.customScript.scriptId}`);
+        
+        const scriptResult = await scriptExecutor.executeScript(
+          audienceCriteria.customScript.scriptId,
+          audienceCriteria.customScript.parameters || {},
+          `${automation.id}-${push?.id || 'main'}-${Date.now()}`
+        );
 
-      if (!response.ok) {
-        throw new Error(`Audience generation failed: ${response.statusText}`);
+        if (!scriptResult.success) {
+          throw new Error(`Script execution failed: ${scriptResult.error}`);
+        }
+
+        automationLogger.logPerformance(
+          automation.id, 
+          'audience_generation', 
+          'script_execution', 
+          startTime,
+          { 
+            audienceSize: scriptResult.audienceSize,
+            scriptId: audienceCriteria.customScript.scriptId,
+            executionTime: scriptResult.executionTime
+          }
+        );
+
+        return {
+          success: true,
+          audienceSize: scriptResult.audienceSize || 0,
+          csvPath: scriptResult.csvPath
+        };
+
+      } else {
+        // Use existing query-audience API for standard filtering
+        this.log('Generating audience using standard query filters');
+        
+        const response = await fetch(`${this.pushBlasterApiUrl}/api/query-audience`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            activityDays: audienceCriteria.activityDays,
+            tradingDays: audienceCriteria.tradingDays,
+            minTrades: audienceCriteria.minTrades,
+            trustedTraderStatus: audienceCriteria.trustedTraderStatus,
+            trustedTraderCandidate: audienceCriteria.trustedTraderCandidate,
+            dataPacks: audienceCriteria.dataPacks
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Audience generation failed: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        
+        automationLogger.logPerformance(
+          automation.id, 
+          'audience_generation', 
+          'query_audience', 
+          startTime,
+          { audienceSize: result.audienceSize }
+        );
+
+        return {
+          success: true,
+          audienceSize: result.audienceSize || 0,
+          csvPath: result.csvFilePath
+        };
       }
 
-      const result = await response.json();
-      
-      automationLogger.logPerformance(
-        automation.id, 
-        'audience_generation', 
-        'generate_audience', 
-        startTime,
-        { audienceSize: result.audienceSize }
-      );
-
-      return {
-        success: true,
-        audienceSize: result.audienceSize || 0,
-        csvPath: result.csvFilePath
-      };
-
     } catch (error: any) {
+      this.logError('Audience generation failed', error);
       automationLogger.logError(automation.id, 'audience_generation', 'Failed to generate audience', error);
       return {
         success: false,
@@ -132,6 +171,10 @@ export class AutomationIntegration {
 
   /**
    * Send push notification using existing send-push API
+   * 
+   * NOTE: This method reverted to userIds array signature for compatibility with sequenceExecutor.
+   * The unified test-automation API handles CSV file processing directly and should be preferred
+   * for automation flows that need variable substitution.
    */
   async sendPush(automation: UniversalAutomation, push: AutomationPush, userIds: string[], isDryRun: boolean = false): Promise<{
     success: boolean;
@@ -147,17 +190,17 @@ export class AutomationIntegration {
       const csvData = userIds.map(userId => ({ user_id: userId }));
       const csvContent = this.createCsvContent(csvData);
 
-      // Create FormData similar to existing send-push flow
+      // Create FormData with correct parameter names for /api/send-push
       const formData = new FormData();
-      formData.append('pushTitle', push.title);
-      formData.append('pushBody', push.body);
+      formData.append('title', push.title);           // FIXED: was 'pushTitle'
+      formData.append('body', push.body);             // FIXED: was 'pushBody'  
       formData.append('deepLink', push.deepLink);
       formData.append('layerId', push.layerId.toString());
-      formData.append('isDryRun', isDryRun.toString());
+      formData.append('dryRun', isDryRun.toString()); // FIXED: was 'isDryRun'
       
-      // Create blob for CSV file
+      // Create blob for CSV file with correct parameter name
       const csvBlob = new Blob([csvContent], { type: 'text/csv' });
-      formData.append('csvFile', csvBlob, `automation_${automation.id}_${push.id}.csv`);
+      formData.append('file', csvBlob, `automation_${automation.id}_${push.sequenceOrder}.csv`); // FIXED: use sequenceOrder since push.id is undefined
 
       // Call existing send-push API
       const response = await fetch(`${this.pushBlasterApiUrl}/api/send-push`, {
@@ -350,6 +393,10 @@ export class AutomationIntegration {
 
   private log(message: string): void {
     console.log(`${this.logPrefix} ${new Date().toISOString()} - ${message}`);
+  }
+
+  private logError(message: string, error: any): void {
+    console.error(`${this.logPrefix} ${new Date().toISOString()} - ${message}:`, error);
   }
 }
 

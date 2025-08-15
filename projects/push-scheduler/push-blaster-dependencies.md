@@ -2,45 +2,49 @@
 
 This document outlines the architecture and key dependencies of the `push-blaster` application, providing a centralized reference to guide future development and debugging.
 
-**Project Overview:** Complete push notification scheduling and management system with calendar interface and modern UI.
+**Project Overview:** A complete toolchain for manual, scheduled, and fully automated push notifications, including audience creation, cadence management, and persistent process management.
 
 ---
 
 ## 1. High-Level Architecture
 
-The `push-blaster` is a Next.js application with three primary functions:
-1.  **Audience Builder:** A UI for creating user segments based on various filters and data packs. This generates a CSV file.
+The `push-blaster` is a Next.js application with four primary functions:
+1.  **Audience Builder:** A UI for creating user segments based on various filters and data packs.
 2.  **Push Notification Sender:** A UI for uploading a user CSV and sending personalized push notifications.
-3.  **Push Scheduling System:** A comprehensive scheduling interface with calendar management for drafting and scheduling future push notifications.
+3.  **Push Scheduling System:** (Legacy) A system for scheduling manual pushes, now being superseded by the Automation Engine.
+4.  **Universal Automation Engine:** A powerful system for creating, scheduling, and executing multi-step, automated push notification sequences (e.g., onboarding funnels, retention campaigns).
 
-### Unified Service Architecture
+### Unified Service Architecture & Process Management
 
-**🔗 Tightly Coupled Services:** Push-blaster now runs as a unified system with the push-cadence-service to ensure responsible notification delivery and prevent user spam.
+**🔗 Tightly Coupled Services:** Push-blaster runs as a unified system with the push-cadence-service to ensure responsible notification delivery.
+
+**⚙️ Persistent Process Management with PM2:** The application is managed by `pm2`, a process manager that ensures the services run persistently in the background, independent of any terminal session.
 
 The application follows a **dual-service model**:
 -   **Push-Blaster Service:** Main Next.js application on port 3001
 -   **Push-Cadence Service:** Notification filtering microservice on port 3002
--   **Unified Startup:** Both services start together via `npm run dev` in push-blaster
+-   **Configuration:** Both services are defined in `apps/push-blaster/ecosystem.config.js`.
 
 ### Service Components:
 -   **Frontend:** A single-page React application built with Next.js App Router (`apps/push-blaster/src/app/page.tsx`).
 -   **Backend:** A set of Next.js API Routes (`apps/push-blaster/src/app/api/*`) that handle business logic.
 -   **Core Logic:** A `lib` directory containing modules for database access, external service integrations, and utility functions.
--   **Scheduling Data:** JSON file-based storage system for scheduled push drafts (`.scheduled-pushes/` directory).
+-   **Automation & Scheduling Data:** JSON file-based storage systems for automation recipes (`.automations/`) and legacy scheduled pushes (`.scheduled-pushes/`).
 -   **Cadence Logic:** Separate microservice managing notification frequency rules and user tracking.
 
 ### Startup & Development
 
-**🚀 Unified Development Startup:**
+**🚀 Persistent Development Startup (Recommended):**
 ```bash
 cd apps/push-blaster
-npm run dev
+npm run pm2:start
 ```
-This single command will start both services with colored console output:
-- **PUSH-BLASTER** (blue): Main UI on http://localhost:3001  
-- **CADENCE-SERVICE** (green): API service on http://localhost:3002
+This command starts both services as background daemons. Use the following commands to manage them:
+-   `npm run pm2:stop`: Stops both services.
+-   `npm run pm2:restart`: Restarts both services.
+-   `npm run pm2:logs`: Tails the logs for both services.
 
-**Individual Service Commands (if needed):**
+**Individual Service Commands (for direct debugging):**
 ```bash
 # Push-blaster only
 npm run dev:push-only
@@ -49,7 +53,7 @@ npm run dev:push-only
 npm run dev:cadence
 ```
 
-**⚠️ Service Dependency:** Push-blaster requires the cadence service for all notification operations. Running push-blaster without cadence service will result in CORS errors and failed notifications.
+**⚠️ Service Dependency:** Push-blaster requires the cadence service for all notification operations.
 
 ---
 
@@ -57,168 +61,75 @@ npm run dev:cadence
 
 ### A. Frontend (`apps/push-blaster/src/app/page.tsx`)
 
-This is the main entry point and UI for the entire application, now encompassing three major tabs: Make, Track, and Calendar.
+This is the main entry point and UI for the entire application, now encompassing four major tabs: Create Push, Track Results, Scheduled Pushes, and Restore Data.
 
 -   **Affected Files:**
-    -   `apps/push-blaster/src/app/page.tsx` (2356+ lines - complex state management)
-    -   `apps/push-blaster/src/components/Button.tsx`
-    -   `apps/push-blaster/src/components/Input.tsx`
-    -   `apps/push-blaster/src/components/Textarea.tsx`
+    -   `apps/push-blaster/src/app/page.tsx` (3000+ lines - very complex state management)
 -   **Interacting Modules:**
-    -   Calls `/api/query-audience` to generate user CSVs and segment external files.
-    -   Calls `/api/send-push` to send notifications.
-    -   Calls `/api/push-logs` to track historical pushes.
-    -   Calls `/api/scheduled-pushes` for CRUD operations on scheduled push drafts.
-    -   Calls `/api/scheduled-pushes/[id]` for individual push management.
--   **Shared Types / Constants:**
-    -   `ServerResponse`, `AudienceResponse` (interfaces for API communication).
-    -   `ScheduledPush`, `AudienceCriteria` (interfaces for scheduling system).
-    -   Multiple state interfaces for calendar, modal, form management, and external file processing.
--   **External Dependencies:**
-    -   `react` (for state management: `useState`, `useEffect`).
-    -   `papaparse` (for CSV parsing and preview of external files).
-    -   JavaScript `Date` object for calendar utilities.
-    -   CSS Grid layout for calendar rendering.
-    -   FileReader API for client-side file processing.
+    -   Calls all `/api/*` endpoints.
+    -   Manages state for audience creation, manual pushes, scheduling, calendar views, modals, and the new automation system UI (when built).
 -   **Risk Notes:**
-    -   The component manages a large amount of state across multiple contexts (main app, calendar, modal). Future changes should be carefully managed to avoid state conflicts.
-    -   Complex state isolation required - modal state must not interfere with main app state.
-    -   All business logic is delegated to the API layer, which is a good separation of concerns.
+    -   **CRITICAL:** This component's size and state complexity make it a high-risk area. Future development should prioritize refactoring and extracting components to reduce complexity.
+    -   State management is highly coupled. Changes in one area (e.g., modals) can have unintended consequences elsewhere.
 
-### B. API Layer (`apps/push-blaster/src/app/api/`)
+### B. Universal Automation Engine (`apps/push-blaster/src/lib/`)
+
+This is the new core system for handling all automated and scheduled push notifications. It is composed of several interconnected modules.
+
+-   **Affected Files:**
+    -   `lib/automationEngine.ts`: The main orchestrator, uses `node-cron` to schedule jobs.
+    -   `lib/sequenceExecutor.ts`: Executes the steps of a multi-push sequence, handling timing and delays.
+    -   `lib/audienceProcessor.ts`: Generates and caches audiences for push sequences in parallel.
+    -   `lib/sequenceSafety.ts`: Provides real-time monitoring and safety checks for running sequences.
+    -   `lib/automationStorage.ts`: Manages saving and loading automation recipes from JSON files in the `.automations/` directory.
+    -   `lib/automationLogger.ts`: A detailed logging system for all automation activities.
+    -   `lib/automationIntegration.ts`: A layer to communicate with external services like the `push-cadence-service`.
+    -   `lib/timelineCalculator.ts`: Calculates the execution timeline for automation events.
+    -   `lib/safeguardMonitor.ts`: Enforces global safety limits and handles violations.
+    -   `lib/automationTemplates.ts`: Defines pre-built automation recipes (e.g., onboarding funnel).
+-   **Interacting Modules:**
+    -   Called by the new `/api/automation/*` routes.
+    -   Integrates heavily with `push-cadence-service` via `automationIntegration.ts`.
+-   **Risk Notes:**
+    -   **MEMORY USAGE:** This engine is powerful but memory-intensive. The initial implementation caused server crashes due to eager loading of all modules. As a temporary fix, all singleton exports in these files have been **stubbed out** and the primary API routes are **disabled**. The system is architecturally sound but requires a lazy-loading implementation before it can be fully activated.
+
+### C. API Layer (`apps/push-blaster/src/app/api/`)
+
+#### `automation/*`
+A new suite of API routes to manage the Universal Automation Engine.
+
+-   **Affected Files:**
+    -   `api/automation/recipes/[id]/route.ts` & `route.ts`: CRUD for automation recipes.
+    -   `api/automation/sequences/[id]/route.ts` & `route.ts`: Control and monitor sequence execution.
+    -   `api/automation/templates/[id]/route.ts` & `route.ts`: Manage and use automation templates.
+    -   `api/automation/control/route.ts`: Emergency stop and other manual controls.
+    -   `api/automation/monitor/route.ts`: Real-time monitoring endpoints.
+    -   `api/automation/test/route.ts`: Run safety and validation tests.
+    -   `api/automation/migrate/route.ts`: (Future) Migrate legacy scheduled pushes.
+-   **Risk Notes:**
+    -   **CURRENTLY DISABLED:** The core logic within `sequences/route.ts` is stubbed out to prevent server crashes from memory overload. The underlying libraries are built, but this API does not yet use them. Re-enabling this requires implementing lazy loading for the automation libraries.
 
 #### `query-audience/route.ts`
-Handles requests to build user audiences and generate CSVs.
-
--   **Affected Files:**
-    -   `apps/push-blaster/src/app/api/query-audience/route.ts`
--   **Interacting Modules:**
-    -   `lib/databaseQueries.ts`: Uses `queryUsers`, `fetchDataPacks`, and `fetchManualAudienceData` to interact with the database.
--   **Shared Types / Constants:**
-    -   `AudienceFilters`, `DataPacks`, `UserData` (for structuring query logic).
--   **External Dependencies:**
-    -   `papaparse`: For converting the final user data into a CSV string.
--   **Risk Notes:**
-    -   This is a critical data-retrieval endpoint. Changes to `databaseQueries.ts` will directly impact its functionality.
+(No significant changes, remains a core service)
 
 #### `send-push/route.ts`
-Handles requests to send push notifications to a list of users.
-
--   **Affected Files:**
-    -   `apps/push-blaster/src/app/api/send-push/route.ts`
--   **Interacting Modules:**
-    -   `lib/graphql.ts`: Uses `fetchDeviceTokens` to get user device tokens.
-    -   `lib/firebaseAdmin.ts`: Uses `getPushClient` to send notifications via FCM.
-    -   `lib/variableProcessor.ts`: Uses `validateVariables` and `processVariableReplacements` to personalize messages.
--   **Shared Types / Constants:**
-    -   `CsvRow` (for parsing the uploaded user file).
--   **External Dependencies:**
-    -   `papaparse`: For parsing the uploaded CSV file.
-    -   `firebase-admin`: For sending push notifications.
+-   **Recent Changes:**
+    -   Now integrates with `push-cadence-service` to filter the audience before sending, respecting cadence rules.
+    -   CSV parsing logic was improved to handle Windows-style line endings (`\r\n`) by explicitly setting the `newline` option in Papa Parse. This fixed the "Unable to auto-detect delimiting character" error.
 -   **Risk Notes:**
-    -   This endpoint interfaces with two critical external services (our GraphQL API and Firebase). Failures in either will cause this endpoint to fail.
-    -   The logic for handling `dryRun` is critical for testing and must be maintained carefully.
+    -   Now has a hard dependency on the `push-cadence-service` running on `localhost:3002`.
 
-#### `scheduled-pushes/route.ts` & `scheduled-pushes/[id]/route.ts`
-Handle CRUD operations for the push scheduling system.
-
--   **Affected Files:**
-    -   `apps/push-blaster/src/app/api/scheduled-pushes/route.ts`
-    -   `apps/push-blaster/src/app/api/scheduled-pushes/[id]/route.ts`
--   **Interacting Modules:**
-    -   Main UI components, calendar system, modal workflows
-    -   File system operations for JSON persistence
--   **Shared Types / Constants:**
-    -   `ScheduledPush`, `AudienceCriteria`, `ServerResponse` interfaces
--   **External Dependencies:**
-    -   Node.js `fs/path` for JSON file operations
-    -   `crypto` for UUID generation
+#### `scheduled-pushes/*` (Legacy)
 -   **Risk Notes:**
-    -   Changes to API structure require updates to frontend state management
-    -   File operations are synchronous - consider async patterns for scale
+    -   This system is now considered legacy. New scheduling should be implemented through the Universal Automation Engine. It remains functional but should be phased out.
 
-#### `push-logs/route.ts`
-Handles requests to retrieve push notification logs and tracking data.
+### D. Core Logic (`apps/push-blaster/src/lib/`)
+(No significant changes to the modules listed below, but they are now consumed by the new Automation Engine.)
 
--   **Affected Files:**
-    -   `apps/push-blaster/src/app/api/push-logs/route.ts`
--   **Interacting Modules:**
-    -   File system operations for log retrieval
-    -   Calendar modal system for post-send tracking display
--   **Shared Types / Constants:**
-    -   `JobSummary` interfaces for tracking data structure
--   **External Dependencies:**
-    -   Node.js file system operations
--   **Risk Notes:**
-    -   Log file format changes could break tracking display
-
-### C. Core Logic (`apps/push-blaster/src/lib/`)
-
-#### `databaseQueries.ts` & `db.ts`
-The data access layer for the application.
-
--   **Affected Files:**
-    -   `apps/push-blaster/src/lib/databaseQueries.ts`
-    -   `apps/push-blaster/src/lib/db.ts`
--   **Interacting Modules:**
-    -   `db.ts` creates and manages the PostgreSQL connection pool.
-    -   `databaseQueries.ts` consumes the pool from `db.ts` to execute raw SQL queries.
--   **Shared Types / Constants:**
-    -   `AudienceFilters`, `DataPacks`, `UserData` (exported for use in the API layer).
--   **External Dependencies:**
-    -   `pg`: The Node.js PostgreSQL client.
--   **Risk Notes:**
-    -   This is the *only* module that should directly interact with the database.
-    -   All SQL queries are centralized here, making it a critical point of failure but also a central point for optimization.
-
-#### `firebaseAdmin.ts`
-Initializes and exports the Firebase Admin SDK client.
-
--   **Affected Files:**
-    -   `apps/push-blaster/src/lib/firebaseAdmin.ts`
--   **External Dependencies:**
-    -   `firebase-admin`
--   **Risk Notes:**
-    -   Relies on environment variables (`FIREBASE_*`) for initialization. Missing variables will cause a runtime error.
-
-#### `graphql.ts` & `variableProcessor.ts`
-Utility modules for specific tasks.
-
--   **`graphql.ts`:** Contains the logic for fetching user device tokens from our internal GraphQL API.
--   **`variableProcessor.ts`:** Contains the logic for validating and replacing variables (e.g., `[[var:firstName]]`) in push notification text.
--   **Risk Notes:**
-    -   `graphql.ts` depends on the `HASURA_ADMIN_SECRET` environment variable.
-    -   The logic in `variableProcessor.ts` is complex. Changes could lead to malformed push notifications.
-
-### D. Scheduling System Components
-
-#### Calendar System
--   **Affected Files:** Calendar utilities within `page.tsx`, API integration functions
--   **Interacting Modules:** Scheduled pushes API, modal system, date navigation
--   **Shared Types:** Calendar view states, push event filtering, date utilities
--   **External Dependencies:** JavaScript Date object, CSS Grid layout
--   **Risk Notes:** Date math complexity - month/week boundary calculations critical
-
-#### Modal Workflows
--   **Affected Files:** Modal state management in `page.tsx`, API integration
--   **Interacting Modules:** Scheduled pushes CRUD, file upload/download, audience generation
--   **Shared Types:** Modal-specific state, response handling, form validation
--   **External Dependencies:** File operations, CSV generation, audience query API
--   **Risk Notes:** Complex state isolation - modal state must not interfere with main app state
-
-#### Data Storage System
--   **Affected Files:** `.scheduled-pushes/` directory, `.push-logs/` directory
--   **Interacting Modules:** API routes for persistence, calendar display, tracking
--   **Shared Types:** JSON file structure, push status management
--   **External Dependencies:** File system permissions, JSON serialization
--   **Risk Notes:** File operations are synchronous - consider async patterns for scale
-
-#### External File Segmentation System
--   **Affected Files:** External file upload section in `page.tsx`, segmentation workflows
--   **Interacting Modules:** `/api/query-audience` endpoint for CSV splitting, file processing utilities
--   **Shared Types:** External file state management, CSV preview data structures
--   **External Dependencies:** FileReader API, PapaParse for CSV processing, Blob/URL APIs for downloads
--   **Risk Notes:** Client-side file processing has memory limitations for large files; validate file sizes and formats
+-   `databaseQueries.ts` & `db.ts`
+-   `firebaseAdmin.ts`
+-   `graphql.ts` & `variableProcessor.ts`
+-   **Risk Notes:** All core logic modules are now indirect dependencies of the Automation Engine, increasing their importance.
 
 ---
 
@@ -261,6 +172,11 @@ The application relies on the following external systems and the environment var
 
 ## 5. Testing & Validation Protocols
 
+### Process Management
+- **Startup:** Always use `npm run pm2:start` for persistent background operation.
+- **Status Checks:** Use `npm run pm2:logs` to monitor the live output of both services.
+- **NEVER run `npm run dev` in the main chat terminal, as it will be killed.**
+
 ### Next.js Validation (CRITICAL)
 - **Development Server:** Always use `npm run dev:push` for validation
 - **Status Checks:** Verify HTTP 200 responses with `curl -I http://localhost:3001`
@@ -283,26 +199,23 @@ The application relies on the following external systems and the environment var
 
 ## 6. Recent Enhancements & Risk Areas
 
-### Phase 4 UI Improvements
-- **Text Readability:** Applied slate-700 font-medium to all form text elements
-- **Container System:** White rounded containers with gradient headers
-- **Calendar Enhancement:** Increased weekly view height for better event display
-- **Navigation:** Modern tab design with semantic icons and smooth transitions
+### Persistent Server with PM2
+- **Implementation:** Added `pm2` as a dev dependency and an `ecosystem.config.js` file to manage both `push-blaster` and `push-cadence-service`.
+- **Benefit:** Servers now run as stable, persistent background processes, solving the issue of the server dying during interactive sessions.
+- **New Commands:** `npm run pm2:start`, `pm2:stop`, `pm2:restart`, `pm2:logs`.
 
-### Incremental Development Lessons
-- **Rollback Protocol:** Demonstrated successful rollback when HTTP 500 occurred
-- **Validation Strategy:** Two-agent validation (frontend + dev) proven effective
-- **Checkpoint Commits:** Clear git history enables safe iteration
-- **Methodology:** Incremental approach prevents compound failures
+### Universal Automation Engine (Phase 3)
+- **Status:** Core libraries are built but currently **disabled** at the API layer due to high memory consumption on startup.
+- **Risk:** The primary risk is the memory usage of the automation engine. Before this system can be fully utilized, a lazy-loading or dynamic import strategy must be implemented to prevent the server from crashing.
+-   **File Storage:** Current JSON file system for automations is located at `.automations/`.
 
 ---
 
 ## 7. Future Maintenance Considerations
 
-### Scalability
-- **File Storage:** Current JSON file system suitable for prototyping, consider database for production
-- **State Management:** Complex state in single file - consider splitting for larger features
-- **Calendar Performance:** Current implementation efficient for typical usage, monitor for high-volume scenarios
+### Activating the Automation Engine
+- **Priority #1:** Implement lazy loading for the automation libraries (`sequenceExecutor`, `audienceProcessor`, etc.) so they are only loaded into memory when their respective API endpoints are called.
+- **Refactoring:** Once activated, the `page.tsx` will need to be updated to integrate with the new automation APIs, and the legacy scheduling system can be fully deprecated.
 
 ### Code Organization
 - **Component Extraction:** Large page.tsx could benefit from extracting calendar and modal components

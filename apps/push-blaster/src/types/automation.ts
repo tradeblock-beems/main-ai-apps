@@ -53,7 +53,7 @@ export interface AutomationSettings {
   maxAudienceSize?: number;
   emergencyStopEnabled: boolean;
   dryRunFirst: boolean;
-  cancellationWindowMinutes: number; // Default 25
+  cancellationWindowMinutes: number; // Default 30
   safeguards: SafeguardConfig;
 }
 
@@ -76,6 +76,13 @@ export interface AudienceCriteria {
   minTrades: number;
   dataPacks: string[];
   customQuery?: string;
+  customScript?: ScriptConfig;
+}
+
+export interface ScriptConfig {
+  scriptId: string;
+  scriptName: string;
+  parameters?: Record<string, any>;
 }
 
 // Execution Configuration

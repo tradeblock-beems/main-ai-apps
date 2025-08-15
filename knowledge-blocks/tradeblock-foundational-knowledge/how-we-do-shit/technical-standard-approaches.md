@@ -295,6 +295,130 @@ The deployment protocol tools serve as the reference implementation for this sta
 5.  Get explicit user approval for any destructive operations
 6.  Document all operations and maintain audit trail of changes
 
+---
+
+### **Standard #6: Cross-Process Python Script Execution**
+
+**1. Principle (The "Why")**
+
+When executing Python scripts from Node.js/Next.js applications (via `child_process.spawn` or similar), module resolution and path contexts behave differently than standalone execution. To ensure reliable Python script execution across all contexts and prevent cryptic "exit code 1" failures, we will standardize Python script architecture and Node.js execution patterns. This prevents the common issue where Python scripts work standalone but fail when spawned from web applications.
+
+**2. The Standard (The "How")**
+
+This is the required approach for all Python scripts that will be executed from Node.js applications.
+
+- **A. Python Script Requirements**: All Python scripts executed from Node.js **MUST** implement the following patterns:
+
+  - **Debug Shim**: Every script **MUST** include a debug logging shim at the top (before any other imports) to capture execution context:
+    ```python
+    # --- BEGIN DEBUG SHIM ---
+    import os, sys, json, time, traceback
+    _ts = str(int(time.time()*1000))
+    _log_dir = os.path.join(os.getcwd(), "tmp")
+    os.makedirs(_log_dir, exist_ok=True)
+    _log_path = os.path.join(_log_dir, f"_pydebug_{_ts}.log")
+    try:
+        with open(_log_path, "w", buffering=1) as f:
+            f.write("[start]\n")
+            f.write("argv=" + json.dumps(sys.argv) + "\n")
+            f.write("executable=" + sys.executable + "\n")
+            f.write("version=" + sys.version + "\n")
+            f.write("cwd=" + os.getcwd() + "\n")
+            keys = ["PATH","PYTHONPATH","VIRTUAL_ENV","OUTPUT_PATH","EXECUTION_ID","ENV","NODE_ENV"]
+            env_dump = {k: os.environ.get(k) for k in keys}
+            f.write("env_subset=" + json.dumps(env_dump) + "\n")
+    except Exception:
+        pass
+    # --- END DEBUG SHIM ---
+    ```
+
+  - **Explicit Path Resolution**: Scripts **MUST** use explicit `sys.path` manipulation instead of relying on `PYTHONPATH` environment variables:
+    ```python
+    import sys, os
+    # Calculate project root relative to script location
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    if repo_root not in sys.path:
+        sys.path.insert(0, repo_root)
+    ```
+
+  - **Import Exception Handling**: All critical imports **MUST** be wrapped with exception handling that logs to the debug file:
+    ```python
+    try:
+        from basic_capabilities.internal_db_queries_toolbox import module_name
+    except Exception:
+        with open(_log_path, "a", buffering=1) as f:
+            f.write("[import_exception]\n")
+            f.write(traceback.format_exc() + "\n")
+        raise
+    ```
+
+- **B. Node.js Execution Requirements**: All Node.js code spawning Python processes **MUST** implement:
+
+  - **Runtime Configuration**: API routes **MUST** force Node.js runtime:
+    ```typescript
+    export const runtime = 'nodejs';
+    export const dynamic = 'force-dynamic';
+    ```
+
+  - **Absolute Python Path**: Use absolute Python interpreter paths, not relative ones:
+    ```typescript
+    const pythonPath = '/usr/local/bin/python3'; // Not 'python3'
+    ```
+
+  - **Enhanced Process Runner**: Use a comprehensive spawn wrapper that captures all output:
+    ```typescript
+    const result = await runPython({
+      pythonPath,
+      scriptPath,
+      args,
+      env: { ...process.env, /* no PYTHONPATH */ },
+      cwd: projectRoot,
+      executionId
+    });
+    ```
+
+  - **Debug Artifact Collection**: Always write stdout, stderr, and execution metadata to debug files for post-mortem analysis.
+
+- **C. Environment Management**: Cross-process execution **MUST** follow these environment practices:
+
+  - **No PYTHONPATH**: Do **NOT** set `PYTHONPATH` in Node.js environment variables for spawned processes
+  - **Explicit Working Directory**: Always set `cwd` to the project root when spawning Python processes
+  - **Debug Directory**: Ensure `tmp/` directory exists and is writable for debug artifacts
+
+- **D. Testing Requirements**: All Python scripts **MUST** be tested in both contexts:
+
+  - **Standalone Testing**: Verify script works when executed directly
+  - **Spawned Testing**: Verify script works when called from Node.js spawn
+  - **Minimal Reproducers**: Create stepped test scripts to isolate import vs execution issues
+
+**3. Debugging Protocol**
+
+When cross-process Python execution fails:
+
+1. **Check Debug Artifacts**: Examine `tmp/_pydebug_*.log` files for detailed execution context
+2. **Verify Path Resolution**: Confirm `repo_root` calculation points to correct directory
+3. **Test Import Isolation**: Use minimal reproducer scripts to isolate import failures
+4. **Compare Contexts**: Check environment differences between standalone and spawned execution
+
+**4. Reference Implementation**
+
+The push automation project's `generate_layer_3_push_csvs.py` and `debugPythonRunner.ts` serve as reference implementations for this standard:
+
+- **Python Script**: `/projects/push-automation/audience-generation-scripts/generate_layer_3_push_csvs.py`
+- **Node.js Runner**: `/apps/push-blaster/src/lib/debugPythonRunner.ts`
+- **Debug Artifacts**: `/tmp/_pydebug_*.log` files
+- **Documentation**: `/projects/push-automation/push-automation-acquired-knowledge.md`
+
+**5. Common Failure Patterns to Avoid**
+
+- Relying on `PYTHONPATH` environment variables for module resolution
+- Using relative Python interpreter paths (`python3` vs `/usr/local/bin/python3`)
+- Insufficient error capture from spawned processes
+- Incorrect relative path calculations in Python scripts
+- Missing debug instrumentation for cross-process diagnosis
+
+---
+
 ### API Interaction Patterns
 - **Batch your requests.** When you need to fetch data for multiple items (e.g., fetching user details for a list of IDs), always prefer a single API call that accepts an array of IDs over making multiple requests in a loop. This is significantly more performant and reduces server load. For example, a single GraphQL query with an `in: [...]` filter is superior to N individual queries.
 

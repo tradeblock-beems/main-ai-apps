@@ -137,7 +137,7 @@ export class AutomationTemplateSystem {
       defaultSettings: {
         emergencyStopEnabled: true,
         dryRunFirst: true,
-        cancellationWindowMinutes: 25,
+        cancellationWindowMinutes: 30,
         safeguards: {
           maxAudienceSize: 5000,
           requireTestFirst: true,
@@ -196,7 +196,7 @@ export class AutomationTemplateSystem {
       defaultSettings: {
         emergencyStopEnabled: true,
         dryRunFirst: true,
-        cancellationWindowMinutes: 25,
+        cancellationWindowMinutes: 30,
         safeguards: {
           maxAudienceSize: 10000,
           requireTestFirst: true,
@@ -263,7 +263,7 @@ export class AutomationTemplateSystem {
       defaultSettings: {
         emergencyStopEnabled: true,
         dryRunFirst: true,
-        cancellationWindowMinutes: 25,
+        cancellationWindowMinutes: 30,
         safeguards: {
           maxAudienceSize: 50000,
           requireTestFirst: true,
@@ -377,7 +377,7 @@ export class AutomationTemplateSystem {
       type: 'sequence',
       status: 'draft',
       schedule: {
-        timezone: 'America/New_York',
+        timezone: 'America/Chicago',
         ...template.defaultSchedule,
         ...(overrides?.schedule || {})
       },

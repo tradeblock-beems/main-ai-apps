@@ -60,11 +60,20 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
       }, { status: 404 });
     }
 
-    // Update automation
+    // Update automation - explicitly preserve only essential fields from existing
     const updatedAutomation = {
-      ...existingAutomation,
-      ...body,
       id: existingAutomation.id, // Preserve ID
+      name: body.name || existingAutomation.name,
+      description: body.description || existingAutomation.description,
+      type: body.type || existingAutomation.type,
+      status: body.status || existingAutomation.status,
+      isActive: body.isActive !== undefined ? body.isActive : existingAutomation.isActive,
+      schedule: body.schedule || existingAutomation.schedule, // Use new schedule completely
+      template: body.template || existingAutomation.template,
+      pushSequence: body.pushSequence || existingAutomation.pushSequence,
+      audienceCriteria: body.audienceCriteria || existingAutomation.audienceCriteria,
+      settings: body.settings || existingAutomation.settings,
+      metadata: body.metadata || existingAutomation.metadata,
       createdAt: existingAutomation.createdAt,
       updatedAt: new Date().toISOString()
     };
@@ -75,10 +84,23 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
       return NextResponse.json(saveResult, { status: 500 });
     }
 
+    // CRITICAL FIX: Handle scheduling changes when automation is updated
+    if (updatedAutomation.status === 'active' || updatedAutomation.isActive) {
+      // Cancel existing schedule and create new one
+      const scheduleResult = await automationEngine.scheduleAutomation(updatedAutomation);
+      if (!scheduleResult.success) {
+        return NextResponse.json({
+          success: false,
+          message: `Automation updated but rescheduling failed: ${scheduleResult.message}`,
+          data: updatedAutomation
+        }, { status: 207 });
+      }
+    }
+
     return NextResponse.json({
       success: true,
       data: updatedAutomation,
-      message: 'Automation updated successfully'
+      message: 'Automation updated and rescheduled successfully'
     });
 
   } catch (error: any) {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { Textarea } from '@/components/Textarea';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -31,6 +32,7 @@ const isValidDeepLink = (url: string): boolean => {
 };
 
 export default function Home() {
+  const router = useRouter();
   // Push notification form state
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState('');
@@ -119,7 +121,38 @@ export default function Home() {
   const [splitSegments, setSplitSegments] = useState<number | ''>(2);
   
   // Tab state
-  const [activeTab, setActiveTab] = useState<'make' | 'track' | 'calendar' | 'restore'>('make');
+  const [activeTab, setActiveTab] = useState<'make' | 'track' | 'calendar' | 'automations' | 'restore'>('make');
+  
+  // Automation state
+  const [automations, setAutomations] = useState<any[]>([]);
+  const [automationStats, setAutomationStats] = useState({
+    active: 0,
+    scheduled: 0,
+    paused: 0,
+    total: 0
+  });
+  const [showCreateAutomationModal, setShowCreateAutomationModal] = useState(false);
+  const [automationLoading, setAutomationLoading] = useState(false);
+  const [availableScripts, setAvailableScripts] = useState<any[]>([]);
+  const [selectedScript, setSelectedScript] = useState<string>('');
+  const [showScriptSelector, setShowScriptSelector] = useState(false);
+  const [scriptParameters, setScriptParameters] = useState<Record<string, any>>({});
+  const [scriptAutomationStep, setScriptAutomationStep] = useState(1); // 1: script selection, 2: automation config, 3: push content
+  const [scriptAutomationConfig, setScriptAutomationConfig] = useState({
+    name: '',
+    frequency: 'daily' as 'once' | 'daily' | 'weekly',
+    scheduledDate: '',
+          executionTime: '10:00'
+  });
+  const [scriptPushContents, setScriptPushContents] = useState<Array<{
+    audienceName: string;
+    audienceDescription: string;
+    title: string;
+    body: string;
+    deepLink: string;
+    layerId: number;
+  }>>([]);
+  const [currentPushIndex, setCurrentPushIndex] = useState(0);
   
   // Push logs state
   const [pushLogs, setPushLogs] = useState<any[]>([]);
@@ -804,6 +837,305 @@ export default function Home() {
     }
   };
 
+  const fetchAvailableScripts = async () => {
+    try {
+      const response = await fetch('/api/scripts');
+      const data = await response.json();
+      
+      if (data.success) {
+        setAvailableScripts(data.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch available scripts:', error);
+    }
+  };
+
+  const fetchAutomations = async () => {
+    setAutomationLoading(true);
+    try {
+      const response = await fetch('/api/automation/recipes');
+      const data = await response.json();
+      
+      if (data.success) {
+        setAutomations(data.data || []);
+        
+        // Calculate stats
+        const stats = {
+          active: data.data?.filter((a: any) => a.status === 'active').length || 0,
+          scheduled: data.data?.filter((a: any) => a.status === 'scheduled').length || 0,
+          paused: data.data?.filter((a: any) => a.status === 'paused').length || 0,
+          total: data.data?.length || 0
+        };
+        setAutomationStats(stats);
+      }
+    } catch (error) {
+      console.error('Failed to fetch automations:', error);
+    } finally {
+      setAutomationLoading(false);
+    }
+  };
+
+  const handleCreateAutomation = () => {
+    router.push('/create-automation');
+  };
+
+  const handleDeleteAutomation = async (automationId: string, automationName: string) => {
+    if (!confirm(`Are you sure you want to delete "${automationName}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/automation/recipes/${automationId}`, {
+        method: 'DELETE'
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setResponse({
+          success: true,
+          message: `"${automationName}" deleted successfully!`
+        });
+        fetchAutomations(); // Refresh the list
+      } else {
+        setResponse({
+          success: false,
+          message: result.message || 'Failed to delete automation'
+        });
+      }
+    } catch (error: any) {
+      setResponse({
+        success: false,
+        message: error.message || 'Failed to delete automation'
+      });
+    }
+  };
+
+  const handleUseTemplate = async (templateType: 'onboarding' | 'retention' | 'feature') => {
+    try {
+      // Map template types to their IDs
+      const templateIdMap = {
+        'onboarding': 'onboarding_funnel',
+        'retention': 'retention_campaign', 
+        'feature': 'feature_announcement'
+      };
+
+      const templateId = templateIdMap[templateType];
+      const variables = getTemplateVariables(templateType);
+
+      // Create automation from template
+      const createResponse = await fetch('/api/automation/templates', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          templateId,
+          name: `${templateType.charAt(0).toUpperCase() + templateType.slice(1)} Automation - ${new Date().toLocaleDateString()}`,
+          variables
+        }),
+      });
+      
+      const createData = await createResponse.json();
+      
+      if (createData.success) {
+        setResponse({
+          success: true,
+          message: `${createData.data.automation.name} created successfully! Check the Automations tab to configure and activate it.`
+        });
+        fetchAutomations(); // Refresh the list
+      } else {
+        setResponse({
+          success: false,
+          message: createData.message || 'Failed to create automation from template'
+        });
+      }
+    } catch (error: any) {
+      setResponse({
+        success: false,
+        message: error.message || 'Failed to create automation from template'
+      });
+    }
+  };
+
+  const initializePushContents = (script: any) => {
+    const pushContents = script.audiences.map((audience: any) => ({
+      audienceName: audience.name,
+      audienceDescription: audience.description,
+      title: `New ${audience.name} update`,
+      body: `Check out the latest updates for ${audience.description.toLowerCase()}`,
+      deepLink: '',
+      layerId: 2
+    }));
+    setScriptPushContents(pushContents);
+    setCurrentPushIndex(0);
+  };
+
+  const handleCreateScriptAutomation = async () => {
+    if (!selectedScript) {
+      setResponse({
+        success: false,
+        message: 'Please select a script first'
+      });
+      return;
+    }
+
+    // Validate required fields
+    if (!scriptAutomationConfig.name) {
+      setResponse({
+        success: false,
+        message: 'Please provide an automation name'
+      });
+      return;
+    }
+
+    // Validate all push contents
+    const incompletePushes = scriptPushContents.filter(push => !push.title || !push.body);
+    if (incompletePushes.length > 0) {
+      setResponse({
+        success: false,
+        message: `Please complete all push notifications (${incompletePushes.length} still need title and body)`
+      });
+      return;
+    }
+
+    try {
+      const script = availableScripts.find(s => s.id === selectedScript);
+      if (!script) {
+        throw new Error('Selected script not found');
+      }
+
+      // Determine schedule based on frequency
+      let startDate = new Date().toISOString();
+      if (scriptAutomationConfig.frequency === 'once' && scriptAutomationConfig.scheduledDate) {
+        startDate = new Date(scriptAutomationConfig.scheduledDate).toISOString();
+      }
+
+      // Create a script-based automation
+      const automationRecipe = {
+        name: scriptAutomationConfig.name,
+        description: `Script-based automation using ${script.name}`,
+        type: scriptAutomationConfig.frequency === 'once' ? 'single_push' : 'recurring',
+        status: 'draft',
+        schedule: {
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          frequency: scriptAutomationConfig.frequency,
+          startDate: startDate,
+                      executionTime: scriptAutomationConfig.executionTime,
+          leadTimeMinutes: 30
+        },
+        template: {
+          id: 'script_based_automation',
+          name: 'Script-Based Automation',
+          category: 'custom',
+          isSystemTemplate: false,
+          config: {}
+        },
+        pushSequence: scriptPushContents.map((pushContent, index) => ({
+          sequenceOrder: index + 1,
+          title: pushContent.title,
+          body: pushContent.body,
+          deepLink: pushContent.deepLink || '',
+          layerId: pushContent.layerId,
+          audienceName: pushContent.audienceName, // Add audience mapping
+          timing: {
+            delayAfterPrevious: index === 0 ? 0 : 5, // First push immediate, others 5 minutes apart
+            scheduledTime: scriptAutomationConfig.executionTime
+          },
+          status: 'pending'
+        })),
+        audienceCriteria: {
+          trustedTraderStatus: 'any',
+          trustedTraderCandidate: 'any',
+          activityDays: 30,
+          tradingDays: 30,
+          minTrades: 0,
+          dataPacks: [],
+          customScript: {
+            scriptId: selectedScript,
+            scriptName: script.name,
+            parameters: scriptParameters
+          }
+        },
+        settings: {
+          testUserIds: [],
+          emergencyStopEnabled: true,
+          dryRunFirst: false,
+          cancellationWindowMinutes: 25,
+          safeguards: {
+            maxAudienceSize: 50000,
+            requireConfirmation: false,
+            blockOverlapHours: 24
+          }
+        },
+        metadata: {
+          createdBy: 'script_ui',
+          totalExecutions: 0,
+          successfulExecutions: 0,
+          failedExecutions: 0
+        }
+      };
+
+      const response = await fetch('/api/automation/recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(automationRecipe),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setResponse({
+          success: true,
+          message: `"${scriptAutomationConfig.name}" automation created successfully!`
+        });
+        setShowCreateAutomationModal(false);
+        setSelectedScript('');
+        setScriptParameters({});
+        setScriptAutomationStep(1);
+        setScriptPushContents([]);
+        setCurrentPushIndex(0);
+        fetchAutomations(); // Refresh the list
+      } else {
+        setResponse({
+          success: false,
+          message: result.message || 'Failed to create script automation'
+        });
+      }
+
+    } catch (error: any) {
+      setResponse({
+        success: false,
+        message: error.message || 'Failed to create script automation'
+      });
+    }
+  };
+
+  const getTemplateVariables = (templateType: string) => {
+    switch (templateType) {
+      case 'onboarding':
+        return {
+          user_segment: 'new_users',
+          delay_hours: 24,
+          personalization_level: 'basic'
+        };
+      case 'retention':
+        return {
+          inactivity_days: 30,
+          incentive_type: 'feature_highlight'
+        };
+      case 'feature':
+        return {
+          feature_name: 'New Feature',
+          target_segment: 'all_users',
+          urgency_level: 'normal'
+        };
+      default:
+        return {};
+    }
+  };
+
   const fetchScheduledPushes = async () => {
     setCalendarLoading(true);
     try {
@@ -1163,19 +1495,71 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/scheduled-pushes', {
+      // Create UniversalAutomation recipe for scheduled push
+      const automationRecipe = {
+        name: `Scheduled Push: ${title}`,
+        description: `Scheduled push notification for ${scheduledDateTime.toLocaleString()}`,
+        type: 'single_push',
+        status: 'scheduled',
+        schedule: {
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          frequency: 'once',
+          startDate: scheduledDateTime.toISOString(),
+          executionTime: scheduledTime,
+          leadTimeMinutes: 30
+        },
+        template: {
+          id: 'manual_scheduled_push',
+          name: 'Manual Scheduled Push',
+          category: 'manual',
+          isSystemTemplate: false,
+          config: {}
+        },
+        pushSequence: [{
+          sequenceOrder: 1,
+          title,
+          body,
+          deepLink: deepLink || '',
+          layerId: notificationLayer,
+          timing: {
+            delayAfterPrevious: 0,
+            executionTime: scheduledTime
+          },
+          status: 'pending'
+        }],
+        audienceCriteria: savedAudienceCriteria || {
+          trustedTraderStatus: 'any',
+          trustedTraderCandidate: 'any',
+          activityDays: 30,
+          tradingDays: 30,
+          minTrades: 0,
+          dataPacks: []
+        },
+        settings: {
+          testUserIds: [],
+          emergencyStopEnabled: true,
+          dryRunFirst: false,
+          cancellationWindowMinutes: 25,
+          safeguards: {
+            maxAudienceSize: 50000,
+            requireConfirmation: false,
+            blockOverlapHours: 24
+          }
+        },
+        metadata: {
+          createdBy: 'manual_ui',
+          totalExecutions: 0,
+          successfulExecutions: 0,
+          failedExecutions: 0
+        }
+      };
+
+      const response = await fetch('/api/automation/recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          scheduledFor: scheduledDateTime.toISOString(),
-          title,
-          body,
-          deepLinkUrl: deepLink || null,
-          audienceCriteria: savedAudienceCriteria,
-          audienceDescription: savedAudienceDescription,
-        }),
+        body: JSON.stringify(automationRecipe),
       });
 
       const data = await response.json();
@@ -1183,7 +1567,7 @@ export default function Home() {
       if (data.success) {
         setResponse({ 
           success: true, 
-          message: `Push notification scheduled successfully for ${scheduledDateTime.toLocaleString()}!` 
+          message: `Push notification scheduled successfully for ${scheduledDateTime.toLocaleString()}! Created automation: ${data.data.name}` 
         });
         setShowScheduleModal(false);
         setScheduledDate('');
@@ -1383,6 +1767,20 @@ export default function Home() {
               >
                 <span className="text-lg">📅</span>
                 <span>Scheduled Pushes</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  activeTab === 'automations' 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' 
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+                onClick={() => {
+                  setActiveTab('automations');
+                  fetchAutomations();
+                }}
+              >
+                <span className="text-lg">🤖</span>
+                <span>Automations</span>
               </button>
               <button
                 className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ${
@@ -2697,6 +3095,247 @@ export default function Home() {
           </div>
         )}
 
+        {activeTab === 'automations' && (
+          <div>
+            {/* Automation Management Dashboard */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xl">🤖</span>
+                    <h2 className="text-lg font-semibold text-slate-800">Automation Dashboard</h2>
+                  </div>
+                  <Button 
+                    onClick={handleCreateAutomation}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"
+                  >
+                    + New Automation
+                  </Button>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Manage automated push notification sequences and campaigns</p>
+              </div>
+              
+              <div className="p-6">
+                {/* Quick Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-green-600 text-lg">✅</span>
+                      <div>
+                        <p className="text-sm font-medium text-green-800">Active</p>
+                        <p className="text-2xl font-bold text-green-900">{automationStats.active}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-blue-600 text-lg">⏰</span>
+                      <div>
+                        <p className="text-sm font-medium text-blue-800">Scheduled</p>
+                        <p className="text-2xl font-bold text-blue-900">{automationStats.scheduled}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-yellow-600 text-lg">⏸️</span>
+                      <div>
+                        <p className="text-sm font-medium text-yellow-800">Paused</p>
+                        <p className="text-2xl font-bold text-yellow-900">{automationStats.paused}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-gray-600 text-lg">📊</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Total</p>
+                        <p className="text-2xl font-bold text-gray-900">{automationStats.total}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Automation List */}
+                <div className="bg-slate-50 rounded-lg p-6">
+                  {automationLoading ? (
+                    <div className="text-center py-12">
+                      <span className="text-4xl opacity-50">⏳</span>
+                      <h3 className="text-lg font-medium text-gray-900 mt-4">Loading Automations...</h3>
+                    </div>
+                  ) : automations.length === 0 ? (
+                    <div className="text-center py-12">
+                      <span className="text-6xl opacity-50">🤖</span>
+                      <h3 className="text-lg font-medium text-gray-900 mt-4">No Automations Yet</h3>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Create your first automation to start sending automated push notification sequences.
+                      </p>
+                      <Button 
+                        onClick={handleCreateAutomation}
+                        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                      >
+                        Create First Automation
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {automations.map((automation) => (
+                        <div key={automation.id} className="bg-white rounded-lg p-4 border border-slate-200">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h3 className="font-medium text-gray-900">{automation.name}</h3>
+                              <p className="text-sm text-gray-600 mt-1">{automation.description}</p>
+                              <div className="flex items-center space-x-4 mt-2">
+                                <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
+                                  automation.status === 'active' 
+                                    ? 'bg-green-100 text-green-800'
+                                    : automation.status === 'scheduled'
+                                    ? 'bg-blue-100 text-blue-800'
+                                    : 'bg-yellow-100 text-yellow-800'
+                                }`}>
+                                  {automation.status}
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                  {automation.pushSequence?.length || 0} pushes
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                  {automation.type}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex space-x-2">
+                              <Button 
+                                onClick={() => router.push(`/test-automation/${automation.id}`)}
+                                className="bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                              >
+                                Test
+                              </Button>
+                              <Button 
+                                onClick={() => router.push(`/edit-automation/${automation.id}`)}
+                                className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                              >
+                                Edit
+                              </Button>
+                              <Button 
+                                onClick={() => handleDeleteAutomation(automation.id, automation.name)}
+                                className="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                                title="Delete automation"
+                              >
+                                🗑️
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Template Gallery */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">📋</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Automation Templates</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Pre-built automation sequences for common use cases</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Onboarding Template */}
+                  <div className="border border-slate-200 rounded-lg p-4 hover:border-blue-300 transition-colors cursor-pointer">
+                    <div className="flex items-center space-x-2 mb-3">
+                      <span className="text-lg">👋</span>
+                      <h3 className="font-medium text-gray-900">New User Onboarding</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Welcome sequence for new users with 4 targeted pushes over their first week.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">4 pushes • 7 days</span>
+                      <Button 
+                        onClick={() => handleUseTemplate('onboarding')}
+                        className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                      >
+                        Use Template
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  {/* Retention Template */}
+                  <div className="border border-slate-200 rounded-lg p-4 hover:border-blue-300 transition-colors cursor-pointer">
+                    <div className="flex items-center space-x-2 mb-3">
+                      <span className="text-lg">🔄</span>
+                      <h3 className="font-medium text-gray-900">Re-engagement Campaign</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Bring back inactive users with personalized product recommendations.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">3 pushes • 14 days</span>
+                      <Button 
+                        onClick={() => handleUseTemplate('retention')}
+                        className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                      >
+                        Use Template
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  {/* Feature Announcement Template */}
+                  <div className="border border-slate-200 rounded-lg p-4 hover:border-blue-300 transition-colors cursor-pointer">
+                    <div className="flex items-center space-x-2 mb-3">
+                      <span className="text-lg">🚀</span>
+                      <h3 className="font-medium text-gray-900">Feature Announcement</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Launch new features with targeted notifications to relevant user segments.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">2 pushes • 3 days</span>
+                      <Button 
+                        onClick={() => handleUseTemplate('feature')}
+                        className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+                      >
+                        Use Template
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Monitoring Dashboard */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl">📊</span>
+                  <h2 className="text-lg font-semibold text-slate-800">Real-time Monitoring</h2>
+                </div>
+                <p className="text-sm text-slate-600 mt-1">Live automation execution status and performance metrics</p>
+              </div>
+              
+              <div className="p-6">
+                <div className="bg-slate-50 rounded-lg p-6">
+                  <div className="text-center py-8">
+                    <span className="text-4xl opacity-50">📈</span>
+                    <h3 className="text-lg font-medium text-gray-900 mt-4">No Active Automations</h3>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Monitoring data will appear here when automations are running.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'restore' && (
           <div>
             {/* Retroactive Deep Link Updates */}
@@ -3230,6 +3869,486 @@ export default function Home() {
         )}
 
         {/* Scheduling Modal */}
+        {showCreateAutomationModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Create New Automation</h3>
+                
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Start with a template, use a custom script, or create a custom automation sequence.
+                  </p>
+                  
+                  {/* Toggle between Templates and Scripts */}
+                  <div className="flex border border-gray-200 rounded-lg p-1">
+                    <button
+                      className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                        !showScriptSelector 
+                          ? 'bg-blue-100 text-blue-700' 
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                      onClick={() => setShowScriptSelector(false)}
+                    >
+                      Templates
+                    </button>
+                    <button
+                      className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                        showScriptSelector 
+                          ? 'bg-blue-100 text-blue-700' 
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                      onClick={() => setShowScriptSelector(true)}
+                    >
+                      Custom Scripts
+                    </button>
+                  </div>
+                  
+                  {!showScriptSelector ? (
+                    /* Template Section */
+                    <div className="space-y-3">
+                    <Button 
+                      onClick={() => {
+                        setShowCreateAutomationModal(false);
+                        handleUseTemplate('onboarding');
+                      }}
+                      className="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-lg font-medium transition-colors text-left"
+                    >
+                      <div>
+                        <div className="font-medium">👋 New User Onboarding</div>
+                        <div className="text-xs text-blue-600 mt-1">4 pushes over 7 days</div>
+                      </div>
+                    </Button>
+                    
+                    <Button 
+                      onClick={() => {
+                        setShowCreateAutomationModal(false);
+                        handleUseTemplate('retention');
+                      }}
+                      className="w-full bg-purple-50 hover:bg-purple-100 text-purple-700 px-4 py-3 rounded-lg font-medium transition-colors text-left"
+                    >
+                      <div>
+                        <div className="font-medium">🔄 Re-engagement Campaign</div>
+                        <div className="text-xs text-purple-600 mt-1">3 pushes over 14 days</div>
+                      </div>
+                    </Button>
+                    
+                    <Button 
+                      onClick={() => {
+                        setShowCreateAutomationModal(false);
+                        handleUseTemplate('feature');
+                      }}
+                      className="w-full bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-lg font-medium transition-colors text-left"
+                    >
+                      <div>
+                        <div className="font-medium">🚀 Feature Announcement</div>
+                        <div className="text-xs text-green-600 mt-1">2 pushes over 3 days</div>
+                      </div>
+                    </Button>
+                    </div>
+                  ) : (
+                    /* Script-Based Automation Flow */
+                    <div className="space-y-4">
+                      {/* Step Progress Indicator */}
+                      <div className="flex items-center space-x-2 mb-4">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+                          scriptAutomationStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+                        }`}>1</div>
+                        <div className={`h-0.5 w-6 ${scriptAutomationStep >= 2 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+                          scriptAutomationStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+                        }`}>2</div>
+                        <div className={`h-0.5 w-6 ${scriptAutomationStep >= 3 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+                          scriptAutomationStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+                        }`}>3</div>
+                        <div className="ml-2 text-sm text-gray-600">
+                          {scriptAutomationStep === 1 ? 'Select Script' : 
+                           scriptAutomationStep === 2 ? 'Configure Schedule' : 'Draft Push Content'}
+                        </div>
+                      </div>
+                      
+                      {scriptAutomationStep === 1 ? (
+                        /* Step 1: Script Selection */
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Select Audience Generation Script
+                            </label>
+                            <select
+                              value={selectedScript}
+                              onChange={(e) => setSelectedScript(e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                              <option value="">Choose a script...</option>
+                              {availableScripts.map((script) => (
+                                <option key={script.id} value={script.id}>
+                                  {script.name} ({script.category})
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          
+                          {selectedScript && (
+                            <div className="bg-gray-50 rounded-lg p-3">
+                              <h4 className="text-sm font-medium text-gray-800 mb-1">Script Details</h4>
+                              {(() => {
+                                const script = availableScripts.find(s => s.id === selectedScript);
+                                return script ? (
+                                  <div className="text-xs text-gray-600 space-y-1">
+                                    <p><strong>Description:</strong> {script.description}</p>
+                                    <p><strong>Estimated Runtime:</strong> {script.estimatedRuntime}s</p>
+                                    <p><strong>Last Modified:</strong> {new Date(script.lastModified).toLocaleDateString()}</p>
+                                  </div>
+                                ) : null;
+                              })()}
+                            </div>
+                          )}
+                          
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                            <p className="text-sm text-blue-800">
+                              <strong>Note:</strong> Script-based automations will run your selected script at the scheduled time to generate the audience, then send push notifications to that audience automatically.
+                            </p>
+                          </div>
+                        </div>
+                      ) : scriptAutomationStep === 2 ? (
+                        /* Step 2: Automation Configuration */
+                        <div className="space-y-4">
+                          {/* Automation Name */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Automation Name *
+                            </label>
+                            <input
+                              type="text"
+                              value={scriptAutomationConfig.name}
+                              onChange={(e) => setScriptAutomationConfig(prev => ({ ...prev, name: e.target.value }))}
+                              placeholder="e.g., Daily Showcase Push for Jordan 1"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            />
+                          </div>
+                          
+                          {/* Schedule Configuration */}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Frequency
+                              </label>
+                              <select
+                                value={scriptAutomationConfig.frequency}
+                                onChange={(e) => setScriptAutomationConfig(prev => ({ 
+                                  ...prev, 
+                                  frequency: e.target.value as 'once' | 'daily' | 'weekly' 
+                                }))}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                              >
+                                <option value="once">One-time</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                              </select>
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Time
+                              </label>
+                              <input
+                                type="time"
+                                value={scriptAutomationConfig.executionTime}
+                                onChange={(e) => setScriptAutomationConfig(prev => ({ 
+                                  ...prev, 
+                                  executionTime: e.target.value 
+                                }))}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                              />
+                            </div>
+                          </div>
+                          
+                          {scriptAutomationConfig.frequency === 'once' && (
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Date
+                              </label>
+                              <input
+                                type="date"
+                                value={scriptAutomationConfig.scheduledDate}
+                                min={new Date().toISOString().split('T')[0]}
+                                onChange={(e) => setScriptAutomationConfig(prev => ({ 
+                                  ...prev, 
+                                  scheduledDate: e.target.value 
+                                }))}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                              />
+                            </div>
+                          )}
+                          
+                          {/* Show selected script info */}
+                          {(() => {
+                            const script = availableScripts.find(s => s.id === selectedScript);
+                            return script ? (
+                              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h4 className="text-sm font-medium text-blue-800 mb-2">Selected Script: {script.name}</h4>
+                                <p className="text-sm text-blue-700 mb-2">{script.description}</p>
+                                <p className="text-xs text-blue-600">
+                                  Will generate {script.audiences?.length || 1} different audiences, each requiring custom push content in the next step.
+                                </p>
+                              </div>
+                            ) : null;
+                          })()}
+                        </div>
+                      ) : (
+                        /* Step 3: Push Content Creation */
+                        <div className="space-y-4">
+                          {(() => {
+                            const script = availableScripts.find(s => s.id === selectedScript);
+                            if (!script || !script.audiences) return null;
+                            
+                            return (
+                              <>
+                                {/* Audience Progress */}
+                                <div className="bg-gray-50 rounded-lg p-3">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <h4 className="text-sm font-medium text-gray-800">
+                                      Push {currentPushIndex + 1} of {script.audiences.length}
+                                    </h4>
+                                    <div className="flex space-x-1">
+                                      {script.audiences.map((_: any, index: number) => (
+                                        <button
+                                          key={index}
+                                          onClick={() => setCurrentPushIndex(index)}
+                                          className={`w-6 h-6 rounded-full text-xs font-medium ${
+                                            index === currentPushIndex
+                                              ? 'bg-blue-600 text-white'
+                                              : index < currentPushIndex || (scriptPushContents[index]?.title && scriptPushContents[index]?.body)
+                                              ? 'bg-green-100 text-green-700'
+                                              : 'bg-gray-200 text-gray-500'
+                                          }`}
+                                        >
+                                          {index + 1}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <p className="text-sm text-gray-600">
+                                    <strong>Audience:</strong> {script.audiences[currentPushIndex]?.description}
+                                  </p>
+                                </div>
+                                
+                                {/* Push Content Form */}
+                                <div className="space-y-4">
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                      Push Title *
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={scriptPushContents[currentPushIndex]?.title || ''}
+                                      onChange={(e) => {
+                                        const newContents = [...scriptPushContents];
+                                        if (newContents[currentPushIndex]) {
+                                          newContents[currentPushIndex].title = e.target.value;
+                                          setScriptPushContents(newContents);
+                                        }
+                                      }}
+                                      placeholder={`e.g., ${script.audiences[currentPushIndex]?.name === 'haves' ? 'Your sneaker is in demand!' : 
+                                                          script.audiences[currentPushIndex]?.name === 'wants' ? 'Your wishlist item is available!' :
+                                                          'New trending sneakers just dropped!'}`}
+                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    />
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                      Push Body *
+                                    </label>
+                                    <textarea
+                                      value={scriptPushContents[currentPushIndex]?.body || ''}
+                                      onChange={(e) => {
+                                        const newContents = [...scriptPushContents];
+                                        if (newContents[currentPushIndex]) {
+                                          newContents[currentPushIndex].body = e.target.value;
+                                          setScriptPushContents(newContents);
+                                        }
+                                      }}
+                                      placeholder={`e.g., ${script.audiences[currentPushIndex]?.name === 'haves' ? 'People are making offers on your sneaker. Check it out!' : 
+                                                           script.audiences[currentPushIndex]?.name === 'wants' ? 'Great news - someone is selling the sneaker you want!' :
+                                                           'Check out the latest trending sneakers everyone is talking about!'}`}
+                                      rows={3}
+                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    />
+                                  </div>
+                                  
+                                  <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Deep Link (optional)
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={scriptPushContents[currentPushIndex]?.deepLink || ''}
+                                        onChange={(e) => {
+                                          const newContents = [...scriptPushContents];
+                                          if (newContents[currentPushIndex]) {
+                                            newContents[currentPushIndex].deepLink = e.target.value;
+                                            setScriptPushContents(newContents);
+                                          }
+                                        }}
+                                        placeholder="app://showcase/haves"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                      />
+                                    </div>
+                                    
+                                    <div>
+                                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Layer
+                                      </label>
+                                      <select
+                                        value={scriptPushContents[currentPushIndex]?.layerId || 2}
+                                        onChange={(e) => {
+                                          const newContents = [...scriptPushContents];
+                                          if (newContents[currentPushIndex]) {
+                                            newContents[currentPushIndex].layerId = parseInt(e.target.value);
+                                            setScriptPushContents(newContents);
+                                          }
+                                        }}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                      >
+                                        <option value={0}>Layer 0 (New User)</option>
+                                        <option value={1}>Layer 1 (Platform-Wide)</option>
+                                        <option value={2}>Layer 2 (Product/Trend)</option>
+                                        <option value={3}>Layer 3 (Behavior-Responsive)</option>
+                                        <option value={4}>Layer 4 (Test)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Navigation between pushes */}
+                                  {script.audiences.length > 1 && (
+                                    <div className="flex justify-between pt-4 border-t">
+                                      <Button
+                                        onClick={() => setCurrentPushIndex(Math.max(0, currentPushIndex - 1))}
+                                        disabled={currentPushIndex === 0}
+                                        className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                      >
+                                        ← Previous Push
+                                      </Button>
+                                      <Button
+                                        onClick={() => setCurrentPushIndex(Math.min(script.audiences.length - 1, currentPushIndex + 1))}
+                                        disabled={currentPushIndex === script.audiences.length - 1}
+                                        className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                      >
+                                        Next Push →
+                                      </Button>
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            );
+                          })()}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex space-x-3 mt-6">
+                  <Button 
+                    onClick={() => {
+                      if (showScriptSelector && scriptAutomationStep > 1) {
+                        // Back to previous step
+                        setScriptAutomationStep(scriptAutomationStep - 1);
+                      } else {
+                        // Cancel completely
+                        setShowCreateAutomationModal(false);
+                        setSelectedScript('');
+                        setScriptParameters({});
+                        setShowScriptSelector(false);
+                        setScriptAutomationStep(1);
+                        setScriptPushContents([]);
+                        setCurrentPushIndex(0);
+                      }
+                    }}
+                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    {showScriptSelector && scriptAutomationStep > 1 ? 'Back' : 'Cancel'}
+                  </Button>
+                  
+                  {showScriptSelector ? (
+                    scriptAutomationStep === 1 ? (
+                      <Button 
+                        onClick={() => {
+                          if (selectedScript) {
+                            const script = availableScripts.find(s => s.id === selectedScript);
+                            if (script) {
+                              // Initialize automation name if not set
+                              if (!scriptAutomationConfig.name) {
+                                setScriptAutomationConfig(prev => ({
+                                  ...prev,
+                                  name: `Daily ${script.name}`
+                                }));
+                              }
+                              // Initialize push contents for all audiences
+                              initializePushContents(script);
+                            }
+                            setScriptAutomationStep(2);
+                          }
+                        }}
+                        disabled={!selectedScript}
+                        className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                          selectedScript 
+                            ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
+                      >
+                        Next: Configure Schedule
+                      </Button>
+                    ) : scriptAutomationStep === 2 ? (
+                      <Button 
+                        onClick={() => {
+                          setScriptAutomationStep(3);
+                        }}
+                        disabled={!scriptAutomationConfig.name}
+                        className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                          scriptAutomationConfig.name
+                            ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
+                      >
+                        Next: Draft Content
+                      </Button>
+                    ) : (
+                      <Button 
+                        onClick={handleCreateScriptAutomation}
+                        disabled={!scriptAutomationConfig.name || scriptPushContents.some(push => !push.title || !push.body)}
+                        className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                          scriptAutomationConfig.name && scriptPushContents.every(push => push.title && push.body)
+                            ? 'bg-purple-600 hover:bg-purple-700 text-white' 
+                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
+                      >
+                        Create Automation
+                      </Button>
+                    )
+                  ) : (
+                    <Button 
+                      onClick={() => {
+                        setShowCreateAutomationModal(false);
+                        setResponse({
+                          success: false,
+                          message: 'Custom automation builder coming soon! Use a template or script for now.'
+                        });
+                      }}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                    >
+                      Custom Builder
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {showScheduleModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">

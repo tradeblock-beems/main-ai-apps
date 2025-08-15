@@ -172,7 +172,7 @@ export class AutomationStorage {
       type: 'single_push',
       status: 'draft',
       schedule: {
-        timezone: 'America/New_York',
+        timezone: 'America/Chicago',
         frequency: 'once',
         startDate: scheduledPushData.scheduledDate,
         executionTime: scheduledPushData.scheduledTime || '10:00',
@@ -214,7 +214,7 @@ export class AutomationStorage {
         testUserIds: [],
         emergencyStopEnabled: true,
         dryRunFirst: true,
-        cancellationWindowMinutes: 25,
+        cancellationWindowMinutes: 30,
         safeguards: {
           maxAudienceSize: 10000,
           requireTestFirst: true,

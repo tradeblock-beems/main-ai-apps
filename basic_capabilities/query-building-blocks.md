@@ -37,6 +37,7 @@ This document catalogs reusable SQL query patterns and building blocks that have
 20. **[User's Size Range Analysis](#20-users-size-range-analysis)** - Compares stated size preferences vs. actual trading behavior for sizing insights.
 21. **[Product Popularity Metrics](#21-product-popularity-metrics)** - Ranks products by multiple engagement metrics with weighted popularity scoring.
 22. **[Hottest Item in a User's Closet](#22-hottest-item-in-a-users-closet)** - Identifies the most in-demand item currently in a user's inventory based on global platform activity. The lookback period is now parameterized.
+23. **[Time Window User Activity with Cooling Period](#23-time-window-user-activity-with-cooling-period)** - OPTIMIZED pattern for fetching user actions within specific time windows while avoiding immediate follow-up notifications. Replaces simple "last N hours" queries with smart UX-aware time ranges.
 
 ---
 
@@ -1081,4 +1082,64 @@ query VerifyUpdates($variantIds: [uuid!]!) {
 **Performance Considerations:**
 - Pre-loads all variants for a product to avoid N+1 queries during size matching
 - Uses sequential mutations rather than parallel to avoid overwhelming the GraphQL endpoint
+
+---
+
+### 23. **Time Window User Activity with Cooling Period**
+*OPTIMIZED pattern for intelligent time-based user activity filtering*
+
+**Use Case:** Perfect for follow-up notifications where you want to target users who took specific actions in the past, but avoid sending immediate follow-ups. For example, Layer 3 push notifications targeting users who added items 48-12 hours ago.
+
+**Why This Pattern is Superior:**
+This replaces simple "last N hours" queries with UX-aware time windows that prevent notification fatigue and improve user experience by respecting natural response times.
+
+**Implementation:**
+```python
+# Layer 3 push notifications (48-12 hours ago)
+activity_data = get_time_window_activity_data(lookback_hours=48, cooling_hours=12)
+
+# Original behavior (0-24 hours ago) 
+activity_data = get_time_window_activity_data(lookback_hours=24, cooling_hours=0)
+```
+
+**SQL Pattern:**
+```sql
+WITH time_boundaries AS (
+    SELECT 
+        NOW() - INTERVAL '%(cooling_hours)s hours' as recent_cutoff,
+        NOW() - INTERVAL '%(lookback_hours)s hours' as lookback_cutoff
+),
+activity_in_window AS (
+    SELECT 
+        user_id,
+        action_type,
+        product_name,
+        variant_id,
+        created_at
+    FROM user_actions ua
+    CROSS JOIN time_boundaries tb
+    WHERE ua.created_at >= tb.lookback_cutoff 
+    AND ua.created_at <= tb.recent_cutoff
+    AND ua.status = 'ACTIVE'
+)
+SELECT * FROM activity_in_window ORDER BY created_at DESC;
+```
+
+**Key Insights:**
+- **Time Window Logic**: Uses `>=` lookback and `<=` recent cutoff to create precise time windows
+- **UX Optimization**: Cooling period prevents immediate follow-ups (better than simple lookback)
+- **Flexible Parameters**: Both lookback and cooling periods are configurable for different use cases
+- **Performance**: Single query with clear time boundaries is more efficient than complex date arithmetic
+- **Index Utilization**: Time range queries work well with created_at indexes
+
+**Common Use Cases:**
+- **Layer 3 Push Notifications**: Target users 48-12 hours after actions (prevents immediate follow-ups)
+- **Email Sequences**: Send follow-up emails with appropriate delays
+- **Re-engagement Campaigns**: Target users who were active 7-3 days ago
+- **Abandoned Cart**: Target users who added items 24-2 hours ago (gives time to complete purchase)
+
+**Performance Optimizations:**
+- Uses `time_boundaries` CTE to calculate times once rather than in each subquery
+- `CROSS JOIN time_boundaries` pattern is more efficient than repeated date calculations
+- Works well with standard `created_at` indexes on activity tables
 - Batches verification into single query for efficiency

@@ -106,6 +106,8 @@ model User {
   notifications        UserNotification[]
   marchManiaBrackets   MarchManiaBracket[]
   userBadges           UserBadge[]
+  priceReports         PriceReport[]
+  desiredItems         DesiredItem[]
 
   @@index([deletedAt])
   @@index([updateIndex])
@@ -151,6 +153,7 @@ model UserAdminInformation {
   discountedPurchaseOfferId          String?   @map("discounted_purchase_offer_id") @db.Uuid
   isTrustedTraderCandidate           Boolean   @default(false) @map("is_trusted_trader_candidate")
   forceTrustedTraderCandidate        Boolean   @default(false) @map("force_trusted_trader_candidate")
+  denyTrustedTraderCandidate         Boolean   @default(false) @map("deny_trusted_trader_candidate")
   trustedTraderRequirementsStartDate DateTime? @map("trusted_trader_requirements_start_date")
   isSellerFeeFree                    Boolean   @default(false) @map("is_seller_fee_free")
   isSuspect                          Boolean   @default(false) @map("is_suspect")
@@ -245,12 +248,14 @@ model Notification {
   deletedAt                Int                   @default(0) @map("deleted_at")
   communicationTemplateKey String                @map("communication_template_key")
   notificationKey          String?               @unique @map("notification_key")
+  productVariantId         String?               @map("product_variant_id") @db.Uuid
   ownerId                  String                @map("owner_id") @db.Uuid
   metadata                 Json
   communicationTemplate    CommunicationTemplate @relation(fields: [communicationTemplateKey], references: [key])
   owner                    User                  @relation(fields: [ownerId], references: [id])
   userNotifications        UserNotification[]
 
+  @@index([ownerId, communicationTemplateKey, productVariantId, createdAt])
   @@map("notifications")
 }
 
@@ -354,6 +359,8 @@ model Product {
   retailPrice         Decimal?                    @map("retail_price") @db.Decimal
   name                String                      @db.VarChar(255)
   pageViewsCount      Int                         @default(0) @map("page_views_count")
+  updatePricesDaily   Boolean                     @default(false) @map("update_prices_daily")
+  skipPricesUpdate    Boolean                     @default(false) @map("skip_prices_update")
   // MPN stands for Manufacturer Part Number.
   mpn                 String                      @unique @db.VarChar
   slug                String?                     @unique @db.VarChar
@@ -366,6 +373,8 @@ model Product {
   pictures            File[]
   promoConfigurations ProductPromoConfiguration[]
 
+  @@index([updatePricesDaily])
+  @@index([skipPricesUpdate])
   @@map("products")
 }
 
@@ -381,6 +390,14 @@ model ProductVariant {
   lastSalePrice       Decimal?             @map("last_sale_price") @db.Decimal
   lowestAskPrice      Decimal?             @map("lowest_ask_price") @db.Decimal
   lowestAskOfferId    String?              @unique @map("lowest_ask_offer_id") @db.Uuid
+  sourcePrice         Decimal?             @map("source_price") @db.Decimal
+  sourcePriceDate     DateTime?            @map("source_price_date") @db.Timestamptz(6)
+  manualPrice         Decimal?             @map("manual_price") @db.Decimal
+  manualPriceDate     DateTime?            @map("manual_price_date") @db.Timestamptz(6)
+  reportPrice         Decimal?             @map("report_price") @db.Decimal
+  reportPriceDate     DateTime?            @map("report_price_date") @db.Timestamptz(6)
+  updateReportPrice   Boolean              @default(false) @map("update_report_price")
+  priceMode           String               @default("SOURCE") @map("price_mode")
   highestBidPrice     Decimal?             @map("highest_bid_price") @db.Decimal
   highestBidOfferId   String?              @unique @map("highest_bid_offer_id") @db.Uuid
   productId           String               @map("product_id") @db.Uuid
@@ -392,9 +409,32 @@ model ProductVariant {
   inventoryItems      InventoryItem[]
   wishlistItems       WishlistItem[]
   offerItems          OfferItem[]
+  priceReports        PriceReport[]
+  desiredItems        DesiredItem[]
 
   @@index([productId])
+  @@index([updateReportPrice])
+  @@index([priceMode])
   @@map("product_variants")
+}
+
+model PriceReport {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt      DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime       @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt      Int            @default(0) @map("deleted_at")
+  price          Decimal        @db.Decimal
+  source         String
+  dataPoint      String         @map("data_point")
+  variantId      String         @map("variant_id") @db.Uuid
+  userId         String         @map("user_id") @db.Uuid
+  productVariant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@unique([userId, variantId])
+  @@index([variantId])
+  @@index([variantId, createdAt])
+  @@map("price_report")
 }
 
 model InventoryStatus {
@@ -450,6 +490,23 @@ model WishlistItem {
   @@index([userId, productVariantId])
   @@index([updateIndex])
   @@map("wishlist_items")
+}
+
+model DesiredItem {
+  id               String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime       @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt        Int            @default(0) @map("deleted_at")
+  offersCount      Int            @map("offers_count")
+  productVariantId String         @map("product_variant_id") @db.Uuid
+  userId           String         @map("user_id") @db.Uuid
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([userId, productVariantId, deletedAt])
+  @@index([createdAt, deletedAt])
+  @@index([userId, offersCount])
+  @@map("desired_items")
 }
 
 model AttributePreference {
